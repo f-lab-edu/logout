@@ -4,7 +4,6 @@ import lombok.*;
 
 @ToString
 @Getter
-@Setter
 @NoArgsConstructor
 public class UserResponse {
     private String userName;

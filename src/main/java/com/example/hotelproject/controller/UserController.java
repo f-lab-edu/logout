@@ -1,6 +1,7 @@
 package com.example.hotelproject.controller;
 
 import com.example.hotelproject.controller.request.UserCreateRequest;
+import com.example.hotelproject.controller.response.OwnerResponse;
 import com.example.hotelproject.controller.response.UserResponse;
 import com.example.hotelproject.service.UserService;
 import lombok.experimental.PackagePrivate;
@@ -21,17 +22,16 @@ public class UserController {
         this.userService = userService;
     }
 
-//    @PostMapping("/create")
-//    public String createUser(@RequestBody UserCreateRequest request) {
-//        return userService.saveUser(request);
-//    }
-
     @PostMapping("/create")
-    public ResponseEntity<UserResponse> createUser(@RequestBody UserCreateRequest request) {
-
-        return new ResponseEntity<UserResponse>(new UserResponse(), HttpStatus.ACCEPTED);
-
+    public void createUser(@RequestBody UserCreateRequest request) {
+        userService.saveUser(request);
     }
+
+//    @PostMapping("/create")
+//    public ResponseEntity<UserResponse> createUser(@RequestBody UserCreateRequest request) {
+//        userService.saveUser(request);
+//        return new ResponseEntity<UserResponse>(new UserResponse(), HttpStatus.ACCEPTED);
+//    }
 
     @GetMapping("/findAll")
     public void findAll() {

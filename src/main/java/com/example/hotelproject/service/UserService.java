@@ -2,31 +2,32 @@ package com.example.hotelproject.service;
 
 import com.example.hotelproject.controller.request.UserCreateRequest;
 import com.example.hotelproject.mapper.UserMapper;
-import com.example.hotelproject.repository.UserRepository;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class UserService {
-    // TODO 리파지토리 추가
-    // TODO DB 작업
-    private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository, UserMapper userMapper) {
-        this.userRepository = userRepository;
+    public UserService( UserMapper userMapper) {
         this.userMapper = userMapper;
     }
 
 
-    public String saveUser(UserCreateRequest request) {
+//    public String saveUser(UserCreateRequest request) {
+//        userMapper.saveUser(request);
+//        return "저장되었습니다.";
+//    }
+    public void saveUser(UserCreateRequest request) {
         userMapper.saveUser(request);
-        return "저장되었습니다.";
+       // return "저장되었습니다.";
     }
 
     public void findAll(){
         List<Object> list = userMapper.findAll();
+        //list.forEach(System.out::println);
         System.out.println(list.size());
     }
 
