@@ -15,11 +15,6 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-
-//    public String saveUser(UserCreateRequest request) {
-//        userMapper.saveUser(request);
-//        return "저장되었습니다.";
-//    }
     public void saveUser(UserCreateRequest request) {
         userMapper.saveUser(request);
        // return "저장되었습니다.";

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 
 @Service
@@ -19,8 +20,14 @@ public class OwnerService {
 
     //오너 신규 추가
     public void createOwner(OwnerCreateRequest request){
-        //ownerMapper.findOwnerById(request.getUserId());
-        ownerMapper.createOwner(request);
+//        OwnerResponse response = new OwnerResponse(){};
+//        response = ownerMapper.findOwnerById(request.getUserId());
+        Optional<OwnerResponse> res = Optional.ofNullable(ownerMapper.findOwnerById(request.getUserId()));
+        if(!res.isPresent()){
+            ownerMapper.createOwner(request);
+        }else{
+            throw new IllegalArgumentException("같은 아이디의 유저가 있습니다.(" + request.getUserId()+ ")");
+        }
     }
 
     //오너 검색
