@@ -9,15 +9,18 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public interface OwnerMapper {
     void createOwner(
             OwnerCreateRequest ownerCreateRequest
     );
 
-    List<Object> getAllOwner();
+    List<Owner> findAll();
 
-    OwnerResponse findOwnerById(@Param("userId") String id);
+    Optional<Owner> findOwnerById(@Param("userId") String id);
+
+    boolean checkExistId(@Param("userId") String id);
 
     void deleteOwner(@Param("userId") String id);
 

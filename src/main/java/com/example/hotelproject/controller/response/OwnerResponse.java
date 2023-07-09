@@ -1,5 +1,6 @@
 package com.example.hotelproject.controller.response;
 
+import com.example.hotelproject.domain.Owner;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,23 +9,32 @@ import lombok.ToString;
 @ToString
 @Getter
 public class OwnerResponse {
+    private int userNo;
     private String userId;
     private String name;
-    private String hotelNo;
-    private String hotelNm;
+    private int hotelNo;
+    private String hotelName;
 
     @Builder
-    public OwnerResponse(String userId
+    public OwnerResponse(int userNo, String userId
                         , String name
-                        , String hotelNo
-                        , String hotelNm) {
+                        , int hotelNo
+                        , String hotelName) {
+        this.userNo = userNo;
         this.userId = userId;
         this.name = name;
         this.hotelNo = hotelNo;
-        this.hotelNm = hotelNm;
+        this.hotelName = hotelName;
     }
 
-    protected OwnerResponse() {
+
+    public static OwnerResponse of(Owner owner){
+        return OwnerResponse.builder()
+                .userNo(owner.getUserNo())
+                .userId(owner.getUserId())
+                .name(owner.getName())
+                .hotelNo(owner.getHotelNo())
+                .build();
     }
 
 }
