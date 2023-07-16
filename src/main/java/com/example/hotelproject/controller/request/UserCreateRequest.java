@@ -1,6 +1,15 @@
 package com.example.hotelproject.controller.request;
 
 
+import com.example.hotelproject.domain.User;
+import com.example.hotelproject.domain.UserId;
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,21 +18,38 @@ import lombok.ToString;
 @ToString
 @Getter
 @NoArgsConstructor
-public class UserCreateRequest {
-    private Long id;
-    private String userName;
+public class UserCreateRequest{
+    private Long userNo;
+    private String name;
     private String userId;
-    private String phoneNumber;
+    private String password;
+    private String email;
+    private String mobile;
+    private String address;
     private int age;
 
     @Builder
-    public UserCreateRequest(String userName,
-                String userId,
-                String phoneNumber,
-                int age) {
-        this.userName = userName;
+    public UserCreateRequest(Long userNo, String name, String userId, String password,
+        String email, String mobile, String address, int age) {
+        this.userNo = userNo;
+        this.name = name;
         this.userId = userId;
-        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.email = email;
+        this.mobile = mobile;
+        this.address = address;
         this.age = age;
+    }
+
+    public User toEntity(){
+        return User.builder()
+            .userId(userId)
+            .userNo(userNo)
+            .password(password)
+            .email(email)
+            .name(name)
+            .address(address)
+            .age(age)
+            .build();
     }
 }
