@@ -50,6 +50,7 @@ public class UserCreateRequest{
             .name(name)
             .address(address)
             .age(age)
+            .mobile(mobile)
             .build();
     }
 }

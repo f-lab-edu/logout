@@ -44,4 +44,7 @@ public class User implements Serializable {
 
     @Column(name = "ADDRESS")
     private String address;
+
+    @Column(name = "MOBILE")
+    private String mobile;
 }

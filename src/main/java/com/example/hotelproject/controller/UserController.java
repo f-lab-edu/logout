@@ -19,13 +19,22 @@ public class UserController {
 //    }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createUser(@RequestBody UserCreateRequest request) {
-        return ResponseEntity.ok(userService.save(request));
+    public ResponseEntity<User> createUser(@RequestBody UserCreateRequest request) {
+        return ResponseEntity.ok(userService.create(request));
     }
 
     @GetMapping("/findAll")
     public List<User> findAll() {
         return userService.findAll();
     }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserResponse> findUserByUserId(@PathVariable("userId") String id){
+        return ResponseEntity.ok(userService.findUserByUserId(id));
+    }
+
+    @DeleteMapping("/{userId}")
+    public void deleteUserByUserId(@PathVariable("userId") String userId){userService.deleteUserByUserId(userId);}
+
 
 }
