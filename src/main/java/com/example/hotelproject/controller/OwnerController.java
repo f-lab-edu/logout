@@ -10,6 +10,7 @@ import java.util.List;
 @RequestMapping("api/v1/owner")
 @RestController
 public class OwnerController {
+
     private final OwnerService ownerService;
 
     public OwnerController(OwnerService ownerService) {
@@ -28,7 +29,7 @@ public class OwnerController {
         return ownerService.findOwnerById(id);
     }
 
-    @GetMapping("")
+    @GetMapping()
     public List<OwnerResponse> findAll() {
         return ownerService.findAll();
     }
@@ -40,7 +41,7 @@ public class OwnerController {
     }
 
     //정보 수정
-    @PostMapping("")
+    @PostMapping("/update")
     public void updateOwnerInfo(@RequestBody OwnerCreateRequest request) {
         ownerService.updateOwnerInfo(request);
     }

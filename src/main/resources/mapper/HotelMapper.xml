@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.hotelproject.mapper.HotelMapper">
+
+    <insert id="createHotel" useGeneratedKeys="true" parameterType="com.example.hotelproject.controller.request.HotelCreateRequest">
+        INSERT INTO HOTEL
+        (HOTEL_NAME, HOTEL_TYPE, LOCATION, GRADE, BREAKFAST_YN, PARKING_YN, SWIM_YN, FITNESS_YN, CHECKIN, CHECKOUT, REMRK)
+        VALUES(#{hotelName}, #{hotelType}, #{location}, #{grade}, #{breakfastYn}, #{parkingYn},#{swimYn},#{fitnessYn},#{checkin},#{checkout},#{remrk})
+    </insert>
+
+    <select id="checkExistName" resultType="boolean">
+        SELECT EXISTS (
+            SELECT 1
+              FROM HOTEL
+             WHERE HOTEL_NAME = #{hotelName}
+        )
+    </select>
+
+    <select id="findAll" resultType="com.example.hotelproject.domain.Hotel">
+        SELECT *
+        FROM HOTEL
+    </select>
+
+    <select id="findHotelByName"
+      resultType="com.example.hotelproject.domain.hotel">
+        SELECT *
+        FROM  HOTEL
+        WHERE A.HOTEL_NAME = #{hoteName}
+    </select>
+
+    <delete id="deleteHotel">
+        DELETE FROM HOTEL
+         WHERE HOTEL_NO=#{hotelNo}
+    </delete>
+
+    <update id="updateHotelInfo" parameterType="com.example.hotelproject.controller.request.HotelUpdateRequest">
+        UPDATE HOTEL
+        SET HOTEL_NAME= #{hotelName}
+        , HOTEL_TYPE= #{hotelType}
+        , LOCATION= #{location}
+        , GRADE=#{grade}
+        , BREAKFAST_YN=#{breakfastYn}
+        , PARKING_YN=#{parkingYn}
+        , SWIM_YN=#{swimYn}
+        , FITNESS_YN=#{fitnessYn}
+        , CHECKIN=#{checkin}
+        , CHECKOUT=#{checkout}
+        , REMRK=#{remrk}
+        WHERE HOTEL_NO=#{hotelNo}
+    </update>
+</mapper>
+
+
+

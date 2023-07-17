@@ -45,6 +45,14 @@
         DELETE FROM USER_OWNER
         WHERE USER_ID=#{userId}
     </delete>
+
+    <select id="checkExistId" resultType="boolean">
+        SELECT EXISTS (
+            SELECT 1
+            FROM  USER_OWNER A
+            WHERE A.USER_ID = #{userId}
+        )
+    </select>
 </mapper>
 
 

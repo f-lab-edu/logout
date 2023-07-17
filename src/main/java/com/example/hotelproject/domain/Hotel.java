@@ -13,13 +13,15 @@ public class Hotel {
     private boolean breakfastYn; /*조식제공여부*/
     private boolean parkingYn;      /*주차가능여부*/
     private boolean swimYn;      /*수영장여부*/
-    private boolean fittnessYn;       /*휘트니스 여부*/
-    private String chkin;       /*체크인*/
-    private String chkout;      /*체크아웃*/
+    private boolean fitnessYn;       /*휘트니스 여부*/
+    private String checkin;       /*체크인*/
+    private String checkout;      /*체크아웃*/
     private String remrk;       /*비고*/
 
     @Builder
-    public Hotel(int hotelNo, String hotelName, String hotelType, String location, int grade, boolean breakfastYn, boolean parkingYn, boolean swimYn, boolean fittnessYn, String chkin, String chkout, String remrk) {
+    public Hotel(int hotelNo, String hotelName, String hotelType, String location, int grade,
+        boolean breakfastYn, boolean parkingYn, boolean swimYn, boolean fitnessYn,
+        String checkin, String checkout, String remrk) {
         this.hotelNo = hotelNo;
         this.hotelName = hotelName;
         this.hotelType = hotelType;
@@ -28,9 +30,9 @@ public class Hotel {
         this.breakfastYn = breakfastYn;
         this.parkingYn = parkingYn;
         this.swimYn = swimYn;
-        this.fittnessYn = fittnessYn;
-        this.chkin = chkin;
-        this.chkout = chkout;
+        this.fitnessYn = fitnessYn;
+        this.checkin = checkin;
+        this.checkout = checkout;
         this.remrk = remrk;
     }
 }
