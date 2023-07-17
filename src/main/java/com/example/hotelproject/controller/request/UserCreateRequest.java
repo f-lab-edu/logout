@@ -2,14 +2,6 @@ package com.example.hotelproject.controller.request;
 
 
 import com.example.hotelproject.domain.User;
-import com.example.hotelproject.domain.UserId;
-import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
