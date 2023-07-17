@@ -24,7 +24,7 @@ public interface UserMapper extends JpaRepository<User, UserId> {
     //List<Object> findAll();
 
     @Transactional
-    void deleteUserByUserId(@Param("userId") String userId);
+    void deleteByUserId(@Param("userId") String userId);
 
     boolean existsByUserId(String userId);
 }

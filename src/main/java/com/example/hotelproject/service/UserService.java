@@ -44,8 +44,8 @@ public class UserService {
             .orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
     }
 
-    public void deleteUserByUserId(String id) {
-        userMapper.deleteUserByUserId(id);
+    public void deleteByUserId(String id) {
+        userMapper.deleteByUserId(id);
     }
 
 }
