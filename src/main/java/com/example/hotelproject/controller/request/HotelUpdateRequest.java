@@ -1,5 +1,6 @@
 package com.example.hotelproject.controller.request;
 
+import com.example.hotelproject.domain.Hotel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,15 +10,12 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class HotelUpdateRequest {
-    private int hotelNo;
     /*호텔이름*/
     private String hotelName;
     /*호텔타입*/
     private String hotelType;
     /*위치*/
     private String location;
-    /*호텔등급*/
-    private int grade;
     /*조식제공여부*/
     private boolean breakfastYn;
     /*주차가능여부*/
@@ -31,14 +29,10 @@ public class HotelUpdateRequest {
     private String remrk;
 
     @Builder
-    public HotelUpdateRequest(int hotelNo, String hotelName, String hotelType, String location, int grade,
-        boolean breakfastYn, boolean parkingYn, boolean swimYn, boolean fitnessYn,
-        String checkin, String checkout, String remrk) {
-        this.hotelNo = hotelNo;
+    public HotelUpdateRequest( String hotelName, String hotelType, String location, boolean breakfastYn, boolean parkingYn, boolean swimYn, boolean fitnessYn, String checkin, String checkout, String remrk) {
         this.hotelName = hotelName;
         this.hotelType = hotelType;
         this.location = location;
-        this.grade = grade;
         this.breakfastYn = breakfastYn;
         this.parkingYn = parkingYn;
         this.swimYn = swimYn;
@@ -46,5 +40,20 @@ public class HotelUpdateRequest {
         this.checkin = checkin;
         this.checkout = checkout;
         this.remrk = remrk;
+    }
+
+    public Hotel toEntity(){
+        return Hotel.builder()
+            .hotelName(hotelName)
+            .hotelType(hotelType)
+            .location(location)
+            .breakfastYn(breakfastYn)
+            .parkingYn(parkingYn)
+            .swimYn(swimYn)
+            .fitnessYn(fitnessYn)
+            .checkin(checkin)
+            .checkout(checkout)
+            .remrk(remrk)
+            .build();
     }
 }

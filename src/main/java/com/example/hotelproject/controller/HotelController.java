@@ -5,6 +5,7 @@ import com.example.hotelproject.controller.request.HotelUpdateRequest;
 import com.example.hotelproject.controller.response.HotelResponse;
 import com.example.hotelproject.service.HotelService;
 import java.util.List;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,8 +26,8 @@ public class HotelController {
 
     //호텔 신규 등록
     @PostMapping("/create")
-    public void createHotel(@RequestBody HotelCreateRequest request) {
-        hotelService.createHotel(request);
+    public Long create(@RequestBody HotelCreateRequest request) {
+        return hotelService.create(request);
     }
 
     //전체조회
@@ -36,20 +37,20 @@ public class HotelController {
     }
 
     //삭제
-    @DeleteMapping("/{hotelNo}")
-    public void deleteHotel(@PathVariable("hotelNo") int no){
-        hotelService.deleteHotel(no);
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") Long id){
+        hotelService.deleteById(id);
     }
 
     //이름으로 검색
     @GetMapping("/{hotelName}")
-    public HotelResponse findHotelByName(@PathVariable("hotelName") String name){
+    public List<HotelResponse> findHotelByName(@PathVariable("hotelName") String name){
         return hotelService.findHotelByName(name);
     }
 
     //정보 수정
-    @PostMapping("/update")
-    public void updateHotelInfo(@RequestBody HotelUpdateRequest request){
-        hotelService.updateHotelInfo(request);
+    @PostMapping("/update/{id}")
+    public Long updateHotelInfo(@PathVariable("id") Long id, @RequestBody HotelUpdateRequest request){
+        return hotelService.update(id, request);
     }
 }

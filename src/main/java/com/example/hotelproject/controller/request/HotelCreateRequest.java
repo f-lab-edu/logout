@@ -1,5 +1,6 @@
 package com.example.hotelproject.controller.request;
 
+import com.example.hotelproject.domain.Hotel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,5 +43,21 @@ public class HotelCreateRequest {
         this.checkin = checkin;
         this.checkout = checkout;
         this.remrk = remrk;
+    }
+
+    public Hotel toEntity(){
+        return Hotel.builder()
+            .hotelName(hotelName)
+            .hotelType(hotelType)
+            .location(location)
+            .grade(grade)
+            .breakfastYn(breakfastYn)
+            .parkingYn(parkingYn)
+            .swimYn(swimYn)
+            .fitnessYn(fitnessYn)
+            .checkin(checkin)
+            .checkout(checkout)
+            .remrk(remrk)
+            .build();
     }
 }
