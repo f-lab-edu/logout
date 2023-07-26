@@ -1,39 +1,51 @@
 package com.example.hotelproject.service;
 
 import com.example.hotelproject.controller.request.UserCreateRequest;
+import com.example.hotelproject.controller.response.UserResponse;
+import com.example.hotelproject.domain.User;
 import com.example.hotelproject.mapper.UserMapper;
 
+import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
+
     private final UserMapper userMapper;
 
-    public UserService( UserMapper userMapper) {
+    public UserService(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
 
-    public void saveUser(UserCreateRequest request) {
-        userMapper.saveUser(request);
-       // return "저장되었습니다.";
+    public User create(UserCreateRequest request) {
+        User user = request.toEntity();
+        boolean isExistUser = userMapper.existsByUserId(user.getUserId());
+        if (isExistUser) {
+            throw new IllegalArgumentException("이미 가입된 회원입니다. : " + user.getUserId());
+        }
+        //BeanUtils.copyProperties(request, user);
+        return userMapper.save(user);
     }
 
-    public void findAll(){
-        List<Object> list = userMapper.findAll();
-        //list.forEach(System.out::println);
-        System.out.println(list.size());
+    public List<User> findAll() {
+        List<User> list = userMapper.findAll();
+        return list;
+        //System.out.println(list.size());
     }
 
-//    public List<UserResponse> getAllUser() {
-//        return userRepository.findAllUser();
-//    }
-//    public List<UserResponse> findUser(String response) {
-//        List<UserResponse> userList = userRepository.findUser();
-//        return userList;
-//    }
-//
-//    public List<UserResponse> getAllUser() {
-//    }
+    public UserResponse findUserByUserId(String id) {
+        return userMapper.findUserByUserId(id)
+            .map(UserResponse::of)
+            .orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
+    }
+
+    public void deleteByUserId(String id) {
+        userMapper.deleteByUserId(id);
+    }
+
 }

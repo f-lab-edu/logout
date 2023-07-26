@@ -22,11 +22,7 @@ public class OwnerService {
 
     //오너 신규 추가
     public void createOwner(OwnerCreateRequest request){
-//        OwnerResponse response = new OwnerResponse(){};
-//        response = ownerMapper.findOwnerById(request.getUserId());
-        //Optional<Owner> res = Optional.ofNullable(ownerMapper.findOwnerById(request.getUserId()));
-        boolean chkId = ownerMapper.checkExistId(request.getUserId());
-        if(ObjectUtils.isEmpty(chkId)){
+        if(!ownerMapper.checkExistId(request.getUserId())){
             ownerMapper.createOwner(request);
         }else{
             throw new IllegalArgumentException("같은 아이디의 유저가 있습니다.(" + request.getUserId()+ ")");

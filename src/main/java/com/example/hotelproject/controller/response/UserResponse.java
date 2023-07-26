@@ -1,24 +1,39 @@
 package com.example.hotelproject.controller.response;
 
+import com.example.hotelproject.domain.Owner;
+import com.example.hotelproject.domain.User;
 import lombok.*;
 
 @ToString
 @Getter
 @NoArgsConstructor
 public class UserResponse {
-    private String userName;
+    private String name;
     private String userId;
-    private String phoneNumber;
+    private String email;
+    private String mobile;
+    private String address;
     private int age;
 
     @Builder
-    public UserResponse(String userName,
-                             String userId,
-                             String phoneNumber,
-                             int age) {
-        this.userName = userName;
+    public UserResponse(String name, String userId, String email, String mobile,
+        String address, int age) {
+        this.name = name;
         this.userId = userId;
-        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.mobile = mobile;
+        this.address = address;
         this.age = age;
+    }
+
+    public static UserResponse of(User user){
+        return UserResponse.builder()
+            .userId(user.getUserId())
+            .name(user.getName())
+            .email(user.getEmail())
+            .mobile(user.getMobile())
+            .address(user.getAddress())
+            .age(user.getAge())
+            .build();
     }
 }
