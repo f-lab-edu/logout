@@ -1,8 +1,7 @@
-package com.example.hotelproject.mapper;
+package com.example.hotelproject.repository;
 
 import com.example.hotelproject.controller.request.UserCreateRequest;
 
-import com.example.hotelproject.controller.response.UserResponse;
 import com.example.hotelproject.domain.User;
 import com.example.hotelproject.domain.UserId;
 import java.util.List;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface UserMapper extends JpaRepository<User, UserId> {
+public interface UserRepository extends JpaRepository<User, UserId> {
     User save(
             UserCreateRequest userCreateRequest
     );

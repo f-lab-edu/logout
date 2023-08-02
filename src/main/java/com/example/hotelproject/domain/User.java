@@ -19,32 +19,42 @@ import lombok.*;
 @ToString
 @IdClass(UserId.class)
 @Entity(name = "USER") //JPA를 사용할 클래스를 명시하며, 테이블과 매핑하는 역할을 한다.
-public class User implements Serializable {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "USER_NO")
+    @Column(name = "user_no")
     private Long userNo;
 
     @Id
-    @Column(name = "USER_ID")
+    @Column(name = "user_id")
     private String userId;
 
-    @Column(name = "NAME")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "PASSWORD", nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "EMAIL", nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "AGE")
+    @Column(name = "age")
     private int age;
 
-    @Column(name = "ADDRESS")
+    @Column(name = "address")
     private String address;
 
-    @Column(name = "MOBILE")
+    @Column(name = "mobile")
     private String mobile;
+
+    @Column(name = "enabled")
+    private boolean enabled;
+
+//    public User(String userId, String password, boolean enabled) {
+//        this.userId = userId;
+//        this.password = password;
+//        this.enabled = enabled;
+//    }
+
 }

@@ -1,14 +1,10 @@
-package com.example.hotelproject.mapper;
+package com.example.hotelproject.repository;
 
 import com.example.hotelproject.controller.request.OwnerCreateRequest;
-import com.example.hotelproject.controller.request.UserCreateRequest;
-import com.example.hotelproject.controller.response.OwnerResponse;
 import com.example.hotelproject.domain.Owner;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import org.springframework.stereotype.Repository;
 

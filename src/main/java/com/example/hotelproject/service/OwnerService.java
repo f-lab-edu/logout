@@ -1,14 +1,10 @@
 package com.example.hotelproject.service;
 import com.example.hotelproject.controller.request.OwnerCreateRequest;
 import com.example.hotelproject.controller.response.OwnerResponse;
-import com.example.hotelproject.domain.Owner;
-import com.example.hotelproject.mapper.OwnerMapper;
+import com.example.hotelproject.repository.OwnerMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
