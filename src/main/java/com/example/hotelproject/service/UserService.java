@@ -2,6 +2,7 @@ package com.example.hotelproject.service;
 
 import com.example.hotelproject.controller.request.UserCreateRequest;
 import com.example.hotelproject.controller.request.UserRegisterRequest;
+import com.example.hotelproject.controller.response.UserRegisterResponse;
 import com.example.hotelproject.controller.response.UserResponse;
 import com.example.hotelproject.domain.User;
 import com.example.hotelproject.repository.UserRepository;
@@ -69,12 +70,12 @@ public class UserService {
 //        userRepository.save(user);
 //    }
 
-    public User register(UserRegisterRequest request) {
+    public UserRegisterResponse register(UserRegisterRequest request) {
         userRepository.findUserByUserId(request.getUserId())
-            .ifPresent(user -> {throw new RuntimeException();});
+            .ifPresent(user -> {throw new RuntimeException("유저 있음");});
 
         User saveUser = userRepository.save(request.toEntity(bCryptPasswordEncoder.encode(request.getPassword())));
-        return saveUser;
+        return new UserRegisterResponse(saveUser.getName());
     }
 
     public String login(String userId, String password) {

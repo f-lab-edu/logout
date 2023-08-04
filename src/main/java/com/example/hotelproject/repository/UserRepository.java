@@ -13,9 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, UserId> {
-    User save(
-            UserCreateRequest userCreateRequest
-    );
+//    User save(
+//            UserCreateRequest userCreateRequest
+//    );
 
     List<User> findAll();
 
@@ -26,4 +26,6 @@ public interface UserRepository extends JpaRepository<User, UserId> {
     void deleteByUserId(@Param("userId") String userId);
 
     boolean existsByUserId(String userId);
+
+   // Optional<User> findByUserId(String userId);
 }

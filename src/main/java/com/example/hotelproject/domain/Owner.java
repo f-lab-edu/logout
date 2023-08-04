@@ -1,6 +1,7 @@
 package com.example.hotelproject.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import javax.persistence.Entity;
 import lombok.Builder;
 import lombok.Getter;
 

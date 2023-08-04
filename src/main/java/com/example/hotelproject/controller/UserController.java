@@ -44,27 +44,32 @@ public class UserController {
 
     @DeleteMapping("/{userId}")
     @ApiOperation(value = "user 삭제", notes = "해당 유저를 삭제합니다.")
-    public void deleteByUserId(@PathVariable("userId") String userId){userService.deleteByUserId(userId);}
+    public void deleteByUserId(@PathVariable("userId") String userId){
+        userService.deleteByUserId(userId);
+    }
+
+
 
     @PostMapping("/register")
-    public ResponseEntity<UserRegisterResponse> register(@RequestBody UserRegisterRequest userRegisterRequest) {
+    public UserRegisterResponse register(@RequestBody UserRegisterRequest userRegisterRequest) {
         try {
-            User user = userService.register(userRegisterRequest);
-            return new ResponseEntity<>(new UserRegisterResponse(user.getName()), HttpStatus.OK);
+            UserRegisterResponse regitUser = userService.register(userRegisterRequest);
+            return new UserRegisterResponse(regitUser.getName());
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new IllegalArgumentException("오류");
         }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserLoginResponse> login(@RequestBody UserLoginRequest userLoginRequest) {
+    public UserLoginResponse login(@RequestBody UserLoginRequest userLoginRequest) {
         try {
             String token = userService.login(userLoginRequest.getUserId(), userLoginRequest.getPassword());
-            return new ResponseEntity<>(new UserLoginResponse(token), HttpStatus.OK);
+            return new UserLoginResponse(token);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            //return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new IllegalArgumentException("오류");
         }
     }
 
