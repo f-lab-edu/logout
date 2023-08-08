@@ -1,13 +1,14 @@
 package com.example.hotelproject.controller;
 
 import com.example.hotelproject.controller.request.OwnerCreateRequest;
+import com.example.hotelproject.controller.request.OwnerUpdateRequest;
 import com.example.hotelproject.controller.response.OwnerResponse;
 import com.example.hotelproject.service.OwnerService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("api/v1/owner")
+@RequestMapping("api/v1/owners")
 @RestController
 public class OwnerController {
 
@@ -19,8 +20,8 @@ public class OwnerController {
 
     //오너 신규 추가
     @PostMapping("/create")
-    public void createOwner(@RequestBody OwnerCreateRequest request) {
-        ownerService.createOwner(request);
+    public OwnerResponse createOwner(@RequestBody OwnerCreateRequest request) {
+        return ownerService.create(request);
     }
 
     //오너 검색
@@ -42,7 +43,7 @@ public class OwnerController {
 
     //정보 수정
     @PostMapping("/update")
-    public void updateOwnerInfo(@RequestBody OwnerCreateRequest request) {
+    public void updateOwnerInfo(@RequestBody OwnerUpdateRequest request) {
         ownerService.updateOwnerInfo(request);
     }
 

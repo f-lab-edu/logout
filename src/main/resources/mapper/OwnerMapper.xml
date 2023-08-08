@@ -2,57 +2,57 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.hotelproject.mapper.OwnerMapper">
+<mapper namespace="com.example.hotelproject.repository.OwnerRepository">
 
-    <insert id="createOwner" useGeneratedKeys="true" parameterType="com.example.hotelproject.controller.request.OwnerCreateRequest">
-        INSERT INTO USER_OWNER
-        (USER_ID, USER_PW, NAME, ADDR, MOB, EMAIL, HOTEL_NO)
-        VALUES(#{userId}, #{userPw}, #{name}, #{addr}, #{mob}, #{email}, #{hotelNo})
-    </insert>
+<!--    <insert id="createOwner" useGeneratedKeys="true" parameterType="com.example.hotelproject.controller.request.OwnerCreateRequest">-->
+<!--        INSERT INTO USER_OWNER-->
+<!--        (USER_ID, USER_PW, NAME, ADDR, MOB, EMAIL, HOTEL_NO)-->
+<!--        VALUES(#{userId}, #{userPw}, #{name}, #{addr}, #{mob}, #{email}, #{hotelNo})-->
+<!--    </insert>-->
 
-    <select id="getAllOwner" resultType="com.example.hotelproject.domain.Owner">
-        SELECT USER_ID
-            , USER_PW
-            , NAME
-            , ADDR
-            , MOB
-            , EMAIL
-            , HOTEL_NO
-        FROM USER_OWNER
-    </select>
+<!--    <select id="getAllOwner" resultType="com.example.hotelproject.domain.Owner">-->
+<!--        SELECT USER_ID-->
+<!--            , USER_PW-->
+<!--            , NAME-->
+<!--            , ADDR-->
+<!--            , MOB-->
+<!--            , EMAIL-->
+<!--            , HOTEL_NO-->
+<!--        FROM USER_OWNER-->
+<!--    </select>-->
 
-    <select id="findOwnerById"
-            resultType="com.example.hotelproject.controller.response.OwnerResponse">
-        SELECT  A.USER_ID
-            , A.NAME
-            , A.HOTEL_NO
-            , B.HOTEL_NM
-        FROM  USER_OWNER A
-            , HOTEL B
-        WHERE A.USER_ID = #{userId}
-    </select>
+<!--    <select id="findOwnerById"-->
+<!--            resultType="com.example.hotelproject.controller.response.OwnerResponse">-->
+<!--        SELECT  A.USER_ID-->
+<!--            , A.NAME-->
+<!--            , A.HOTEL_NO-->
+<!--            , B.HOTEL_NM-->
+<!--        FROM  USER_OWNER A-->
+<!--            , HOTEL B-->
+<!--        WHERE A.USER_ID = #{userId}-->
+<!--    </select>-->
 
-    <update id="updateOwnerInfo" parameterType="com.example.hotelproject.controller.request.OwnerCreateRequest">
-        UPDATE USER_OWNER
-           SET NAME = #{name}
-             , ADDR = #{addr}
-             , MOB = #{mob}
-             , EMAIL = #{email}
-        WHERE USER_ID= #{userId}
-    </update>
+<!--    <update id="updateOwnerInfo" parameterType="com.example.hotelproject.controller.request.OwnerCreateRequest">-->
+<!--        UPDATE USER_OWNER-->
+<!--           SET NAME = #{name}-->
+<!--             , ADDR = #{addr}-->
+<!--             , MOB = #{mob}-->
+<!--             , EMAIL = #{email}-->
+<!--        WHERE USER_ID= #{userId}-->
+<!--    </update>-->
 
-    <delete id="deleteOwner">
-        DELETE FROM USER_OWNER
-        WHERE USER_ID=#{userId}
-    </delete>
+<!--    <delete id="deleteOwner">-->
+<!--        DELETE FROM USER_OWNER-->
+<!--        WHERE USER_ID=#{userId}-->
+<!--    </delete>-->
 
-    <select id="checkExistId" resultType="boolean">
-        SELECT EXISTS (
-            SELECT 1
-            FROM  USER_OWNER A
-            WHERE A.USER_ID = #{userId}
-        )
-    </select>
+<!--    <select id="checkExistId" resultType="boolean">-->
+<!--        SELECT EXISTS (-->
+<!--            SELECT 1-->
+<!--            FROM  USER_OWNER A-->
+<!--            WHERE A.USER_ID = #{userId}-->
+<!--        )-->
+<!--    </select>-->
 </mapper>
 
 

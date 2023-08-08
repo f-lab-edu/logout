@@ -4,7 +4,7 @@ import com.example.hotelproject.controller.request.HotelCreateRequest;
 import com.example.hotelproject.controller.request.HotelUpdateRequest;
 import com.example.hotelproject.controller.response.HotelResponse;
 import com.example.hotelproject.domain.Hotel;
-import com.example.hotelproject.mapper.HotelRepository;
+import com.example.hotelproject.repository.HotelRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
