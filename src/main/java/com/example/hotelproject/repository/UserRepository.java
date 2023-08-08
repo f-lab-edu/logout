@@ -22,10 +22,7 @@ public interface UserRepository extends JpaRepository<User, UserId> {
     Optional<User> findUserByUserId(@Param("userId") String userId);
     //List<Object> findAll();
 
-    @Transactional
     void deleteByUserId(@Param("userId") String userId);
 
     boolean existsByUserId(String userId);
-
-   // Optional<User> findByUserId(String userId);
 }

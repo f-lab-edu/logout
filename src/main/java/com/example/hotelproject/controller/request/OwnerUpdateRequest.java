@@ -2,7 +2,6 @@ package com.example.hotelproject.controller.request;
 
 
 import com.example.hotelproject.domain.Owner;
-import com.example.hotelproject.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +10,7 @@ import lombok.ToString;
 @ToString
 @Getter
 @NoArgsConstructor
-public class OwnerCreateRequest {
+public class OwnerUpdateRequest {
     private Long userNo;
     private String name;
     private String userId;
@@ -21,7 +20,7 @@ public class OwnerCreateRequest {
     private String address;
 
     @Builder
-    public OwnerCreateRequest(Long userNo, String name, String userId, String password,
+    public OwnerUpdateRequest(Long userNo, String name, String userId, String password,
         String email, String mobile, String address) {
         this.userNo = userNo;
         this.name = name;

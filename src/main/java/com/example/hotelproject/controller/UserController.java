@@ -9,8 +9,7 @@ import com.example.hotelproject.domain.User;
 import com.example.hotelproject.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,15 +23,17 @@ public class UserController {
         this.userService = userService;
     }
 
+    //========admin=========//
+
     @PostMapping
     @ApiOperation(value = "user 등록/생성", notes = "신규 user를 등록/생성합니다.")
-    public ResponseEntity<User> createUser(@RequestBody UserCreateRequest request) {
-        return ResponseEntity.ok(userService.create(request));
+    public String createUser(@RequestBody UserCreateRequest request) {
+        return userService.create(request);
     }
 
     @GetMapping
     @ApiOperation(value = "user 전체 조회", notes = "기존 user를 전체 조회합니다.")
-    public List<User> findAll() {
+    public List<UserResponse> findAll() {
         return userService.findAll();
     }
 
@@ -48,9 +49,10 @@ public class UserController {
         userService.deleteByUserId(userId);
     }
 
-
+    //========user=========//
 
     @PostMapping("/register")
+    @ApiOperation(value = "회원가입", notes = "사용자 회원가입")
     public UserRegisterResponse register(@RequestBody UserRegisterRequest userRegisterRequest) {
         try {
             UserRegisterResponse regitUser = userService.register(userRegisterRequest);
@@ -62,6 +64,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
+    @ApiOperation(value = "로그인", notes ="사용자 로그인")
     public UserLoginResponse login(@RequestBody UserLoginRequest userLoginRequest) {
         try {
             String token = userService.login(userLoginRequest.getUserId(), userLoginRequest.getPassword());
@@ -71,6 +74,12 @@ public class UserController {
             //return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
             throw new IllegalArgumentException("오류");
         }
+    }
+
+    public ResponseEntity<Void> logout(HttpServletRequest request){
+        //userService.logout(request);
+        return ResponseEntity.ok().build();
+
     }
 
 }

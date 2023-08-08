@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.hotelproject.repository.OwnerMapper">
+<mapper namespace="com.example.hotelproject.repository.OwnerRepository">
 
 <!--    <insert id="createOwner" useGeneratedKeys="true" parameterType="com.example.hotelproject.controller.request.OwnerCreateRequest">-->
 <!--        INSERT INTO USER_OWNER-->

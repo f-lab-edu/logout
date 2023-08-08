@@ -14,7 +14,6 @@ import lombok.*;
 //create basic select update DB 작업에 사용
 @Getter
 @Builder
-@AllArgsConstructor //모든 필드 값을 파라미터로 받는 생성자를 만듦
 @NoArgsConstructor(access = AccessLevel.PROTECTED) //기본 생성자를 만들어줌
 @ToString
 @IdClass(UserId.class)
@@ -57,4 +56,17 @@ public class User {
 //        this.enabled = enabled;
 //    }
 
+
+    public User(Long userNo, String userId, String name, String password, String email, int age,
+        String address, String mobile, boolean enabled) {
+        this.userNo = userNo;
+        this.userId = userId;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.age = age;
+        this.address = address;
+        this.mobile = mobile;
+        this.enabled = enabled;
+    }
 }
