@@ -3,6 +3,8 @@ package com.example.hotelproject.domain;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,7 +18,6 @@ import lombok.*;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED) //기본 생성자를 만들어줌
 @ToString
-@IdClass(UserId.class)
 @Entity(name = "USER") //JPA를 사용할 클래스를 명시하며, 테이블과 매핑하는 역할을 한다.
 public class User {
 
@@ -25,7 +26,6 @@ public class User {
     @Column(name = "user_no")
     private Long userNo;
 
-    @Id
     @Column(name = "user_id")
     private String userId;
 
@@ -50,12 +50,8 @@ public class User {
     @Column(name = "enabled")
     private boolean enabled;
 
-//    public User(String userId, String password, boolean enabled) {
-//        this.userId = userId;
-//        this.password = password;
-//        this.enabled = enabled;
-//    }
-
+//    @Enumerated(EnumType.STRING)
+//    private Role role;
 
     public User(Long userNo, String userId, String name, String password, String email, int age,
         String address, String mobile, boolean enabled) {

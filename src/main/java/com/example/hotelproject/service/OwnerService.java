@@ -54,7 +54,7 @@ public class OwnerService {
 
     @Transactional
     public void updateOwnerInfo(OwnerUpdateRequest request){
-        Owner owner = request.toEntity();
+        Owner owner = request.toOwner();
         ownerRepository.save(owner);
     }
 }

@@ -31,7 +31,7 @@ public class OwnerUpdateRequest {
         this.address = address;
     }
 
-    public Owner toEntity(){
+    public Owner toOwner(){
         return Owner.builder()
             .userId(userId)
             .userNo(userNo)
