@@ -1,8 +1,6 @@
-package com.example.hotelproject.controller.response;
+package com.example.hotelproject.controller.response.reservation;
 
-import com.example.hotelproject.domain.Hotel;
 import com.example.hotelproject.domain.Reservation;
-import com.example.hotelproject.domain.User;
 import java.util.Date;
 import lombok.Builder;
 import lombok.Getter;

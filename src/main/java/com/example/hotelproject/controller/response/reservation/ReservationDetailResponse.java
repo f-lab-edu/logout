@@ -1,9 +1,8 @@
-package com.example.hotelproject.controller.response;
+package com.example.hotelproject.controller.response.reservation;
 
 import com.example.hotelproject.domain.Reservation;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

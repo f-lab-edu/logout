@@ -6,6 +6,7 @@ import com.example.hotelproject.controller.response.HotelResponse;
 import com.example.hotelproject.controller.response.OwnerResponse;
 import com.example.hotelproject.controller.response.OwnersHotelsResponse;
 import com.example.hotelproject.service.OwnerService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,7 +50,8 @@ public class OwnerController {
         ownerService.updateOwnerInfo(request);
     }
 
-    @GetMapping("/reservations/{userId}")
+    @GetMapping("/myHotels/userId}")
+    @ApiOperation(value = "owner 별 호텔 조회", notes = "해당 오너의 호텔리스트 조회함")
     public List<OwnersHotelsResponse> findMyHotels(@PathVariable("userNo") int ownerNo){
         return ownerService.findMyHotels(ownerNo);
     }

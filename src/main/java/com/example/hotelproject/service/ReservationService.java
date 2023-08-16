@@ -1,14 +1,11 @@
 package com.example.hotelproject.service;
 
 import com.example.hotelproject.controller.request.reservation.ReservationCreateRequest;
-import com.example.hotelproject.controller.response.ReservationDetailResponse;
+import com.example.hotelproject.controller.response.reservation.ReservationDetailResponse;
 import com.example.hotelproject.domain.Reservation;
-import com.example.hotelproject.domain.Room;
 import com.example.hotelproject.repository.HotelRepository;
 import com.example.hotelproject.repository.ReservationRepository;
 import com.example.hotelproject.repository.UserRepository;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
