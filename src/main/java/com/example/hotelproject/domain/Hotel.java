@@ -3,19 +3,21 @@ package com.example.hotelproject.domain;
 import com.example.hotelproject.controller.request.HotelUpdateRequest;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Getter
-@Builder
-@AllArgsConstructor //모든 필드 값을 파라미터로 받는 생성자를 만듦
 @NoArgsConstructor(access = AccessLevel.PROTECTED) //기본 생성자를 만들어줌
 @ToString
 @Entity(name = "HOTEL")
@@ -57,6 +59,33 @@ public class Hotel {
 
     @Column(name = "REMRK")
     private String remrk;       /*비고*/
+
+    @Column(name = "owner_no")
+    private int ownerNo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_no", insertable = false, updatable = false)
+    private Owner owner;
+
+    @Builder
+    public Hotel(String hotelName, String hotelType, String location, int grade,
+        boolean breakfastYn,
+        boolean parkingYn, boolean swimYn, boolean fitnessYn, String checkin, String checkout,
+        String remrk, int ownerNo, Owner owner) {
+        this.hotelName = hotelName;
+        this.hotelType = hotelType;
+        this.location = location;
+        this.grade = grade;
+        this.breakfastYn = breakfastYn;
+        this.parkingYn = parkingYn;
+        this.swimYn = swimYn;
+        this.fitnessYn = fitnessYn;
+        this.checkin = checkin;
+        this.checkout = checkout;
+        this.remrk = remrk;
+        this.ownerNo = ownerNo;
+        this.owner = owner;
+    }
 
 
     public void update(Long id, HotelUpdateRequest request){

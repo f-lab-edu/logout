@@ -2,6 +2,7 @@ package com.example.hotelproject.controller;
 
 import com.example.hotelproject.controller.request.reservation.ReservationCreateRequest;
 import com.example.hotelproject.controller.response.ReservationDetailResponse;
+import com.example.hotelproject.domain.Reservation;
 import com.example.hotelproject.service.ReservationService;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;

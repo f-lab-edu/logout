@@ -16,15 +16,17 @@ public class ReservationCreateResponse {
 
     private Long userNo;
     private Long hotelNo;
+    private Long roomNo;
     private Date reservationStartDate;
     private Date reservationEndDate;
     private Date reservationDate;
 
     @Builder
-    public ReservationCreateResponse(Long userNo, Long hotelNo, Date reservationStartDate,
-        Date reservationEndDate, Date reservationDate) {
+    public ReservationCreateResponse(Long userNo, Long hotelNo, Long roomNo,
+        Date reservationStartDate, Date reservationEndDate, Date reservationDate) {
         this.userNo = userNo;
         this.hotelNo = hotelNo;
+        this.roomNo = roomNo;
         this.reservationStartDate = reservationStartDate;
         this.reservationEndDate = reservationEndDate;
         this.reservationDate = reservationDate;
@@ -46,6 +48,7 @@ public class ReservationCreateResponse {
         return ReservationCreateResponse.builder()
             .userNo(userNo)
             .hotelNo(hotelNo)
+            .roomNo(roomNo)
             .reservationDate(reservationDate)
             .reservationStartDate(reservationStartDate)
             .reservationEndDate(reservationEndDate)

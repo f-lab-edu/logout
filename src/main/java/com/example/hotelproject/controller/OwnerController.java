@@ -2,7 +2,9 @@ package com.example.hotelproject.controller;
 
 import com.example.hotelproject.controller.request.OwnerCreateRequest;
 import com.example.hotelproject.controller.request.OwnerUpdateRequest;
+import com.example.hotelproject.controller.response.HotelResponse;
 import com.example.hotelproject.controller.response.OwnerResponse;
+import com.example.hotelproject.controller.response.OwnersHotelsResponse;
 import com.example.hotelproject.service.OwnerService;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +47,11 @@ public class OwnerController {
     @PostMapping("/update")
     public void updateOwnerInfo(@RequestBody OwnerUpdateRequest request) {
         ownerService.updateOwnerInfo(request);
+    }
+
+    @GetMapping("/reservations/{userId}")
+    public List<OwnersHotelsResponse> findMyHotels(@PathVariable("userNo") int ownerNo){
+        return ownerService.findMyHotels(ownerNo);
     }
 
 

@@ -1,6 +1,7 @@
 package com.example.hotelproject.controller.response;
 
 import com.example.hotelproject.domain.Reservation;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import lombok.Builder;
@@ -14,13 +15,13 @@ public class ReservationDetailResponse {
     private String userId;
     private Long hotelNo;
     private String hotelName;
-    private Date reservationStartDate;
-    private Date reservationEndDate;
+    private LocalDate reservationStartDate;
+    private LocalDate reservationEndDate;
     private LocalDateTime reservationDate;
 
     @Builder
     public ReservationDetailResponse(Long userNo, String userId, Long hotelNo, String hotelName,
-        Date reservationStartDate, Date reservationEndDate, LocalDateTime reservationDate) {
+        LocalDate reservationStartDate, LocalDate reservationEndDate, LocalDateTime reservationDate) {
         this.userNo = userNo;
         this.userId = userId;
         this.hotelNo = hotelNo;

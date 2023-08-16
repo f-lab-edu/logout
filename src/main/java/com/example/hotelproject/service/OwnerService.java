@@ -2,7 +2,10 @@ package com.example.hotelproject.service;
 import com.example.hotelproject.controller.request.OwnerCreateRequest;
 import com.example.hotelproject.controller.request.OwnerUpdateRequest;
 import com.example.hotelproject.controller.response.OwnerResponse;
+import com.example.hotelproject.controller.response.OwnersHotelsResponse;
+import com.example.hotelproject.domain.Hotel;
 import com.example.hotelproject.domain.Owner;
+import com.example.hotelproject.repository.HotelRepository;
 import com.example.hotelproject.repository.OwnerRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class OwnerService {
     private final OwnerRepository ownerRepository;
+    private final HotelRepository hotelRepository;
 
-    public OwnerService(OwnerRepository ownerRepository){
+    public OwnerService(OwnerRepository ownerRepository,
+        HotelRepository hotelRepository){
         this.ownerRepository = ownerRepository;
+        this.hotelRepository = hotelRepository;
     }
 
     //오너 신규 추가
@@ -56,5 +62,14 @@ public class OwnerService {
     public void updateOwnerInfo(OwnerUpdateRequest request){
         Owner owner = request.toOwner();
         ownerRepository.save(owner);
+    }
+
+    //============================//
+
+    @Transactional(readOnly = true)
+    public List<OwnersHotelsResponse> findMyHotels(int ownerNo){
+        return hotelRepository.findAllByOwnerNo(ownerNo).stream()
+            .map(OwnersHotelsResponse::of)
+            .collect(Collectors.toList());
     }
 }
