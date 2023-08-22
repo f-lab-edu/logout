@@ -1,6 +1,11 @@
 package com.example.hotelproject.controller.response.reservation;
 
+import com.example.hotelproject.domain.Hotel;
 import com.example.hotelproject.domain.Reservation;
+import com.example.hotelproject.domain.User;
+import com.example.hotelproject.domain.room.Room;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,42 +17,30 @@ import lombok.ToString;
 @NoArgsConstructor
 public class ReservationCreateResponse {
 
-    private Long userNo;
-    private Long hotelNo;
-    private Long roomNo;
-    private Date reservationStartDate;
-    private Date reservationEndDate;
-    private Date reservationDate;
+    private User user;
+    private Hotel hotel;
+    private Room room;
+    private LocalDate reservationStartDate;
+    private LocalDate reservationEndDate;
+    private LocalDateTime createdAt;
 
     @Builder
-    public ReservationCreateResponse(Long userNo, Long hotelNo, Long roomNo,
-        Date reservationStartDate, Date reservationEndDate, Date reservationDate) {
-        this.userNo = userNo;
-        this.hotelNo = hotelNo;
-        this.roomNo = roomNo;
+    public ReservationCreateResponse(User user, Hotel hotel,
+        Room room, LocalDate reservationStartDate, LocalDate reservationEndDate,
+        LocalDateTime createdAt) {
+        this.user = user;
+        this.hotel = hotel;
+        this.room = room;
         this.reservationStartDate = reservationStartDate;
         this.reservationEndDate = reservationEndDate;
-        this.reservationDate = reservationDate;
+        this.createdAt = createdAt;
     }
-
-//    public static Reservation toReservation(User user, Hotel hotel, ReservationCreateResponse response){
-//        return Reservation.builder()
-//            .userNo(response.getUserNo())
-//            .hotel_no(response.getHotelNo())
-//            .reservation_start_date(response.getReservation_start_date())
-//            .reservation_end_date(response.getReservation_end_date())
-//            .reservation_date(response.getReservation_date())
-//            .user(user)
-//            .hotel(hotel)
-//            .build();
-//    }
-
-    public ReservationCreateResponse fromReservation(Reservation reservation){
+    public ReservationCreateResponse of(Reservation reservation){
         return ReservationCreateResponse.builder()
-            .userNo(userNo)
-            .hotelNo(hotelNo)
-            .roomNo(roomNo)
-            .reservationDate(reservationDate)
+            .user(user)
+            .hotel(hotel)
+            .room(room)
+            .createdAt(createdAt)
             .reservationStartDate(reservationStartDate)
             .reservationEndDate(reservationEndDate)
             .build();

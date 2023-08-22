@@ -23,7 +23,7 @@ public interface HotelRepository extends JpaRepository<Hotel,Long> {
 
     //void update(Long id, HotelUpdateRequest hotelUpdateRequest);
 
-    Optional<Hotel> findHotelById(@Param("id") Long id);
+    Optional<Hotel> findByHotelNo(Long hotelNo);
 
-    List<Hotel> findAllByOwnerNo(@Param("ownerNo") int ownerNo);
+    List<Hotel> findAllByOwner_UserNo(@Param("ownerNo") Long ownerNo);
 }

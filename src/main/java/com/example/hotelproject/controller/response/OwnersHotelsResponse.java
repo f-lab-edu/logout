@@ -50,7 +50,6 @@ public class OwnersHotelsResponse {
             .fitnessYn(hotel.isFitnessYn())
             .checkin(hotel.getCheckin())
             .checkout(hotel.getCheckout())
-            .owner_no(hotel.getOwnerNo())
             .build();
     }
 }

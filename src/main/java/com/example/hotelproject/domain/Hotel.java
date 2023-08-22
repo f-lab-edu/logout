@@ -25,7 +25,7 @@ public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "HOTEL_NO")
-    private Long id;        /*호텔번호*/
+    private Long hotelNo;        /*호텔번호*/
 
     @Column(name = "HOTEL_NAME", nullable = false)
     private String hotelName;     /*호텔이름*/
@@ -60,18 +60,16 @@ public class Hotel {
     @Column(name = "REMRK")
     private String remrk;       /*비고*/
 
-    @Column(name = "owner_no")
-    private int ownerNo;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_no", insertable = false, updatable = false)
     private Owner owner;
 
     @Builder
-    public Hotel(String hotelName, String hotelType, String location, int grade,
-        boolean breakfastYn,
-        boolean parkingYn, boolean swimYn, boolean fitnessYn, String checkin, String checkout,
-        String remrk, int ownerNo, Owner owner) {
+    public Hotel(Long hotelNo, String hotelName, String hotelType, String location, int grade,
+        boolean breakfastYn, boolean parkingYn, boolean swimYn, boolean fitnessYn,
+        String checkin, String checkout, String remrk,
+        Owner owner) {
+        this.hotelNo = hotelNo;
         this.hotelName = hotelName;
         this.hotelType = hotelType;
         this.location = location;
@@ -83,13 +81,11 @@ public class Hotel {
         this.checkin = checkin;
         this.checkout = checkout;
         this.remrk = remrk;
-        this.ownerNo = ownerNo;
         this.owner = owner;
     }
 
-
-    public void update(Long id, HotelUpdateRequest request){
-        this.id = getId();
+    public void update(Long hotelNo, HotelUpdateRequest request){
+        this.hotelNo = getHotelNo();
         this.hotelName = request.getHotelName();
         this.hotelType = request.getHotelType();
         this.location = request.getLocation();

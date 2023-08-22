@@ -64,12 +64,4 @@ public class OwnerService {
         ownerRepository.save(owner);
     }
 
-    //============================//
-
-    @Transactional(readOnly = true)
-    public List<OwnersHotelsResponse> findMyHotels(int ownerNo){
-        return hotelRepository.findAllByOwnerNo(ownerNo).stream()
-            .map(OwnersHotelsResponse::of)
-            .collect(Collectors.toList());
-    }
 }

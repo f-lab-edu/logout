@@ -3,7 +3,9 @@ package com.example.hotelproject.controller;
 import com.example.hotelproject.controller.request.HotelCreateRequest;
 import com.example.hotelproject.controller.request.HotelUpdateRequest;
 import com.example.hotelproject.controller.response.HotelResponse;
+import com.example.hotelproject.controller.response.OwnersHotelsResponse;
 import com.example.hotelproject.service.HotelService;
+import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -53,4 +55,11 @@ public class HotelController {
     public Long updateHotelInfo(@PathVariable("id") Long id, @RequestBody HotelUpdateRequest request){
         return hotelService.update(id, request);
     }
+
+    @GetMapping("/myHotels/userId}")
+    @ApiOperation(value = "owner 별 호텔 조회", notes = "해당 오너의 호텔리스트 조회함")
+    public List<OwnersHotelsResponse> findMyHotels(@PathVariable("userNo") Long ownerNo){
+        return hotelService.findMyHotels(ownerNo);
+    }
+
 }

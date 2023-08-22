@@ -10,32 +10,28 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class ReservationDetailResponse {
-    private Long userNo;
     private String userId;
     private Long hotelNo;
     private String hotelName;
     private LocalDate reservationStartDate;
     private LocalDate reservationEndDate;
-    private LocalDateTime reservationDate;
+    private LocalDateTime createdAt;
 
     @Builder
-    public ReservationDetailResponse(Long userNo, String userId, Long hotelNo, String hotelName,
-        LocalDate reservationStartDate, LocalDate reservationEndDate, LocalDateTime reservationDate) {
-        this.userNo = userNo;
+    public ReservationDetailResponse(String userId, Long hotelNo, String hotelName,
+        LocalDate reservationStartDate, LocalDate reservationEndDate, LocalDateTime createdAt) {
         this.userId = userId;
         this.hotelNo = hotelNo;
         this.hotelName = hotelName;
         this.reservationStartDate = reservationStartDate;
         this.reservationEndDate = reservationEndDate;
-        this.reservationDate = reservationDate;
+        this.createdAt = createdAt;
     }
 
 
     public static ReservationDetailResponse of(Reservation reservation){
         return ReservationDetailResponse.builder()
-            .userNo(reservation.getUserNo())
-            .hotelNo(reservation.getHotelNo())
-            .reservationDate(reservation.getReservationDate())
+            .hotelNo(reservation.getHotel().getHotelNo())
             .reservationStartDate(reservation.getReservationStartDate())
             .reservationEndDate(reservation.getReservationEndDate())
             .userId(reservation.getUser().getUserId())

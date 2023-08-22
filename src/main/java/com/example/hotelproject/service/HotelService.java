@@ -3,6 +3,7 @@ package com.example.hotelproject.service;
 import com.example.hotelproject.controller.request.HotelCreateRequest;
 import com.example.hotelproject.controller.request.HotelUpdateRequest;
 import com.example.hotelproject.controller.response.HotelResponse;
+import com.example.hotelproject.controller.response.OwnersHotelsResponse;
 import com.example.hotelproject.domain.Hotel;
 import com.example.hotelproject.repository.HotelRepository;
 import java.util.List;
@@ -26,7 +27,7 @@ public class HotelService {
         if(hotelRepository.existsByHotelName(hotel.getHotelName())){
             throw new IllegalArgumentException("같은 이름의 호텔이 있습니다.(" + request.getHotelName()+ ")");
         }
-        return hotelRepository.save(request).getId();
+        return hotelRepository.save(request).getHotelNo();
     }
 
     //전체조회
@@ -53,12 +54,19 @@ public class HotelService {
 
     //호텔 정보 수정
     @Transactional
-    public Long update(Long id, HotelUpdateRequest request){
-        Hotel hotel = hotelRepository.findHotelById(id)
-            .orElseThrow(()-> new IllegalArgumentException("해당 호텔이 없습니다. id : "+ id));
+    public Long update(Long hotelNo, HotelUpdateRequest request){
+        Hotel hotel = hotelRepository.findByHotelNo(hotelNo)
+            .orElseThrow(()-> new IllegalArgumentException("해당 호텔이 없습니다. id : "+ hotelNo));
 
-        hotel.update(id, request);
-        return hotel.getId();
+        hotel.update(hotelNo, request);
+        return hotel.getHotelNo();
+    }
+
+    @Transactional(readOnly = true)
+    public List<OwnersHotelsResponse> findMyHotels(Long ownerNo){
+        return hotelRepository.findAllByOwner_UserNo(ownerNo)
+            .stream().map(OwnersHotelsResponse::of)
+            .collect(Collectors.toList());
     }
 
 }

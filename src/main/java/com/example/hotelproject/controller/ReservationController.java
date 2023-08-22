@@ -1,5 +1,6 @@
 package com.example.hotelproject.controller;
 
+import com.example.hotelproject.controller.request.reservation.ReservationCancelRequest;
 import com.example.hotelproject.controller.request.reservation.ReservationCreateRequest;
 import com.example.hotelproject.controller.response.reservation.ReservationDetailResponse;
 import com.example.hotelproject.service.ReservationService;
@@ -29,16 +30,19 @@ public class ReservationController {
         return reservationService.create(request);
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/{userNo}")
     @ApiOperation(value = "호텔 예약내역", notes = "user 호텔 예약내역을 조회합니다.")
-    public List<ReservationDetailResponse> reservationList(@PathVariable("userId") Long userNo){
+    public List<ReservationDetailResponse> reservationList(@PathVariable("userNo") Long userNo){
         return reservationService.findAllByUserNo(userNo);
     }
 
-    @DeleteMapping("/{reservationId}")
+    @PostMapping("/cancel")
     @ApiOperation(value = "호텔 예약취소", notes = "user 호텔 예약을 취소합니다.")
-    public void cancel(@PathVariable("reservationId") Long id){
-        reservationService.cancel(id);
+    public void cancel(@RequestBody
+        ReservationCancelRequest request){
+        reservationService.cancel(request);
     }
+
+
 
 }

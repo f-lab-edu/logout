@@ -50,11 +50,5 @@ public class OwnerController {
         ownerService.updateOwnerInfo(request);
     }
 
-    @GetMapping("/myHotels/userId}")
-    @ApiOperation(value = "owner 별 호텔 조회", notes = "해당 오너의 호텔리스트 조회함")
-    public List<OwnersHotelsResponse> findMyHotels(@PathVariable("userNo") int ownerNo){
-        return ownerService.findMyHotels(ownerNo);
-    }
-
 
 }

@@ -6,7 +6,6 @@ import com.example.hotelproject.domain.User;
 import com.example.hotelproject.domain.room.Room;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,35 +14,37 @@ import lombok.ToString;
 @Getter
 @ToString
 @NoArgsConstructor
-public class ReservationCreateRequest {
+public class ReservationCancelRequest {
 
+    private Long id;
     private User user;
     private Hotel hotel;
     private Room room;
     private LocalDate reservationStartDate;
     private LocalDate reservationEndDate;
-    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 
     @Builder
-    public ReservationCreateRequest(User user, Hotel hotel,
+    public ReservationCancelRequest(Long id, User user, Hotel hotel,
         Room room, LocalDate reservationStartDate, LocalDate reservationEndDate,
-        LocalDateTime createdAt) {
+        LocalDateTime modifiedAt) {
+        this.id = id;
         this.user = user;
         this.hotel = hotel;
         this.room = room;
         this.reservationStartDate = reservationStartDate;
         this.reservationEndDate = reservationEndDate;
-        this.createdAt = createdAt;
+        this.modifiedAt = modifiedAt;
     }
 
     public Reservation toReservation(User user, Hotel hotel, Room room){
         return Reservation.builder()
+            .id(id)
             .user(user)
             .hotel(hotel)
             .room(room)
             .reservationStartDate(reservationStartDate)
             .reservationEndDate(reservationEndDate)
-            .createdAt(createdAt)
             .build();
     }
 }
