@@ -33,7 +33,7 @@ public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "reservation_id")
     private Long id;
 
     @Column(name = "reservation_start_date", nullable = false)
