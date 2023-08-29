@@ -13,9 +13,9 @@ public interface OwnerRepository extends JpaRepository<Owner,Long> {
 
     List<Owner> findAll();
 
-    Optional<Owner> findByUserId(@Param("userId") String id);
+    Optional<Owner> findByOwnerId(@Param("ownerId") String id);
 
-    boolean existsByUserId(@Param("userId") String id);
+    boolean existsByOwnerId(@Param("ownerId") String id);
 
     void deleteByUserId(String id);
 }

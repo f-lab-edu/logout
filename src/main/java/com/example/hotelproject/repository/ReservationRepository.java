@@ -11,7 +11,7 @@ public interface ReservationRepository extends JpaRepository<Reservation,Long> {
 
     Reservation save(Reservation request);
 
-    List<Reservation> findAllByUser_UserNo(Long userNo);
+    List<Reservation> findAllByUser_UserNoAndCancelDateIsNull(Long userNo);
 
     List<Reservation> findByHotel_HotelNoAndRoom_RoomNo(Long hotelNo, Long RoomNo);
 

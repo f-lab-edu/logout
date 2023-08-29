@@ -1,5 +1,6 @@
 package com.example.hotelproject.repository;
 
+import com.example.hotelproject.domain.Hotel;
 import com.example.hotelproject.domain.room.Room;
 import java.util.List;
 import java.util.Optional;

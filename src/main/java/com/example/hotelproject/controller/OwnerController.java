@@ -1,5 +1,6 @@
 package com.example.hotelproject.controller;
 
+
 import com.example.hotelproject.controller.request.owner.OwnerCreateRequest;
 import com.example.hotelproject.controller.request.owner.OwnerUpdateRequest;
 import com.example.hotelproject.controller.response.owner.OwnerResponse;
@@ -26,7 +27,7 @@ public class OwnerController {
 
     //오너 검색
     @GetMapping("/{userId}")
-    public OwnerResponse findOwnerById(@PathVariable("userId") String id) {
+    public OwnerResponse findOwnerById(@PathVariable("ownerId") String id) {
         return ownerService.findOwnerById(id);
     }
 
@@ -37,7 +38,7 @@ public class OwnerController {
 
     //오너 삭제
     @DeleteMapping("/{userId}")
-    public void deleteOwner(@PathVariable("userId") String id) {
+    public void deleteOwner(@PathVariable("ownerId") String id) {
         ownerService.deleteOwner(id);
     }
 

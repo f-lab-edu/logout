@@ -26,19 +26,19 @@ public class OwnerService {
     @Transactional
     public OwnerResponse create(OwnerCreateRequest request){
         Owner owner = request.toEntity();
-        boolean isExistOwner = ownerRepository.existsByUserId(owner.getUserId());
+        boolean isExistOwner = ownerRepository.existsByOwnerId(owner.getOwnerId());
         if (isExistOwner) {
-            throw new IllegalArgumentException("이미 가입된 회원입니다. : " + owner.getUserId());
+            throw new IllegalArgumentException("이미 가입된 회원입니다. : " + owner.getOwnerId());
         }else{
             ownerRepository.save(owner);
         }
-        return new OwnerResponse(owner.getUserId());
+        return new OwnerResponse(owner.getOwnerId());
     }
 
     //오너 검색
     @Transactional(readOnly = true)
     public OwnerResponse findOwnerById(String id){
-      return ownerRepository.findByUserId(id)
+      return ownerRepository.findByOwnerId(id)
                 .map(OwnerResponse::of) //메서드 레퍼런스
                 .orElseThrow(()-> new IllegalArgumentException("해당 아이디의 유저가 없습니다."));
     }

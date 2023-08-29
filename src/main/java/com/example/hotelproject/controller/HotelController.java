@@ -1,5 +1,6 @@
 package com.example.hotelproject.controller;
 
+
 import com.example.hotelproject.controller.request.hotel.HotelCreateRequest;
 import com.example.hotelproject.controller.request.hotel.HotelUpdateRequest;
 import com.example.hotelproject.controller.response.hotel.HotelResponse;
@@ -7,6 +8,7 @@ import com.example.hotelproject.controller.response.owner.OwnersHotelsResponse;
 import com.example.hotelproject.service.HotelService;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

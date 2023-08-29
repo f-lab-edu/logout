@@ -25,11 +25,11 @@ public class Owner {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_no")
-    private Long userNo;
+    @Column(name = "owner_no")
+    private Long ownerNo;
 
-    @Column(name = "user_id")
-    private String userId;
+    @Column(name = "owner_id")
+    private String ownerId;
 
     @Column(name = "name")
     private String name;
@@ -49,10 +49,10 @@ public class Owner {
     @Column(name = "enabled")
     private boolean enabled;
 
-    public Owner(Long userNo, String userId, String name, String password, String email,
-        String address, String mobile, boolean enabled) {
-        this.userNo = userNo;
-        this.userId = userId;
+    @Builder
+    public Owner(Long ownerNo, String ownerId, String name, String password, String email, String address, String mobile, boolean enabled) {
+        this.ownerNo = ownerNo;
+        this.ownerId = ownerId;
         this.name = name;
         this.password = password;
         this.email = email;
