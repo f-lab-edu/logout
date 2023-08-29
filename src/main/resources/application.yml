@@ -1,0 +1,47 @@
+# ==== db
+spring:
+  datasource:
+    driver-class-name : com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/prac
+    username: root
+    password: ucmysql919
+
+  # true 설정 시, JPA 쿼리문 확인 가능
+  jpa:
+    generate-ddl: true
+    properties:
+      hibernate:
+        hbm2ddl.auto: update
+        show-sql: true
+        format_sql: true
+        physical_naming_strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    logging.level:
+      org.hibernate.SQL: debug
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+jwt:
+  token:
+    secret: testJwt
+
+  redis:
+    host: localhost
+    port: 6379
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    url: jdbc:mysql://localhost:3306/flyway?serverTimezone=UTC&characterEncoding=UTF-8
+    user: root
+    password: ucmysql919
+
+payment:
+  toss:
+    test_client_api_key: test_ck_yZqmkKeP8gPxM4PgmzB3bQRxB9lG
+    test_secrete_api_key: test_sk_6BYq7GWPVv5NMG0v0P53NE5vbo1d
+    succes_url: "http://localhost:8080/api/v1/payments/toss/success"
+    fail_url: "http://localhost:8080/api/v1/payments/toss/fail"
+
+
