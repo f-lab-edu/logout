@@ -17,5 +17,5 @@ public interface OwnerRepository extends JpaRepository<Owner,Long> {
 
     boolean existsByOwnerId(@Param("ownerId") String id);
 
-    void deleteByUserId(String id);
+    void deleteByOwnerId(String id);
 }

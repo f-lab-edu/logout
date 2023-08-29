@@ -22,19 +22,16 @@ public class ReservationCancelRequest {
     private Room room;
     private LocalDate reservationStartDate;
     private LocalDate reservationEndDate;
-    private LocalDateTime modifiedAt;
 
     @Builder
     public ReservationCancelRequest(Long id, User user, Hotel hotel,
-        Room room, LocalDate reservationStartDate, LocalDate reservationEndDate,
-        LocalDateTime modifiedAt) {
+        Room room, LocalDate reservationStartDate, LocalDate reservationEndDate) {
         this.id = id;
         this.user = user;
         this.hotel = hotel;
         this.room = room;
         this.reservationStartDate = reservationStartDate;
         this.reservationEndDate = reservationEndDate;
-        this.modifiedAt = modifiedAt;
     }
 
     public Reservation toReservation(User user, Hotel hotel, Room room){

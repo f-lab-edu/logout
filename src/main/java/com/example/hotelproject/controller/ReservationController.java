@@ -38,11 +38,14 @@ public class ReservationController {
 
     @PostMapping("/cancel")
     @ApiOperation(value = "호텔 예약취소", notes = "user 호텔 예약을 취소합니다.")
-    public void cancel(@RequestBody
-        ReservationCancelRequest request){
+    public void cancel(@RequestBody ReservationCancelRequest request){
         reservationService.cancel(request);
     }
 
+    @GetMapping()
+    public List<ReservationDetailResponse> findAll(){
+        return reservationService.findAll();
+    }
 
 
 }

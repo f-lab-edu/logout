@@ -25,5 +25,5 @@ public interface HotelRepository extends JpaRepository<Hotel,Long> {
 
     Optional<Hotel> findByHotelNo(Long hotelNo);
 
-    List<Hotel> findAllByOwner_UserNo(@Param("ownerNo") Long ownerNo);
+    List<Hotel> findAllByOwner_OwnerNo(@Param("ownerNo") Long ownerNo);
 }

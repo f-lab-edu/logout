@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+
+import com.example.hotelproject.util.entity.BaseDateTimeEntity;
 import lombok.*;
 
 
@@ -18,8 +20,8 @@ import lombok.*;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED) //기본 생성자를 만들어줌
 @ToString
-@Entity(name = "USER") //JPA를 사용할 클래스를 명시하며, 테이블과 매핑하는 역할을 한다.
-public class User {
+@Entity(name = "user") //JPA를 사용할 클래스를 명시하며, 테이블과 매핑하는 역할을 한다.
+public class User extends BaseDateTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

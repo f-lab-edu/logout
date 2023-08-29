@@ -12,9 +12,9 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor
 public class OwnerCreateRequest {
-    private Long userNo;
+    private Long ownerNo;
     private String name;
-    private String userId;
+    private String ownerId;
     private String password;
     private String email;
     private String mobile;
@@ -23,9 +23,9 @@ public class OwnerCreateRequest {
     @Builder
     public OwnerCreateRequest(Long userNo, String name, String userId, String password,
         String email, String mobile, String address) {
-        this.userNo = userNo;
+        this.ownerNo = userNo;
         this.name = name;
-        this.userId = userId;
+        this.ownerId = userId;
         this.password = password;
         this.email = email;
         this.mobile = mobile;
@@ -34,8 +34,8 @@ public class OwnerCreateRequest {
 
     public Owner toEntity(){
         return Owner.builder()
-            .userId(userId)
-            .userNo(userNo)
+            .ownerId(ownerId)
+            .ownerNo(ownerNo)
             .password(password)
             .email(email)
             .name(name)

@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.example.hotelproject.util.entity.BaseDateTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,48 +20,48 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED) //기본 생성자를 만들어줌
 @ToString
-@Entity(name = "HOTEL")
-public class Hotel {
+@Entity(name = "hotel")
+public class Hotel extends BaseDateTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "HOTEL_NO")
+    @Column(name = "hotel_no")
     private Long hotelNo;        /*호텔번호*/
 
-    @Column(name = "HOTEL_NAME", nullable = false)
+    @Column(name = "hotel_name", nullable = false)
     private String hotelName;     /*호텔이름*/
 
-    @Column(name = "HOTEL_TYPE")
+    @Column(name = "hotel_type")
     private String hotelType;   /*호텔타입*/
 
-    @Column(name = "LOCATION")
+    @Column(name = "location")
     private String location;    /*위치*/
 
-    @Column(name = "GRADE")
+    @Column(name = "grade")
     private int grade;          /*호텔등급*/
 
-    @Column(name = "BREAKFAST_YN")
+    @Column(name = "breakfast_yn")
     private boolean breakfastYn; /*조식제공여부*/
 
-    @Column(name = "PARKING_YN")
+    @Column(name = "parking_yn")
     private boolean parkingYn;      /*주차가능여부*/
 
-    @Column(name = "SWIM_YN")
+    @Column(name = "swim_yn")
     private boolean swimYn;      /*수영장여부*/
 
-    @Column(name = "FITNESS_YN")
+    @Column(name = "fitness_yn")
     private boolean fitnessYn;       /*휘트니스 여부*/
 
-    @Column(name = "CHECKIN")
+    @Column(name = "check_in")
     private String checkin;       /*체크인*/
 
-    @Column(name = "CHECKOUT")
+    @Column(name = "check_out")
     private String checkout;      /*체크아웃*/
 
-    @Column(name = "REMRK")
+    @Column(name = "remrk")
     private String remrk;       /*비고*/
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_no", insertable = false, updatable = false)
+    @JoinColumn(name = "owner_no")
     private Owner owner;
 
     @Builder

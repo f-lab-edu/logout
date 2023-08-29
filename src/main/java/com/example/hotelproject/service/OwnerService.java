@@ -53,7 +53,7 @@ public class OwnerService {
     //오너 삭제
     @Transactional
     public void deleteOwner(String id){
-        ownerRepository.deleteByUserId(id);
+        ownerRepository.deleteByOwnerId(id);
     }
 
     @Transactional

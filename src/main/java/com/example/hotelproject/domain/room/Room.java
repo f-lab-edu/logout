@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.example.hotelproject.util.entity.BaseDateTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,7 +23,7 @@ import lombok.ToString;
 @NoArgsConstructor(access = AccessLevel.PROTECTED) //기본 생성자를 만들어줌
 @ToString
 @Entity(name = "room")
-public class Room {
+public class Room extends BaseDateTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,7 +54,7 @@ public class Room {
     private String remrk;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "hotel_no", insertable = false, updatable = false)
+    @JoinColumn(name = "hotel_no")
     private Hotel hotel;
 
     @Builder

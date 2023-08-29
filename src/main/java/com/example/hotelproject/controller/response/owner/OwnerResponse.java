@@ -17,7 +17,7 @@ public class OwnerResponse {
 
     public static OwnerResponse of(Owner owner){
         return OwnerResponse.builder()
-                .userId(owner.getUserId())
+                .userId(owner.getOwnerId())
                 .build();
     }
 

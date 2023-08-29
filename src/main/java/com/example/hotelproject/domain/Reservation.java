@@ -14,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.example.hotelproject.util.entity.BaseDateTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,7 +31,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @ToString
 @EntityListeners(AuditingEntityListener.class)
 @Entity(name = "reservation")
-public class Reservation {
+public class Reservation extends BaseDateTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,15 +44,15 @@ public class Reservation {
     @Column(name = "reservation_end_date", nullable = false)
     private LocalDate reservationEndDate;
 
-    @CreatedDate
-    @Column(name = "created_at", nullable = false, updatable = false)
-    @Convert(converter = LocalDateTimeConverter.class)
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    @Column(name = "modified_at")
-    @Convert(converter = LocalDateTimeConverter.class)
-    private LocalDateTime modifiedAt;
+//    @CreatedDate
+//    @Column(name = "created_at")
+//    @Convert(converter = LocalDateTimeConverter.class)
+//    private LocalDateTime createdAt;
+//
+//    @LastModifiedDate
+//    @Column(name = "modified_at")
+//    @Convert(converter = LocalDateTimeConverter.class)
+//    private LocalDateTime modifiedAt;
 
     @Column(name = "cancel_date")
     private LocalDate cancelDate;
@@ -68,14 +70,11 @@ public class Reservation {
     private Room room;
 
     @Builder
-    public Reservation(Long id, LocalDate reservationStartDate, LocalDate reservationEndDate,
-        LocalDateTime createdAt, LocalDateTime modifiedAt, LocalDate cancelDate,
+    public Reservation(Long id, LocalDate reservationStartDate, LocalDate reservationEndDate, LocalDate cancelDate,
         User user, Hotel hotel, Room room) {
         this.id = id;
         this.reservationStartDate = reservationStartDate;
         this.reservationEndDate = reservationEndDate;
-        this.createdAt = createdAt;
-        this.modifiedAt = modifiedAt;
         this.cancelDate = cancelDate;
         this.user = user;
         this.hotel = hotel;

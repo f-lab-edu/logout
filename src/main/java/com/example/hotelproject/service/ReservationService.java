@@ -107,4 +107,10 @@ public class ReservationService {
         cancelItem.updateCancelDate();
     }
 
+    public List<ReservationDetailResponse> findAll() {
+        return reservationRepository.findAll()
+                .stream()
+                .map(ReservationDetailResponse::of)
+                .collect(Collectors.toList());
+    }
 }

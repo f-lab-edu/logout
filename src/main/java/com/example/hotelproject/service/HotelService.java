@@ -64,7 +64,7 @@ public class HotelService {
 
     @Transactional(readOnly = true)
     public List<OwnersHotelsResponse> findMyHotels(Long ownerNo){
-        return hotelRepository.findAllByOwner_UserNo(ownerNo)
+        return hotelRepository.findAllByOwner_OwnerNo(ownerNo)
             .stream().map(OwnersHotelsResponse::of)
             .collect(Collectors.toList());
     }

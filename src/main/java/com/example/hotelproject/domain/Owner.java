@@ -1,5 +1,6 @@
 package com.example.hotelproject.domain;
 
+import com.example.hotelproject.util.entity.BaseDateTimeEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,8 +21,8 @@ import lombok.ToString;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED) //기본 생성자를 만들어줌
 @ToString
-@Entity(name = "USER_OWNER")
-public class Owner {
+@Entity(name = "owner")
+public class Owner extends BaseDateTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

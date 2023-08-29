@@ -11,20 +11,20 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor
 public class OwnerUpdateRequest {
-    private Long userNo;
+    private Long ownerNo;
     private String name;
-    private String userId;
+    private String ownerId;
     private String password;
     private String email;
     private String mobile;
     private String address;
 
     @Builder
-    public OwnerUpdateRequest(Long userNo, String name, String userId, String password,
+    public OwnerUpdateRequest(Long ownerNo, String name, String ownerId, String password,
         String email, String mobile, String address) {
-        this.userNo = userNo;
+        this.ownerNo = ownerNo;
         this.name = name;
-        this.userId = userId;
+        this.ownerId = ownerId;
         this.password = password;
         this.email = email;
         this.mobile = mobile;
@@ -33,8 +33,8 @@ public class OwnerUpdateRequest {
 
     public Owner toOwner(){
         return Owner.builder()
-            .userId(userId)
-            .userNo(userNo)
+            .ownerId(ownerId)
+            .ownerNo(ownerNo)
             .password(password)
             .email(email)
             .name(name)

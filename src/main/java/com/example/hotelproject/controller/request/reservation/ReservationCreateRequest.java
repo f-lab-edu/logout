@@ -22,18 +22,15 @@ public class ReservationCreateRequest {
     private Room room;
     private LocalDate reservationStartDate;
     private LocalDate reservationEndDate;
-    private LocalDateTime createdAt;
 
     @Builder
     public ReservationCreateRequest(User user, Hotel hotel,
-        Room room, LocalDate reservationStartDate, LocalDate reservationEndDate,
-        LocalDateTime createdAt) {
+        Room room, LocalDate reservationStartDate, LocalDate reservationEndDate) {
         this.user = user;
         this.hotel = hotel;
         this.room = room;
         this.reservationStartDate = reservationStartDate;
         this.reservationEndDate = reservationEndDate;
-        this.createdAt = createdAt;
     }
 
     public Reservation toReservation(User user, Hotel hotel, Room room){
@@ -43,7 +40,6 @@ public class ReservationCreateRequest {
             .room(room)
             .reservationStartDate(reservationStartDate)
             .reservationEndDate(reservationEndDate)
-            .createdAt(createdAt)
             .build();
     }
 }
