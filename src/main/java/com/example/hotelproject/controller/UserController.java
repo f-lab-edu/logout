@@ -33,8 +33,8 @@ public class UserController {
 
     @GetMapping("/{userId}")
     @ApiOperation(value = "user 검색", notes = "user를 검색합니다.")
-    public ResponseEntity<UserResponse> findUserByUserId(@PathVariable("userId") String id){
-        return ResponseEntity.ok(userService.findUserByUserId(id));
+    public UserResponse findUserByUserId(@PathVariable("userId") String id){
+        return userService.findUserByUserId(id);
     }
 
     @DeleteMapping("/{userId}")

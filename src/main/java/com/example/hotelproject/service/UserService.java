@@ -6,6 +6,9 @@ import com.example.hotelproject.domain.User;
 import com.example.hotelproject.repository.UserRepository;
 
 import java.util.stream.Collectors;
+
+import com.example.hotelproject.util.exception.CustomException;
+import com.example.hotelproject.util.exception.ErrorCode;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,7 +48,7 @@ public class UserService {
     public UserResponse findUserByUserId(String id) {
         return userRepository.findUserByUserId(id)
             .map(UserResponse::of)
-            .orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
+            .orElseThrow(() -> new CustomException(ErrorCode.DATA_NOT_FOUND));
     }
 
 

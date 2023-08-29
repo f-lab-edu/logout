@@ -43,6 +43,7 @@ public class ReservationController {
     }
 
     @GetMapping()
+    @ApiOperation(value = "예약내역 전체조회", notes = "테이블 전체내역 조회")
     public List<ReservationDetailResponse> findAll(){
         return reservationService.findAll();
     }
