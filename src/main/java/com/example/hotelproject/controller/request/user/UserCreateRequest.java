@@ -1,4 +1,4 @@
-package com.example.hotelproject.controller.request;
+package com.example.hotelproject.controller.request.user;
 
 
 import com.example.hotelproject.domain.User;
@@ -10,7 +10,8 @@ import lombok.ToString;
 @ToString
 @Getter
 @NoArgsConstructor
-public class UserRegisterRequest {
+public class UserCreateRequest{
+    private Long userNo;
     private String name;
     private String userId;
     private String password;
@@ -20,8 +21,9 @@ public class UserRegisterRequest {
     private int age;
 
     @Builder
-    public UserRegisterRequest(String name, String userId, String password, String email,
-        String mobile, String address, int age) {
+    public UserCreateRequest(Long userNo, String name, String userId, String password,
+        String email, String mobile, String address, int age) {
+        this.userNo = userNo;
         this.name = name;
         this.userId = userId;
         this.password = password;
@@ -31,9 +33,10 @@ public class UserRegisterRequest {
         this.age = age;
     }
 
-    public User toEntity(String password){
+    public User toEntity(){
         return User.builder()
             .userId(userId)
+            .userNo(userNo)
             .password(password)
             .email(email)
             .name(name)

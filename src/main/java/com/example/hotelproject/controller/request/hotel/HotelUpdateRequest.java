@@ -1,4 +1,4 @@
-package com.example.hotelproject.controller.request;
+package com.example.hotelproject.controller.request.hotel;
 
 import com.example.hotelproject.domain.Hotel;
 import lombok.Builder;

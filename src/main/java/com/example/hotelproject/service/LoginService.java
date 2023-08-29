@@ -1,8 +1,8 @@
 //package com.example.hotelproject.service;
 //
-//import com.example.hotelproject.controller.request.UserLoginRequest;
-//import com.example.hotelproject.controller.request.UserRegisterRequest;
-//import com.example.hotelproject.controller.response.UserRegisterResponse;
+//import com.example.hotelproject.controller.request.user.UserLoginRequest;
+//import com.example.hotelproject.controller.request.user.UserRegisterRequest;
+//import com.example.hotelproject.controller.response.user.UserRegisterResponse;
 //import com.example.hotelproject.domain.User;
 //import com.example.hotelproject.repository.UserRepository;
 //import com.example.hotelproject.util.JwtProvider;

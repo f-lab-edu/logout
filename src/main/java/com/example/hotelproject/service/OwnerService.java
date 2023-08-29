@@ -1,9 +1,7 @@
 package com.example.hotelproject.service;
-import com.example.hotelproject.controller.request.OwnerCreateRequest;
-import com.example.hotelproject.controller.request.OwnerUpdateRequest;
-import com.example.hotelproject.controller.response.OwnerResponse;
-import com.example.hotelproject.controller.response.OwnersHotelsResponse;
-import com.example.hotelproject.domain.Hotel;
+import com.example.hotelproject.controller.request.owner.OwnerCreateRequest;
+import com.example.hotelproject.controller.request.owner.OwnerUpdateRequest;
+import com.example.hotelproject.controller.response.owner.OwnerResponse;
 import com.example.hotelproject.domain.Owner;
 import com.example.hotelproject.repository.HotelRepository;
 import com.example.hotelproject.repository.OwnerRepository;

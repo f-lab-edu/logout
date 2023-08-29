@@ -1,9 +1,9 @@
 package com.example.hotelproject.service;
 
-import com.example.hotelproject.controller.request.HotelCreateRequest;
-import com.example.hotelproject.controller.request.HotelUpdateRequest;
-import com.example.hotelproject.controller.response.HotelResponse;
-import com.example.hotelproject.controller.response.OwnersHotelsResponse;
+import com.example.hotelproject.controller.request.hotel.HotelCreateRequest;
+import com.example.hotelproject.controller.request.hotel.HotelUpdateRequest;
+import com.example.hotelproject.controller.response.hotel.HotelResponse;
+import com.example.hotelproject.controller.response.owner.OwnersHotelsResponse;
 import com.example.hotelproject.domain.Hotel;
 import com.example.hotelproject.repository.HotelRepository;
 import java.util.List;

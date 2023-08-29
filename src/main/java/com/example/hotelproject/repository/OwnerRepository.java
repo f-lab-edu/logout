@@ -1,6 +1,5 @@
 package com.example.hotelproject.repository;
 
-import com.example.hotelproject.controller.request.OwnerCreateRequest;
 import com.example.hotelproject.domain.Owner;
 import org.apache.ibatis.annotations.Param;
 

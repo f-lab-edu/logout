@@ -1,9 +1,9 @@
 //package com.example.hotelproject.controller;
 //
-//import com.example.hotelproject.controller.request.UserLoginRequest;
-//import com.example.hotelproject.controller.request.UserRegisterRequest;
-//import com.example.hotelproject.controller.response.UserLoginResponse;
-//import com.example.hotelproject.controller.response.UserRegisterResponse;
+//import com.example.hotelproject.controller.request.user.UserLoginRequest;
+//import com.example.hotelproject.controller.request.user.UserRegisterRequest;
+//import com.example.hotelproject.controller.response.user.UserLoginResponse;
+//import com.example.hotelproject.controller.response.user.UserRegisterResponse;
 //import com.example.hotelproject.service.LoginService;
 //import com.example.hotelproject.service.OwnerService;
 //import com.example.hotelproject.service.UserService;

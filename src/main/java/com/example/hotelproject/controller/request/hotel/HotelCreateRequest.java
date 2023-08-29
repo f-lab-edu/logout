@@ -1,16 +1,20 @@
-package com.example.hotelproject.controller.response;
+package com.example.hotelproject.controller.request.hotel;
 
 import com.example.hotelproject.domain.Hotel;
-import com.example.hotelproject.domain.Owner;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@ToString
 @Getter
-public class HotelResponse {
+@ToString
+@NoArgsConstructor
+public class HotelCreateRequest {
+    /*호텔이름*/
     private String hotelName;
+    /*호텔타입*/
     private String hotelType;
+    /*위치*/
     private String location;
     /*호텔등급*/
     private int grade;
@@ -27,10 +31,7 @@ public class HotelResponse {
     private String remrk;
 
     @Builder
-    public HotelResponse(String hotelName, String hotelType, String location,
-        int grade,
-        boolean breakfastYn, boolean parkingYn, boolean swimYn, boolean fitnessYn,
-        String checkin, String checkout, String remrk) {
+    public HotelCreateRequest( String hotelName, String hotelType, String location, int grade, boolean breakfastYn, boolean parkingYn, boolean swimYn, boolean fitnessYn, String checkin, String checkout, String remrk) {
         this.hotelName = hotelName;
         this.hotelType = hotelType;
         this.location = location;
@@ -44,19 +45,19 @@ public class HotelResponse {
         this.remrk = remrk;
     }
 
-    public static HotelResponse of(Hotel hotel){
-        return HotelResponse.builder()
-            .hotelName(hotel.getHotelName())
-            .hotelType(hotel.getHotelType())
-            .location(hotel.getLocation())
-            .grade(hotel.getGrade())
-            .breakfastYn(hotel.isBreakfastYn())
-            .parkingYn(hotel.isParkingYn())
-            .swimYn(hotel.isSwimYn())
-            .fitnessYn(hotel.isFitnessYn())
-            .checkin(hotel.getCheckin())
-            .checkout(hotel.getCheckout())
+    public Hotel toEntity(){
+        return Hotel.builder()
+            .hotelName(hotelName)
+            .hotelType(hotelType)
+            .location(location)
+            .grade(grade)
+            .breakfastYn(breakfastYn)
+            .parkingYn(parkingYn)
+            .swimYn(swimYn)
+            .fitnessYn(fitnessYn)
+            .checkin(checkin)
+            .checkout(checkout)
+            .remrk(remrk)
             .build();
     }
-
 }

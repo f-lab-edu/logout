@@ -83,22 +83,8 @@ public class Reservation {
     }
 
     public boolean isDuplicatedDate(LocalDate startDate, LocalDate endDate){
-        if( //case 1 : 시작시간만 걸쳐있거나
-//            ((this.getReservationStartDate().equals(startDate) || startDate.isAfter(this.reservationStartDate)
-//             //case 2 : 종료시각만 걸쳐있거나
-//            && (this.getReservationEndDate().equals(endDate) || endDate.isBefore(this.reservationEndDate)))
-//            //case 3 : 시작시각과 종료시각이 데이터사이의 범위에 있거나
-//            || (this.getReservationStartDate().isBefore(startDate) && endDate.isAfter(this.reservationEndDate))
-//            //case 4 : 시작시각과 종료시각이 데이터사이의 범위보다 크거나
-//            )
-//        )
-//                // 시작이 :종료보다 작고 종료는 :시작보다 큰 경우
-            this.reservationStartDate.isBefore(endDate) && this.reservationEndDate.isAfter(startDate)
-            ){
-            return true;
-        }else{
-            return false;
-        }
+        return this.reservationStartDate.isBefore(endDate) && this.reservationEndDate
+            .isAfter(startDate);
     }
 
     public void updateCancelDate(){

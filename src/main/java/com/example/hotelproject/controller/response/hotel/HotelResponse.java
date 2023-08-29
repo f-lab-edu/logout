@@ -1,29 +1,35 @@
-package com.example.hotelproject.controller.response;
+package com.example.hotelproject.controller.response.hotel;
 
 import com.example.hotelproject.domain.Hotel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
+@ToString
 @Getter
-public class OwnersHotelsResponse {
-
+public class HotelResponse {
     private String hotelName;
     private String hotelType;
     private String location;
+    /*호텔등급*/
     private int grade;
+    /*조식제공여부*/
     private boolean breakfastYn;
+    /*주차가능여부*/
     private boolean parkingYn;
+    /*수영장여부*/
     private boolean swimYn;
+    /*휘트니스 여부*/
     private boolean fitnessYn;
     private String checkin;
     private String checkout;
     private String remrk;
-    private int owner_no;
 
     @Builder
-    public OwnersHotelsResponse(String hotelName, String hotelType, String location, int grade,
+    public HotelResponse(String hotelName, String hotelType, String location,
+        int grade,
         boolean breakfastYn, boolean parkingYn, boolean swimYn, boolean fitnessYn,
-        String checkin, String checkout, String remrk, int owner_no) {
+        String checkin, String checkout, String remrk) {
         this.hotelName = hotelName;
         this.hotelType = hotelType;
         this.location = location;
@@ -35,11 +41,10 @@ public class OwnersHotelsResponse {
         this.checkin = checkin;
         this.checkout = checkout;
         this.remrk = remrk;
-        this.owner_no = owner_no;
     }
 
-    public static OwnersHotelsResponse of(Hotel hotel){
-        return OwnersHotelsResponse.builder()
+    public static HotelResponse of(Hotel hotel){
+        return HotelResponse.builder()
             .hotelName(hotel.getHotelName())
             .hotelType(hotel.getHotelType())
             .location(hotel.getLocation())
@@ -52,4 +57,5 @@ public class OwnersHotelsResponse {
             .checkout(hotel.getCheckout())
             .build();
     }
+
 }

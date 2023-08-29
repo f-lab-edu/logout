@@ -1,4 +1,4 @@
-package com.example.hotelproject.controller.response;
+package com.example.hotelproject.controller.response.user;
 
 import com.example.hotelproject.domain.User;
 import lombok.Builder;

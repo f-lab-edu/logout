@@ -1,6 +1,6 @@
 package com.example.hotelproject.repository;
 
-import com.example.hotelproject.controller.request.HotelCreateRequest;
+import com.example.hotelproject.controller.request.hotel.HotelCreateRequest;
 import com.example.hotelproject.domain.Hotel;
 import java.util.List;
 import java.util.Optional;

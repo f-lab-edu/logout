@@ -1,7 +1,6 @@
-package com.example.hotelproject.controller.request;
+package com.example.hotelproject.controller.request.user;
 
 
-import com.example.hotelproject.domain.Owner;
 import com.example.hotelproject.domain.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,37 +10,36 @@ import lombok.ToString;
 @ToString
 @Getter
 @NoArgsConstructor
-public class OwnerCreateRequest {
-    private Long userNo;
+public class UserRegisterRequest {
     private String name;
     private String userId;
     private String password;
     private String email;
     private String mobile;
     private String address;
+    private int age;
 
     @Builder
-    public OwnerCreateRequest(Long userNo, String name, String userId, String password,
-        String email, String mobile, String address) {
-        this.userNo = userNo;
+    public UserRegisterRequest(String name, String userId, String password, String email,
+        String mobile, String address, int age) {
         this.name = name;
         this.userId = userId;
         this.password = password;
         this.email = email;
         this.mobile = mobile;
         this.address = address;
+        this.age = age;
     }
 
-    public Owner toEntity(){
-        return Owner.builder()
+    public User toEntity(String password){
+        return User.builder()
             .userId(userId)
-            .userNo(userNo)
             .password(password)
             .email(email)
             .name(name)
             .address(address)
+            .age(age)
             .mobile(mobile)
             .build();
     }
-
 }

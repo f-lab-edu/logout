@@ -1,15 +1,9 @@
 package com.example.hotelproject.controller;
-import com.example.hotelproject.controller.request.UserCreateRequest;
-import com.example.hotelproject.controller.request.UserLoginRequest;
-import com.example.hotelproject.controller.request.UserRegisterRequest;
-import com.example.hotelproject.controller.response.UserLoginResponse;
-import com.example.hotelproject.controller.response.UserRegisterResponse;
-import com.example.hotelproject.controller.response.UserResponse;
-import com.example.hotelproject.domain.User;
+import com.example.hotelproject.controller.request.user.UserCreateRequest;
+import com.example.hotelproject.controller.response.user.UserResponse;
 import com.example.hotelproject.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

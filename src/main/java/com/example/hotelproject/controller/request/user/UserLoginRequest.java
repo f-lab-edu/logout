@@ -1,4 +1,4 @@
-package com.example.hotelproject.controller.request;
+package com.example.hotelproject.controller.request.user;
 
 
 import com.example.hotelproject.domain.User;

@@ -1,9 +1,8 @@
-package com.example.hotelproject.controller.response;
+package com.example.hotelproject.controller.response.owner;
 
 import com.example.hotelproject.domain.Owner;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @ToString
