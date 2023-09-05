@@ -1,7 +1,7 @@
 //package com.example.hotelproject.util;
 //
 //import com.example.hotelproject.domain.Role;
-//import com.example.hotelproject.domain.User;
+//import com.example.hotelproject.user.entity.User;
 //import io.jsonwebtoken.Claims;
 //import io.jsonwebtoken.Jws;
 //import io.jsonwebtoken.Jwts;
