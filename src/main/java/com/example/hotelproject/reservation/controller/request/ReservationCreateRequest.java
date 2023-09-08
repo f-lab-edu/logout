@@ -16,6 +16,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class ReservationCreateRequest {
 
+    //TODO: userId 로 변경
     private User user;
     private Hotel hotel;
     private Room room;

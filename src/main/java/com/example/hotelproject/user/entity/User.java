@@ -17,7 +17,6 @@ import lombok.*;
 //table 1:1
 //create basic select update DB 작업에 사용
 @Getter
-@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED) //기본 생성자를 만들어줌
 @ToString
 @Entity(name = "user") //JPA를 사용할 클래스를 명시하며, 테이블과 매핑하는 역할을 한다.
@@ -55,6 +54,7 @@ public class User extends BaseDateTimeEntity {
 //    @Enumerated(EnumType.STRING)
 //    private Role role;
 
+    @Builder
     public User(Long userNo, String userId, String name, String password, String email, int age,
         String address, String mobile, boolean enabled) {
         this.userNo = userNo;
