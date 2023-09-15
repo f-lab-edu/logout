@@ -27,6 +27,7 @@ public class Hotel extends BaseDateTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "hotel_no")
     private Long hotelNo;        /*호텔번호*/
+    // 취향일수도 있는데, entity에는 필드에 대한 설명 빠져도 될 것 같아요, 테이블 생성 DDL 에 COMMENT 예약어로 필드 설명을 추가 해 둘 수 있습니다 ~
 
     @Column(name = "hotel_name", nullable = false)
     private String hotelName;     /*호텔이름*/
@@ -85,6 +86,8 @@ public class Hotel extends BaseDateTimeEntity {
         this.owner = owner;
     }
 
+    // hotelNo는 안쓰이고 있네요 ~ 추가로, hotelNo는 이 테이블의 id인데 바꾸면 될까요 ?
+    // HotelUpdateRequest를 참조하고 있는 것도 좋은 구조가 아닌 것 같습니다 ~
     public void update(Long hotelNo, HotelUpdateRequest request){
         this.hotelNo = getHotelNo();
         this.hotelName = request.getHotelName();

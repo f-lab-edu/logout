@@ -27,6 +27,7 @@ public class HotelController {
         this.hotelService = hotelService;
     }
 
+    // 여기도 Swagger로 변경이 필요할 것 같아요 ~
     //호텔 신규 등록
     @PostMapping("/create")
     public Long create(@RequestBody HotelCreateRequest request) {
