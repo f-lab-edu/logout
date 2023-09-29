@@ -4,12 +4,11 @@ import com.example.hotelproject.review.entity.QReview;
 import com.example.hotelproject.review.entity.Review;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.util.List;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-
-public class ReviewRepositoryImpl implements ReviewCustomRepository{
+public class ReviewRepositoryImpl implements ReviewCustomRepository {
 
     private final JPAQueryFactory queryFactory;
 
@@ -36,7 +35,7 @@ public class ReviewRepositoryImpl implements ReviewCustomRepository{
 
     }
 
-    private BooleanExpression eqHotelNo(Long hotelNo){
+    private BooleanExpression eqHotelNo(Long hotelNo) {
         return hotelNo != null ? review.hotel.hotelNo.eq(hotelNo) : null;
     }
 }

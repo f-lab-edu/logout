@@ -1,6 +1,9 @@
 package com.example.hotelproject.hotel.controller.request;
 
+import com.example.hotelproject.hotel.entity.AdditionalInfoEnum;
 import com.example.hotelproject.hotel.entity.Hotel;
+import com.example.hotelproject.hotel.entity.HotelOption;
+import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,50 +13,39 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class HotelUpdateRequest {
+
     /*호텔이름*/
     private String hotelName;
     /*호텔타입*/
     private String hotelType;
     /*위치*/
     private String location;
-    /*조식제공여부*/
-    private boolean breakfastYn;
-    /*주차가능여부*/
-    private boolean parkingYn;
-    /*수영장여부*/
-    private boolean swimYn;
-    /*휘트니스 여부*/
-    private boolean fitnessYn;
+    private List<AdditionalInfoEnum> additionalInfo;
     private String checkin;
     private String checkout;
-    private String remrk;
+    private int grade;
+    private List<HotelOption> options;
 
     @Builder
-    public HotelUpdateRequest( String hotelName, String hotelType, String location, boolean breakfastYn, boolean parkingYn, boolean swimYn, boolean fitnessYn, String checkin, String checkout, String remrk) {
+    public HotelUpdateRequest(String hotelName, String hotelType, String location,
+            List<HotelOption> options, String checkin, String checkout, int grade) {
         this.hotelName = hotelName;
         this.hotelType = hotelType;
         this.location = location;
-        this.breakfastYn = breakfastYn;
-        this.parkingYn = parkingYn;
-        this.swimYn = swimYn;
-        this.fitnessYn = fitnessYn;
+        this.options = options;
         this.checkin = checkin;
         this.checkout = checkout;
-        this.remrk = remrk;
+        this.grade = grade;
     }
 
-    public Hotel toEntity(){
+    public Hotel toEntity() {
         return Hotel.builder()
-            .hotelName(hotelName)
-            .hotelType(hotelType)
-            .location(location)
-            .breakfastYn(breakfastYn)
-            .parkingYn(parkingYn)
-            .swimYn(swimYn)
-            .fitnessYn(fitnessYn)
-            .checkin(checkin)
-            .checkout(checkout)
-            .remrk(remrk)
-            .build();
+                .hotelName(hotelName)
+                .hotelType(hotelType)
+                .location(location)
+                .checkin(checkin)
+                .checkout(checkout)
+
+                .build();
     }
 }

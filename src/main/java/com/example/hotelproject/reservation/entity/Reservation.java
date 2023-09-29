@@ -1,6 +1,9 @@
 package com.example.hotelproject.reservation.entity;
 
+import com.example.hotelproject.hotel.entity.Hotel;
 import com.example.hotelproject.room.entity.Room;
+import com.example.hotelproject.user.entity.User;
+import com.example.hotelproject.util.entity.BaseDateTimeEntity;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,10 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import com.example.hotelproject.hotel.entity.Hotel;
-import com.example.hotelproject.user.entity.User;
-import com.example.hotelproject.util.entity.BaseDateTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -50,7 +49,7 @@ public class Reservation extends BaseDateTimeEntity {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "HOTEL_NO")
+    @JoinColumn(name = "hotel_no")
     private Hotel hotel;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -58,8 +57,9 @@ public class Reservation extends BaseDateTimeEntity {
     private Room room;
 
     @Builder
-    public Reservation(Long id, LocalDate reservationStartDate, LocalDate reservationEndDate, LocalDate cancelDate,
-                       User user, Hotel hotel, Room room) {
+    public Reservation(Long id, LocalDate reservationStartDate, LocalDate reservationEndDate,
+            LocalDate cancelDate,
+            User user, Hotel hotel, Room room) {
         this.id = id;
         this.reservationStartDate = reservationStartDate;
         this.reservationEndDate = reservationEndDate;
@@ -69,12 +69,12 @@ public class Reservation extends BaseDateTimeEntity {
         this.room = room;
     }
 
-    public boolean isDuplicatedDate(LocalDate startDate, LocalDate endDate){
+    public boolean isDuplicatedDate(LocalDate startDate, LocalDate endDate) {
         return this.reservationStartDate.isBefore(endDate) && this.reservationEndDate
-            .isAfter(startDate);
+                .isAfter(startDate);
     }
 
-    public void updateCancelDate(){
+    public void updateCancelDate() {
         this.cancelDate = LocalDate.now();
     }
 }

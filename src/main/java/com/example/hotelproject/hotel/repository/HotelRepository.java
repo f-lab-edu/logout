@@ -1,7 +1,7 @@
 package com.example.hotelproject.hotel.repository;
 
-import com.example.hotelproject.hotel.controller.request.HotelCreateRequest;
 import com.example.hotelproject.hotel.entity.Hotel;
+import com.example.hotelproject.hotel.entity.HotelOption;
 import java.util.List;
 import java.util.Optional;
 import org.apache.ibatis.annotations.Param;
@@ -9,10 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface HotelRepository extends JpaRepository<Hotel,Long> {
-
-    // 말씀 드린거긴 하지만, save는 선언 안해주셔도 됩니다 ~
-    Hotel save(HotelCreateRequest hotelCreateRequest);
+public interface HotelRepository extends JpaRepository<Hotel, Long>, HotelCustomRepository {
 
     List<Hotel> findAll();
 
@@ -29,4 +26,5 @@ public interface HotelRepository extends JpaRepository<Hotel,Long> {
     Optional<Hotel> findByHotelNo(Long hotelNo);
 
     List<Hotel> findAllByOwner_OwnerNo(@Param("ownerNo") Long ownerNo);
+
 }
