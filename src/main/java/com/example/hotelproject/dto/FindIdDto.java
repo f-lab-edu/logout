@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-public class FindIdDto {
+public class FindIdDto { // 이 클래스는 저번에 reservation id로 쓰기로 했던거죠 ?
     private User user;
     private Hotel hotel;
     private Room room;

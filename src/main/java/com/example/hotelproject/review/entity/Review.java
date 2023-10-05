@@ -45,7 +45,7 @@ public class Review extends BaseDateTimeEntity {
         this.hotel = hotel;
     }
 
-    public void update(ReviewUpdateRequest reviewUpdateRequest){
+    public void update(ReviewUpdateRequest reviewUpdateRequest){ //TODO:request XX
         this.contents = reviewUpdateRequest.getContent();
         this.starRate = reviewUpdateRequest.getStarRate();
     }
