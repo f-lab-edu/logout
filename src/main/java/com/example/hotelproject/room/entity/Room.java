@@ -1,6 +1,7 @@
 package com.example.hotelproject.room.entity;
 
 import com.example.hotelproject.hotel.entity.Hotel;
+import com.example.hotelproject.util.entity.BaseDateTimeEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,8 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import com.example.hotelproject.util.entity.BaseDateTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -50,24 +49,25 @@ public class Room extends BaseDateTimeEntity {
     @Column(name = "smoking_yn")
     private Boolean smokingYn;
 
-    @Column(name = "remrk")
-    private String remrk;
+    @Column(name = "max_quantity")
+    private Integer maxQuantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hotel_no")
     private Hotel hotel;
 
+
     @Builder
     public Room(int price, int basicOccupancy, int maximumOccupancy,
-        RoomType roomType, RoomLevel roomLevel, Boolean smokingYn, String remrk,
-        Hotel hotel) {
+            RoomType roomType, RoomLevel roomLevel, Boolean smokingYn,
+            Integer maxQuantity, Hotel hotel) {
         this.price = price;
         this.basicOccupancy = basicOccupancy;
         this.maximumOccupancy = maximumOccupancy;
         this.roomType = roomType;
         this.roomLevel = roomLevel;
         this.smokingYn = smokingYn;
-        this.remrk = remrk;
+        this.maxQuantity = maxQuantity;
         this.hotel = hotel;
     }
 }

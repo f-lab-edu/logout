@@ -51,10 +51,15 @@ public class Hotel extends BaseDateTimeEntity {
     @JoinColumn(name = "owner_no")
     private Owner owner;
 
+    @OneToMany
+    private List<HotelOption> options; // BREAKFAST, SMOKE
+
     @Builder
-    public Hotel(String hotelName, String hotelType, String location, int grade,
-            String checkin, String checkout,
-            Owner owner, List<HotelOption> options) {
+    public Hotel(Long hotelNo, String hotelName, String hotelType, String location, int grade,
+            boolean breakfastYn, boolean parkingYn, boolean swimYn, boolean fitnessYn,
+            String checkin, String checkout, String remrk, List<HotelOption> options,
+            Owner owner) {
+        this.hotelNo = hotelNo;
         this.hotelName = hotelName;
         this.hotelType = hotelType;
         this.location = location;
