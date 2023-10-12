@@ -23,13 +23,13 @@ public class RoomController {
         this.roomService = roomService;
     }
 
-    @PostMapping("/quantity")
+    @PostMapping("/quantity/reservation")
     @ApiOperation(value = "room 수량 업데이트", notes = "예약시 룸 수량을 업데이트 합니다.")
     public void reservationQuantity(@RequestBody RoomReservationQuantityRequest request) {
         roomService.MaxQuantitySetting(request);
     }
 
-    @PostMapping("/quantity")
+    @PostMapping("/quantity/cancel")
     @ApiOperation(value = "room 수량 업데이트", notes = "예약취소시 룸 수량을 업데이트 합니다.")
     public void cancelQuantity(@RequestBody RoomCancelQuantityRequest request) {
         roomService.cancelQuantitySetting(request);

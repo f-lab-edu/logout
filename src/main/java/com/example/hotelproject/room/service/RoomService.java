@@ -50,7 +50,7 @@ public class RoomService {
             }
 
             for (LocalDate night : nights) {
-                boolean isExistRow = roomQuantityRepository.existsByRoomNoAndDate(
+                boolean isExistRow = roomQuantityRepository.existsByRoom_roomNoAndDate(
                         quantity.getRoom().getRoomNo(), quantity.getDate());
                 if (isExistRow) { //데이터가 있는 날짜
                     exist.add(night);
@@ -64,7 +64,7 @@ public class RoomService {
         //update
         if (!exist.isEmpty()) {
             for (LocalDate updateDate : exist) {
-                RoomQuantity updateQuantity = roomQuantityRepository.findByRoomNoAndDate(
+                RoomQuantity updateQuantity = roomQuantityRepository.findByRoom_roomNoAndDate(
                         quantity.getRoom().getRoomNo(), updateDate);
                 //잔여수량 확인
                 if (updateQuantity.getQuantity() == 0) {
@@ -109,7 +109,7 @@ public class RoomService {
 
         for (int i = 0; i <= request.getNights(); i++) {
             LocalDate date = quantity.getDate().plusDays(i);
-            RoomQuantity updateQuantity = roomQuantityRepository.findByRoomNoAndDate(
+            RoomQuantity updateQuantity = roomQuantityRepository.findByRoom_roomNoAndDate(
                     quantity.getRoom().getRoomNo(), date);
             Integer settingDate = updateQuantity.getQuantity() + 1;
             updateQuantity.update(settingDate);//TODO:테스트필요
@@ -119,7 +119,7 @@ public class RoomService {
 
 
     public int getQuantity(RoomFindQuantityRequest request) {
-        return roomQuantityRepository.findByRoomNoAndDate(request.getRoomNo(), LocalDate.now())
+        return roomQuantityRepository.findByRoom_roomNoAndDate(request.getRoomNo(), LocalDate.now())
                 .getQuantity();
     }
 }

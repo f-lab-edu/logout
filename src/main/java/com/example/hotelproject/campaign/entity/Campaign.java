@@ -28,8 +28,8 @@ public class Campaign extends BaseDateTimeEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "hotel_no")
-    private Long hotelNo;
+//    @Column(name = "hotel_no")
+//    private Long hotelNo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "campaign_kind_id")
@@ -56,14 +56,14 @@ public class Campaign extends BaseDateTimeEntity {
     private Hotel hotel;
 
     @Builder
-    public Campaign(Long hotelNo, CampaignKind campaignKind, CampaignInventory campaignInventory,
+    public Campaign(CampaignKind campaignKind, CampaignInventory campaignInventory,
             LocalDateTime serviceBeginDate, LocalDateTime serviceEndDate, boolean deleted,
-            boolean expired) {
-        this.hotelNo = hotelNo;
+            boolean expired, Hotel hotel) {
         this.campaignKind = campaignKind;
         this.campaignInventory = campaignInventory;
         this.serviceBeginDate = serviceBeginDate;
         this.serviceEndDate = serviceEndDate;
+        this.hotel = hotel;
     }
 
     public void updateDelete(boolean deleted) {

@@ -8,6 +8,7 @@ import com.example.hotelproject.campaign.entity.Campaign;
 import com.example.hotelproject.campaign.entity.CampaignKind;
 import com.example.hotelproject.campaign.repository.CampaignKindRepository;
 import com.example.hotelproject.campaign.repository.CampaignRepository;
+import com.example.hotelproject.hotel.entity.Hotel;
 import com.example.hotelproject.hotel.repository.HotelRepository;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,7 +34,9 @@ public class CampaignService {
         CampaignKind campaignKind = campaignKindRepository.findById(request.getCampaignKindId())
                 .orElseThrow(() -> new EntityNotFoundException("no campaign kind"));
 
-        Campaign campaign = request.toCampaign(campaignKind);
+        Hotel hotel = hotelRepository.findByHotelNo(request.getHotelNo())
+                .orElseThrow(() -> new EntityNotFoundException("no hotel"));
+        Campaign campaign = request.toCampaign(campaignKind, hotel);
 
         campaignRepository.save(campaign);
     }
