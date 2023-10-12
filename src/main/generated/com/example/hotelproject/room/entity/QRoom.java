@@ -33,12 +33,12 @@ public class QRoom extends EntityPathBase<Room> {
 
     public final NumberPath<Integer> maximumOccupancy = createNumber("maximumOccupancy", Integer.class);
 
+    public final NumberPath<Integer> maxQuantity = createNumber("maxQuantity", Integer.class);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifiedAt = _super.modifiedAt;
 
     public final NumberPath<Integer> price = createNumber("price", Integer.class);
-
-    public final StringPath remrk = createString("remrk");
 
     public final EnumPath<RoomLevel> roomLevel = createEnum("roomLevel", RoomLevel.class);
 

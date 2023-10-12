@@ -9,4 +9,5 @@ public interface RoomQuantityRepository extends JpaRepository<RoomQuantity, Long
     boolean existsByRoomNoAndDate(Long roomNo, LocalDate date);
 
     RoomQuantity findByRoomNoAndDate(Long roomNo, LocalDate date);
+
 }

@@ -3,6 +3,7 @@ package com.example.hotelproject.room.service;
 import com.example.hotelproject.hotel.entity.Hotel;
 import com.example.hotelproject.hotel.repository.HotelRepository;
 import com.example.hotelproject.room.controller.request.RoomCancelQuantityRequest;
+import com.example.hotelproject.room.controller.request.RoomFindQuantityRequest;
 import com.example.hotelproject.room.controller.request.RoomReservationQuantityRequest;
 import com.example.hotelproject.room.entity.Room;
 import com.example.hotelproject.room.entity.RoomQuantity;
@@ -114,5 +115,11 @@ public class RoomService {
             updateQuantity.update(settingDate);//TODO:테스트필요
         }
 
+    }
+
+
+    public int getQuantity(RoomFindQuantityRequest request) {
+        return roomQuantityRepository.findByRoomNoAndDate(request.getRoomNo(), LocalDate.now())
+                .getQuantity();
     }
 }
