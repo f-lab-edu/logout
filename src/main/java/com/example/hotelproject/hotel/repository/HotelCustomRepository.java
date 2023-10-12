@@ -7,4 +7,7 @@ import org.springframework.data.domain.Pageable;
 public interface HotelCustomRepository {
 
     PageImpl<Hotel> searchHotels(Pageable pageable, Hotel hotel);
+
+    PageImpl<Hotel> sortingByScore(Pageable pageable, Hotel hotel);
+
 }

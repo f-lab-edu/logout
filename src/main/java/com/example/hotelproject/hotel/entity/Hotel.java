@@ -54,11 +54,13 @@ public class Hotel extends BaseDateTimeEntity {
     @OneToMany
     private List<HotelOption> options; // BREAKFAST, SMOKE
 
+    @Column(name = "star_rate_average")
+    private float starRateAverage; //리뷰 평점
+
     @Builder
     public Hotel(Long hotelNo, String hotelName, String hotelType, String location, int grade,
-            boolean breakfastYn, boolean parkingYn, boolean swimYn, boolean fitnessYn,
             String checkin, String checkout, String remrk, List<HotelOption> options,
-            Owner owner) {
+            Owner owner, float starRateAverage) {
         this.hotelNo = hotelNo;
         this.hotelName = hotelName;
         this.hotelType = hotelType;
@@ -68,6 +70,7 @@ public class Hotel extends BaseDateTimeEntity {
         this.checkout = checkout;
         this.owner = owner;
         this.options = options;
+        this.starRateAverage = starRateAverage;
     }
 
     public void update(String hotelName, String hotelType, String location, int grade,
@@ -79,5 +82,9 @@ public class Hotel extends BaseDateTimeEntity {
         this.checkin = checkin;
         this.checkout = checkout;
         this.options = options;
+    }
+
+    public void updateStarRateAverage(float starRateAverage) {
+        this.starRateAverage = starRateAverage;
     }
 }

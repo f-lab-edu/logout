@@ -11,11 +11,12 @@ import com.example.hotelproject.review.entity.Review;
 import com.example.hotelproject.review.repository.ReviewRepository;
 import com.example.hotelproject.user.entity.User;
 import com.example.hotelproject.user.repository.UserRepository;
+import java.time.LocalDateTime;
+import javax.persistence.EntityNotFoundException;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ReviewService {
@@ -24,7 +25,8 @@ public class ReviewService {
     private UserRepository userRepository;
     private HotelRepository hotelRepository;
 
-    public ReviewService(ReviewRepository reviewRepository, UserRepository userRepository, HotelRepository hotelRepository) {
+    public ReviewService(ReviewRepository reviewRepository, UserRepository userRepository,
+            HotelRepository hotelRepository) {
         this.reviewRepository = reviewRepository;
         this.userRepository = userRepository;
         this.hotelRepository = hotelRepository;
@@ -36,26 +38,56 @@ public class ReviewService {
         return (PageImpl<ReviewResponse>) reviews.map(ReviewResponse::of);
     }
 
+    @Transactional
     public void create(ReviewCreateRequest reviewCreateRequest) {
         User user = userRepository.findUserByUserId(reviewCreateRequest.getUserId())
-                .orElseThrow(()-> new CustomException("no user"));
+                .orElseThrow(() -> new CustomException("no user"));
 
         Hotel hotel = hotelRepository.findByHotelNo(reviewCreateRequest.getHotelNo())
-                .orElseThrow(()-> new CustomException("no hotel"));;
+                .orElseThrow(() -> new CustomException("no hotel"));
+        ;
 
         Review review = reviewCreateRequest.toReview(user, hotel);
         reviewRepository.save(review);
+
+        updateRate(reviewCreateRequest.getHotelNo());//TODO: test
     }
 
+    @Transactional
     public void update(Long id, ReviewUpdateRequest reviewUpdateRequest) {
         //1.기한이 지난 리뷰는 수정이 불가(기한: 일주일로 설정)
-        if(reviewUpdateRequest.getCreatedAt().plusWeeks(1).isBefore(LocalDateTime.now())){
+        if (reviewUpdateRequest.getCreatedAt().plusWeeks(1).isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentException("일주일이 지난 리뷰는 수정이 불가합니다.");
         }
 
         Review review = reviewRepository.findById(id)
-                .orElseThrow(()-> new CustomException("no review"));
+                .orElseThrow(() -> new CustomException("no review"));
 
         review.update(reviewUpdateRequest);
+
+        updateRate(reviewUpdateRequest.getHotelNo());//TODO: test
+
+    }
+
+    //호텔 평균평점 업데이트
+    public void updateRate(Long hotelNo) {
+        Hotel hotel = hotelRepository.findByHotelNo(hotelNo)
+                .orElseThrow(() -> new EntityNotFoundException("no hotel"));
+
+        float avgRate = calculateRateAverge(hotel.getHotelNo());
+        hotel.updateStarRateAverage(avgRate);
+    }
+
+    private float calculateRateAverge(Long hotelNo){
+
+        //리뷰 개수
+        Integer cnt = reviewRepository.countByHotel_HotelNo(hotelNo);
+
+        Integer sum = reviewRepository.sumRate(hotelNo).get(0);
+
+        float avgRate = sum / cnt;
+
+        //호텔 평균평점 업데이트
+        return avgRate;
     }
 }

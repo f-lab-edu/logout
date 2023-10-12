@@ -1,6 +1,7 @@
 package com.example.hotelproject.hotel.repository;
 
 import com.example.hotelproject.hotel.entity.Hotel;
+import com.example.hotelproject.hotel.entity.HotelOption;
 import com.example.hotelproject.hotel.entity.QHotel;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -25,8 +26,9 @@ public class HotelRepositoryImpl implements HotelCustomRepository {
                         , eqHotelType(filter.getHotelType())
                         , eqLocation(filter.getLocation())
                         , eqGrade(filter.getGrade())
-
-                ) //TODO: Yn 관련 수정 필요,,,,
+                                .or(hotel.options.contains((HotelOption) filter.getOptions()))
+//TODO: test
+                )
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -40,6 +42,11 @@ public class HotelRepositoryImpl implements HotelCustomRepository {
                 .fetchOne();
 
         return new PageImpl<>(hotels, pageable, count);
+    }
+
+    @Override
+    public PageImpl<Hotel> sortingByScore(Pageable pageable, Hotel hotel) {
+        return null;
     }
 
 

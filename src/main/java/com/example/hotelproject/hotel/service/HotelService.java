@@ -86,6 +86,7 @@ public class HotelService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public PageImpl<HotelResponse> searchHotels(HotelSearchRequest hotelSearchRequest,
             PageRequest pageRequest) {
         Hotel hotelfilter = hotelSearchRequest.toEntity();
@@ -93,4 +94,6 @@ public class HotelService {
         return (PageImpl<HotelResponse>) hotelRepository.searchHotels(pageable, hotelfilter)
                 .stream().map(HotelResponse::of);
     }
+
+
 }
