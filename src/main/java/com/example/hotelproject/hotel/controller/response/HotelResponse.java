@@ -21,13 +21,11 @@ public class HotelResponse {
     private String checkout;
     private String remrk;
 
-    private int overallRate;
-
     @Builder
     public HotelResponse(String hotelName, String hotelType, String location,
             int grade,
             List<HotelOption> options, String checkin, String checkout,
-            String remrk, int overallRate) {
+            String remrk) {
         this.hotelName = hotelName;
         this.hotelType = hotelType;
         this.location = location;
@@ -36,7 +34,6 @@ public class HotelResponse {
         this.checkin = checkin;
         this.checkout = checkout;
         this.remrk = remrk;
-        this.overallRate = overallRate;
     }
 
     public static HotelResponse of(Hotel hotel) {
@@ -48,7 +45,6 @@ public class HotelResponse {
                 .checkin(hotel.getCheckin())
                 .checkout(hotel.getCheckout())
                 .options(hotel.getOptions())
-                .overallRate(hotel.getOverallRate())
                 .build();
     }
 
