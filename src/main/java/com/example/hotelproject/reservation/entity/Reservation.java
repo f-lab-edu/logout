@@ -5,6 +5,7 @@ import com.example.hotelproject.room.entity.Room;
 import com.example.hotelproject.user.entity.User;
 import com.example.hotelproject.util.entity.BaseDateTimeEntity;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -35,10 +36,10 @@ public class Reservation extends BaseDateTimeEntity {
     private Long id;
 
     @Column(name = "reservation_start_date", nullable = false)
-    private LocalDate reservationStartDate;
+    private LocalDateTime reservationStartDate;
 
     @Column(name = "reservation_end_date", nullable = false)
-    private LocalDate reservationEndDate;
+    private LocalDateTime reservationEndDate;
 
     @Where(clause = "cancel_date is null") //TODO: canceledAt 으로 변경
     @Column(name = "cancel_date")
@@ -57,7 +58,8 @@ public class Reservation extends BaseDateTimeEntity {
     private Room room;
 
     @Builder
-    public Reservation(Long id, LocalDate reservationStartDate, LocalDate reservationEndDate,
+    public Reservation(Long id, LocalDateTime reservationStartDate,
+            LocalDateTime reservationEndDate,
             LocalDate cancelDate,
             User user, Hotel hotel, Room room) {
         this.id = id;
@@ -69,7 +71,7 @@ public class Reservation extends BaseDateTimeEntity {
         this.room = room;
     }
 
-    public boolean isDuplicatedDate(LocalDate startDate, LocalDate endDate) {
+    public boolean isDuplicatedDate(LocalDateTime startDate, LocalDateTime endDate) {
         return this.reservationStartDate.isBefore(endDate) && this.reservationEndDate
                 .isAfter(startDate);
     }

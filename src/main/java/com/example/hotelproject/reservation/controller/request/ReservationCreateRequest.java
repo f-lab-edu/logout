@@ -2,10 +2,9 @@ package com.example.hotelproject.reservation.controller.request;
 
 import com.example.hotelproject.hotel.entity.Hotel;
 import com.example.hotelproject.reservation.entity.Reservation;
-import com.example.hotelproject.user.entity.User;
 import com.example.hotelproject.room.entity.Room;
-import java.time.LocalDate;
-
+import com.example.hotelproject.user.entity.User;
+import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,12 +19,12 @@ public class ReservationCreateRequest {
     private User user;
     private Hotel hotel;
     private Room room;
-    private LocalDate reservationStartDate;
-    private LocalDate reservationEndDate;
+    private LocalDateTime reservationStartDate;
+    private LocalDateTime reservationEndDate;
 
     @Builder
     public ReservationCreateRequest(User user, Hotel hotel,
-        Room room, LocalDate reservationStartDate, LocalDate reservationEndDate) {
+            Room room, LocalDateTime reservationStartDate, LocalDateTime reservationEndDate) {
         this.user = user;
         this.hotel = hotel;
         this.room = room;
@@ -33,13 +32,13 @@ public class ReservationCreateRequest {
         this.reservationEndDate = reservationEndDate;
     }
 
-    public Reservation toReservation(User user, Hotel hotel, Room room){
+    public Reservation toReservation(User user, Hotel hotel, Room room) {
         return Reservation.builder()
-            .user(user)
-            .hotel(hotel)
-            .room(room)
-            .reservationStartDate(reservationStartDate)
-            .reservationEndDate(reservationEndDate)
-            .build();
+                .user(user)
+                .hotel(hotel)
+                .room(room)
+                .reservationStartDate(reservationStartDate)
+                .reservationEndDate(reservationEndDate)
+                .build();
     }
 }

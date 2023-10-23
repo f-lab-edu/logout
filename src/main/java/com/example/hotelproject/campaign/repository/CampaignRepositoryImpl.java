@@ -57,7 +57,7 @@ public class CampaignRepositoryImpl implements CampaignCustomRepository {
 
         return queryFactory.selectFrom(campaign)
                 .join(campaign.hotel, QHotel.hotel).fetchJoin()
-                .where(campaign.hotelNo.eq(QHotel.hotel.hotelNo)
+                .where(campaign.hotel.hotelNo.eq(QHotel.hotel.hotelNo)
                         .and(campaign.id.eq(inventoryId))
                         .and(campaign.campaignKind.id.eq(kindId))
                         .and(campaign.deleted.isFalse())
