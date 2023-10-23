@@ -55,7 +55,7 @@ public class Hotel extends BaseDateTimeEntity {
     private List<HotelOption> options; // BREAKFAST, SMOKE
 
     @Column(name = "star_rate_average")
-    private float starRateAverage; //리뷰 평점
+    private Float starRateAverage; //리뷰 평점
 
     @Builder
     public Hotel(Long hotelNo, String hotelName, String hotelType, String location, int grade,

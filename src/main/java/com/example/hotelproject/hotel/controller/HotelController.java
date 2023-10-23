@@ -11,7 +11,7 @@ import com.example.hotelproject.review.controller.request.PageRequest;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
-import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.SliceImpl;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -70,7 +70,7 @@ public class HotelController {
     }
 
     @GetMapping("/search")
-    public PageImpl<HotelResponse> searchHotels(@RequestBody HotelSearchRequest hotelSearchRequest,
+    public SliceImpl<HotelResponse> searchHotels(@RequestBody HotelSearchRequest hotelSearchRequest,
             PageRequest pageRequest) {
         return hotelService.searchHotels(hotelSearchRequest, pageRequest);
     }

@@ -10,8 +10,8 @@ import com.example.hotelproject.owner.controller.response.OwnersHotelsResponse;
 import com.example.hotelproject.review.controller.request.PageRequest;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -87,12 +87,13 @@ public class HotelService {
     }
 
     @Transactional(readOnly = true)
-    public PageImpl<HotelResponse> searchHotels(HotelSearchRequest hotelSearchRequest,
+    public SliceImpl<HotelResponse> searchHotels(HotelSearchRequest hotelSearchRequest,
             PageRequest pageRequest) {
         Hotel hotelfilter = hotelSearchRequest.toEntity();
         Pageable pageable = pageRequest.of();
-        return (PageImpl<HotelResponse>) hotelRepository.searchHotels(pageable, hotelfilter)
-                .stream().map(HotelResponse::of);
+        return (SliceImpl<HotelResponse>) hotelRepository.searchHotelsBasicScroll(null, pageable,
+                        hotelfilter)
+                .map(HotelResponse::of);
     }
 
 
