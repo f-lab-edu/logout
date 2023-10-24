@@ -1,6 +1,7 @@
 package com.example.hotelproject.user.entity;
 
-import java.io.Serializable;
+import com.example.hotelproject.security.UserRoleEnum;
+import com.example.hotelproject.util.entity.BaseDateTimeEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,10 +9,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
-
-import com.example.hotelproject.util.entity.BaseDateTimeEntity;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 
 //table 1:1
@@ -51,12 +53,13 @@ public class User extends BaseDateTimeEntity {
     @Column(name = "enabled")
     private boolean enabled;
 
-//    @Enumerated(EnumType.STRING)
-//    private Role role;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "authority")
+    private UserRoleEnum role;
 
     @Builder
     public User(Long userNo, String userId, String name, String password, String email, int age,
-        String address, String mobile, boolean enabled) {
+            String address, String mobile, boolean enabled, UserRoleEnum role) {
         this.userNo = userNo;
         this.userId = userId;
         this.name = name;
@@ -66,5 +69,6 @@ public class User extends BaseDateTimeEntity {
         this.address = address;
         this.mobile = mobile;
         this.enabled = enabled;
+        this.role = role;
     }
 }
