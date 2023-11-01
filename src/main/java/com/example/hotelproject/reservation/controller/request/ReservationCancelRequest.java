@@ -1,9 +1,9 @@
 package com.example.hotelproject.reservation.controller.request;
 
 import com.example.hotelproject.hotel.entity.Hotel;
+import com.example.hotelproject.member.entity.Member;
 import com.example.hotelproject.reservation.entity.Reservation;
 import com.example.hotelproject.room.entity.Room;
-import com.example.hotelproject.user.entity.User;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,28 +15,29 @@ import lombok.ToString;
 @NoArgsConstructor
 public class ReservationCancelRequest {
 
-    private Long id;
-    private User user;
-    private Hotel hotel;
-    private Room room;
+    private Long reservationId;
+    private String email;
+    private Long hotelNo;
+    private Long roomNo;
     private LocalDateTime reservationStartDate;
     private LocalDateTime reservationEndDate;
 
     @Builder
-    public ReservationCancelRequest(Long id, User user, Hotel hotel,
-            Room room, LocalDateTime reservationStartDate, LocalDateTime reservationEndDate) {
-        this.id = id;
-        this.user = user;
-        this.hotel = hotel;
-        this.room = room;
+    public ReservationCancelRequest(Long reservationId, String email, Long hotelNo, Long roomNo,
+            LocalDateTime reservationStartDate, LocalDateTime reservationEndDate) {
+        this.reservationId = reservationId;
+        this.email = email;
+        this.hotelNo = hotelNo;
+        this.roomNo = roomNo;
         this.reservationStartDate = reservationStartDate;
         this.reservationEndDate = reservationEndDate;
     }
 
-    public Reservation toReservation(User user, Hotel hotel, Room room) {
+
+    public Reservation toReservation(Member member, Hotel hotel, Room room) {
         return Reservation.builder()
-                .id(id)
-                .user(user)
+                .reservationId(reservationId)
+                .member(member)
                 .hotel(hotel)
                 .room(room)
                 .reservationStartDate(reservationStartDate)
