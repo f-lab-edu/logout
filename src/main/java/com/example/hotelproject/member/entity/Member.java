@@ -51,10 +51,13 @@ public class Member extends BaseDateTimeEntity {
     @Column(name = "authority")
     private MemberRoleEnum role;
 
+    @Column(name = "nickname")
+    private String nickname;
+
     @Builder
     public Member(Long memberId, String name, String password, String email, int age,
-            String address,
-            String mobile, boolean enabled, MemberRoleEnum role) {
+            String address, String mobile, boolean enabled, MemberRoleEnum role,
+            String nickname) {
         this.memberId = memberId;
         this.name = name;
         this.password = password;
@@ -64,5 +67,6 @@ public class Member extends BaseDateTimeEntity {
         this.mobile = mobile;
         this.enabled = enabled;
         this.role = role;
+        this.nickname = nickname;
     }
 }

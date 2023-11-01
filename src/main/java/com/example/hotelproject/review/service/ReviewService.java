@@ -3,14 +3,14 @@ package com.example.hotelproject.review.service;
 import com.example.hotelproject.exception.CustomException;
 import com.example.hotelproject.hotel.entity.Hotel;
 import com.example.hotelproject.hotel.repository.HotelRepository;
+import com.example.hotelproject.member.entity.Member;
+import com.example.hotelproject.member.repository.MemberRepository;
 import com.example.hotelproject.review.controller.request.PageRequest;
 import com.example.hotelproject.review.controller.request.ReviewCreateRequest;
 import com.example.hotelproject.review.controller.request.ReviewUpdateRequest;
 import com.example.hotelproject.review.controller.response.ReviewResponse;
 import com.example.hotelproject.review.entity.Review;
 import com.example.hotelproject.review.repository.ReviewRepository;
-import com.example.hotelproject.user.entity.User;
-import com.example.hotelproject.user.repository.UserRepository;
 import java.time.LocalDateTime;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.data.domain.PageImpl;
@@ -22,13 +22,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class ReviewService {
 
     private ReviewRepository reviewRepository;
-    private UserRepository userRepository;
+    private MemberRepository memberRepository;
     private HotelRepository hotelRepository;
 
-    public ReviewService(ReviewRepository reviewRepository, UserRepository userRepository,
+    public ReviewService(ReviewRepository reviewRepository, MemberRepository memberRepository,
             HotelRepository hotelRepository) {
         this.reviewRepository = reviewRepository;
-        this.userRepository = userRepository;
+        this.memberRepository = memberRepository;
         this.hotelRepository = hotelRepository;
     }
 
@@ -40,14 +40,15 @@ public class ReviewService {
 
     @Transactional
     public void create(ReviewCreateRequest reviewCreateRequest) {
-        User user = userRepository.findUserByUserId(reviewCreateRequest.getUserId())
-                .orElseThrow(() -> new CustomException("no user"));
+        Member member = memberRepository.findMemberByEmail(reviewCreateRequest.getEmail())
+                .orElseThrow(() -> new CustomException(
+                        "no member with " + reviewCreateRequest.getEmail()));
 
         Hotel hotel = hotelRepository.findByHotelNo(reviewCreateRequest.getHotelNo())
                 .orElseThrow(() -> new CustomException("no hotel"));
         ;
 
-        Review review = reviewCreateRequest.toReview(user, hotel);
+        Review review = reviewCreateRequest.toReview(member, hotel);
         reviewRepository.save(review);
 
         updateRate(reviewCreateRequest.getHotelNo());//TODO: test
@@ -78,7 +79,7 @@ public class ReviewService {
         hotel.updateStarRateAverage(avgRate);
     }
 
-    private float calculateRateAverge(Long hotelNo){
+    private float calculateRateAverge(Long hotelNo) {
 
         //리뷰 개수
         Integer cnt = reviewRepository.countByHotel_HotelNo(hotelNo);
