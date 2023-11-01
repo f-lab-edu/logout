@@ -41,7 +41,7 @@ public class HotelResponse {
     public static HotelResponse of(Hotel hotel) {
         return HotelResponse.builder()
                 .hotelName(hotel.getHotelName())
-                .hotelType(hotel.getHotelType())
+                .hotelType(hotel.getHotelType().name())
                 .location(hotel.getLocation())
                 .grade(hotel.getGrade())
                 .checkin(hotel.getCheckin())

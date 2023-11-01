@@ -4,9 +4,10 @@ import com.example.hotelproject.hotel.controller.request.HotelCreateRequest;
 import com.example.hotelproject.hotel.controller.request.HotelSearchRequest;
 import com.example.hotelproject.hotel.controller.request.HotelUpdateRequest;
 import com.example.hotelproject.hotel.controller.response.HotelResponse;
+import com.example.hotelproject.hotel.controller.response.OwnersHotelsResponse;
 import com.example.hotelproject.hotel.entity.Hotel;
+import com.example.hotelproject.hotel.entity.HotelTypeEnum;
 import com.example.hotelproject.hotel.repository.HotelRepository;
-import com.example.hotelproject.owner.controller.response.OwnersHotelsResponse;
 import com.example.hotelproject.review.controller.request.PageRequest;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -68,7 +69,7 @@ public class HotelService {
 
         hotel.update(
                 request.getHotelName(),
-                request.getHotelType(),
+                HotelTypeEnum.valueOf(request.getHotelType()),
                 request.getLocation(),
                 request.getGrade(),
                 request.getCheckin(),
