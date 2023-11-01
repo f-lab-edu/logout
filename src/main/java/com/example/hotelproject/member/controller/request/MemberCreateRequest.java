@@ -2,7 +2,7 @@ package com.example.hotelproject.member.controller.request;
 
 
 import com.example.hotelproject.member.entity.Member;
-import com.example.hotelproject.security.UserRoleEnum;
+import com.example.hotelproject.security.MemberRoleEnum;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,12 +20,12 @@ public class MemberCreateRequest {
     private String mobile;
     private String address;
     private int age;
-    private UserRoleEnum role;
+    private MemberRoleEnum role;
 
     @Builder
     public MemberCreateRequest(Long memberId, String name, String password, String email,
             String mobile,
-            String address, int age, UserRoleEnum role) {
+            String address, int age, MemberRoleEnum role) {
         this.memberId = memberId;
         this.name = name;
         this.password = password;

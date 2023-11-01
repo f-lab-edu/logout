@@ -1,7 +1,7 @@
 package com.example.hotelproject.sign;
 
-import com.example.hotelproject.security.UserRoleEnum;
-import com.example.hotelproject.user.entity.User;
+import com.example.hotelproject.member.entity.Member;
+import com.example.hotelproject.security.MemberRoleEnum;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,21 +10,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SignResponse {
 
-    private String userId;
+    private String email;
     private String token;
-    private UserRoleEnum role;
+    private MemberRoleEnum role;
 
     @Builder
-    public SignResponse(String userId, String token, UserRoleEnum role) {
-        this.userId = userId;
+    public SignResponse(String email, String token, MemberRoleEnum role) {
+        this.email = email;
         this.token = token;
         this.role = role;
     }
 
-    public static SignResponse of(User user) {
+    public static SignResponse of(Member member) {
         return SignResponse.builder()
-                .userId(user.getUserId())
-                .role(user.getRole())
+                .email(member.getEmail())
+                .role(member.getRole())
                 .build();
     }
 

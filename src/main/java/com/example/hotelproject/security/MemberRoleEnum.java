@@ -1,13 +1,13 @@
 package com.example.hotelproject.security;
 
-public enum UserRoleEnum {
+public enum MemberRoleEnum {
     USER(Authority.USER),  // 회원 권한
     ADMIN(Authority.ADMIN),  // 관리자 권한
     OWNER(Authority.OWNER); // 오너 권한
 
     private final String authority;
 
-    UserRoleEnum(String authority) {
+    MemberRoleEnum(String authority) {
         this.authority = authority;
     }
 

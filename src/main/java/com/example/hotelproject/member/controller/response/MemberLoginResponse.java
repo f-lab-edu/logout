@@ -1,4 +1,4 @@
-package com.example.hotelproject.user.controller.response;
+package com.example.hotelproject.member.controller.response;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -8,11 +8,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @ToString
-public class UserLoginResponse {
+public class MemberLoginResponse {
+
     private String token;
 
     @Builder
-    public UserLoginResponse(String token) {
+    public MemberLoginResponse(String token) {
         this.token = token;
     }
 }

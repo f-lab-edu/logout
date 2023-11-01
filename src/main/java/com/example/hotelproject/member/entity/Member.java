@@ -1,6 +1,6 @@
 package com.example.hotelproject.member.entity;
 
-import com.example.hotelproject.security.UserRoleEnum;
+import com.example.hotelproject.security.MemberRoleEnum;
 import com.example.hotelproject.util.entity.BaseDateTimeEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -49,12 +49,12 @@ public class Member extends BaseDateTimeEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "authority")
-    private UserRoleEnum role;
+    private MemberRoleEnum role;
 
     @Builder
     public Member(Long memberId, String name, String password, String email, int age,
             String address,
-            String mobile, boolean enabled, UserRoleEnum role) {
+            String mobile, boolean enabled, MemberRoleEnum role) {
         this.memberId = memberId;
         this.name = name;
         this.password = password;
