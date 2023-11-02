@@ -1,17 +1,15 @@
 package com.example.hotelproject.hotel.entity;
 
-import com.example.hotelproject.owner.entity.Owner;
 import com.example.hotelproject.util.entity.BaseDateTimeEntity;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,7 +31,8 @@ public class Hotel extends BaseDateTimeEntity {
     private String hotelName;
 
     @Column(name = "hotel_type") //TODO: enum으로 변경 예정
-    private String hotelType;
+    @Enumerated(EnumType.STRING)
+    private HotelTypeEnum hotelType;
 
     @Column(name = "location")
     private String location;
@@ -47,20 +46,17 @@ public class Hotel extends BaseDateTimeEntity {
     @Column(name = "check_out")
     private String checkout;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_no")
-    private Owner owner;
-
-    @OneToMany
+    @ManyToMany
     private List<HotelOption> options; // BREAKFAST, SMOKE
 
     @Column(name = "star_rate_average")
-    private Float starRateAverage; //리뷰 평점
+    private Float starRateAverage; //리뷰 평점 //TODO: 타입 변경
 
     @Builder
-    public Hotel(Long hotelNo, String hotelName, String hotelType, String location, int grade,
+    public Hotel(Long hotelNo, String hotelName, HotelTypeEnum hotelType, String location,
+            int grade,
             String checkin, String checkout, String remrk, List<HotelOption> options,
-            Owner owner, float starRateAverage) {
+            float starRateAverage) {
         this.hotelNo = hotelNo;
         this.hotelName = hotelName;
         this.hotelType = hotelType;
@@ -68,12 +64,11 @@ public class Hotel extends BaseDateTimeEntity {
         this.grade = grade;
         this.checkin = checkin;
         this.checkout = checkout;
-        this.owner = owner;
         this.options = options;
         this.starRateAverage = starRateAverage;
     }
 
-    public void update(String hotelName, String hotelType, String location, int grade,
+    public void update(String hotelName, HotelTypeEnum hotelType, String location, int grade,
             String checkin, String checkout, List<HotelOption> options) {
         this.hotelName = hotelName;
         this.hotelType = hotelType;
