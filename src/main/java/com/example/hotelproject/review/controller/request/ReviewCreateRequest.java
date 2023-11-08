@@ -1,8 +1,8 @@
 package com.example.hotelproject.review.controller.request;
 
 import com.example.hotelproject.hotel.entity.Hotel;
+import com.example.hotelproject.member.entity.Member;
 import com.example.hotelproject.review.entity.Review;
-import com.example.hotelproject.user.entity.User;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,22 +11,26 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReviewCreateRequest {
-    private String userId;
+
+    private String nickname;
+    private String email;
     private Long hotelNo;
     private String content;
     private int starRate;
 
     @Builder
-    public ReviewCreateRequest(String userId, Long hotelNo, String content, int starRate) {
-        this.userId = userId;
+    public ReviewCreateRequest(String nickname, String email, Long hotelNo, String content,
+            int starRate) {
+        this.nickname = nickname;
+        this.email = email;
         this.hotelNo = hotelNo;
         this.content = content;
         this.starRate = starRate;
     }
 
-    public Review toReview(User user, Hotel hotel){
+    public Review toReview(Member member, Hotel hotel) {
         return Review.builder()
-                .user(user)
+                .member(member)
                 .hotel(hotel)
                 .contents(content)
                 .starRate(starRate)

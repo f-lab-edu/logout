@@ -2,6 +2,7 @@ package com.example.hotelproject.hotel.controller.request;
 
 import com.example.hotelproject.hotel.entity.Hotel;
 import com.example.hotelproject.hotel.entity.HotelOption;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,9 +22,14 @@ public class HotelSearchRequest {
     private String checkout;
     private int grade;
 
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+
+
     @Builder
     public HotelSearchRequest(String hotelName, String hotelType, String location,
-            List<HotelOption> options, String checkin, String checkout, int grade) {
+            List<HotelOption> options, String checkin, String checkout, int grade,
+            LocalDateTime startDate, LocalDateTime endDate) {
         this.hotelName = hotelName;
         this.hotelType = hotelType;
         this.location = location;
@@ -31,6 +37,8 @@ public class HotelSearchRequest {
         this.checkin = checkin;
         this.checkout = checkout;
         this.grade = grade;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public Hotel toEntity() {

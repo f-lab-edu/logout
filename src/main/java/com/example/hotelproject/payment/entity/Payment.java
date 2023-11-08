@@ -1,6 +1,7 @@
 package com.example.hotelproject.payment.entity;
 
-import com.example.hotelproject.user.entity.User;
+import com.example.hotelproject.member.entity.Member;
+import com.example.hotelproject.util.entity.BaseDateTimeEntity;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,9 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.example.hotelproject.util.entity.BaseDateTimeEntity;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +24,7 @@ import lombok.Setter;
 @Setter
 @Table(name = "payment")
 public class Payment extends BaseDateTimeEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "payment_id", nullable = false, unique = true)
@@ -44,7 +43,7 @@ public class Payment extends BaseDateTimeEntity {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user")
-    private User customer;
+    private Member customer;
     @Column
     private String paymentKey;
     @Column
@@ -57,7 +56,9 @@ public class Payment extends BaseDateTimeEntity {
 
 
     @Builder
-    public Payment(Long paymentId, PayType payType, Long amount, String orderName, String orderId, boolean paySuccessYN, User customer, String paymentKey, String failReason, boolean cancelYN, String cancelReason) {
+    public Payment(Long paymentId, PayType payType, Long amount, String orderName, String orderId,
+            boolean paySuccessYN, Member customer, String paymentKey, String failReason,
+            boolean cancelYN, String cancelReason) {
         this.paymentId = paymentId;
         this.payType = payType;
         this.amount = amount;

@@ -1,7 +1,6 @@
 package com.example.hotelproject.hotel.repository;
 
 import com.example.hotelproject.hotel.entity.Hotel;
-import com.example.hotelproject.hotel.entity.HotelOption;
 import java.util.List;
 import java.util.Optional;
 import org.apache.ibatis.annotations.Param;
@@ -14,9 +13,6 @@ public interface HotelRepository extends JpaRepository<Hotel, Long>, HotelCustom
     List<Hotel> findAll();
 
     boolean existsByHotelName(@Param("hotelName") String hotelName);
-
-    // 요것도 필요 없을 것 같아요 ~
-    void deleteById(@Param("id") Long id);
 
     List<Hotel> findHotelByHotelNameContains(@Param("hotelName") String name);
 

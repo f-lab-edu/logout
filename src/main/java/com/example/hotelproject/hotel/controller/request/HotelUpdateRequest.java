@@ -3,6 +3,7 @@ package com.example.hotelproject.hotel.controller.request;
 import com.example.hotelproject.hotel.entity.AdditionalInfoEnum;
 import com.example.hotelproject.hotel.entity.Hotel;
 import com.example.hotelproject.hotel.entity.HotelOption;
+import com.example.hotelproject.hotel.entity.HotelTypeEnum;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
@@ -41,11 +42,10 @@ public class HotelUpdateRequest {
     public Hotel toEntity() {
         return Hotel.builder()
                 .hotelName(hotelName)
-                .hotelType(hotelType)
+                .hotelType(HotelTypeEnum.valueOf(hotelType))
                 .location(location)
                 .checkin(checkin)
                 .checkout(checkout)
-
                 .build();
     }
 }

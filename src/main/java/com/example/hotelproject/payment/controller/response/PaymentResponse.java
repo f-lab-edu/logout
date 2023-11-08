@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class PaymentResponse {
+
     private String payType;
     private Long amount;
     private String orderName;
@@ -22,9 +23,12 @@ public class PaymentResponse {
     private String cancelReason;
     private String createdAt;
     private String paySuccessYn;
+
     @Builder
-    public PaymentResponse(String payType, Long amount, String orderName, String orderId, String customerEmail,
-                                String customerName, String successUrl, String failUrl, String failReason, boolean cancelYN, String cancelReason, String createdAt, String paySuccessYn) {
+    public PaymentResponse(String payType, Long amount, String orderName, String orderId,
+            String customerEmail,
+            String customerName, String successUrl, String failUrl, String failReason,
+            boolean cancelYN, String cancelReason, String createdAt, String paySuccessYn) {
         this.payType = payType;
         this.amount = amount;
         this.orderName = orderName;
@@ -40,12 +44,12 @@ public class PaymentResponse {
         this.paySuccessYn = paySuccessYn;
     }
 
-    public void updateUrl(String successUrl, String failUrl){
+    public void updateUrl(String successUrl, String failUrl) {
         this.successUrl = successUrl;
         this.failUrl = failUrl;
     }
 
-    public static PaymentResponse of(Payment payment){
+    public static PaymentResponse of(Payment payment) {
         return PaymentResponse.builder()
                 .payType(payment.getPayType().name())
                 .amount(payment.getAmount())

@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long>, ReviewCustomRepository {
-    Review save(Review review);
+    Integer countByHotel_HotelNo(Long hotelno);
 }

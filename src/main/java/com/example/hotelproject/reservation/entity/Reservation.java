@@ -1,10 +1,11 @@
 package com.example.hotelproject.reservation.entity;
 
 import com.example.hotelproject.hotel.entity.Hotel;
+import com.example.hotelproject.member.entity.Member;
 import com.example.hotelproject.room.entity.Room;
-import com.example.hotelproject.user.entity.User;
 import com.example.hotelproject.util.entity.BaseDateTimeEntity;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -32,21 +33,21 @@ public class Reservation extends BaseDateTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reservation_id")
-    private Long id;
+    private Long reservationId;
 
     @Column(name = "reservation_start_date", nullable = false)
-    private LocalDate reservationStartDate;
+    private LocalDateTime reservationStartDate;
 
     @Column(name = "reservation_end_date", nullable = false)
-    private LocalDate reservationEndDate;
+    private LocalDateTime reservationEndDate;
 
     @Where(clause = "cancel_date is null") //TODO: canceledAt 으로 변경
     @Column(name = "cancel_date")
     private LocalDate cancelDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_no")
-    private User user;
+    @JoinColumn(name = "member_no")
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hotel_no")
@@ -57,19 +58,20 @@ public class Reservation extends BaseDateTimeEntity {
     private Room room;
 
     @Builder
-    public Reservation(Long id, LocalDate reservationStartDate, LocalDate reservationEndDate,
+    public Reservation(Long reservationId, LocalDateTime reservationStartDate,
+            LocalDateTime reservationEndDate,
             LocalDate cancelDate,
-            User user, Hotel hotel, Room room) {
-        this.id = id;
+            Member member, Hotel hotel, Room room) {
+        this.reservationId = reservationId;
         this.reservationStartDate = reservationStartDate;
         this.reservationEndDate = reservationEndDate;
         this.cancelDate = cancelDate;
-        this.user = user;
+        this.member = member;
         this.hotel = hotel;
         this.room = room;
     }
 
-    public boolean isDuplicatedDate(LocalDate startDate, LocalDate endDate) {
+    public boolean isDuplicatedDate(LocalDateTime startDate, LocalDateTime endDate) {
         return this.reservationStartDate.isBefore(endDate) && this.reservationEndDate
                 .isAfter(startDate);
     }
