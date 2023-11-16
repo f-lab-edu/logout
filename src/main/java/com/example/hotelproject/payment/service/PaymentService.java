@@ -1,13 +1,16 @@
 package com.example.hotelproject.payment.service;
 
 import com.example.hotelproject.config.TossPaymentConfig;
+import com.example.hotelproject.member.entity.Member;
+import com.example.hotelproject.member.repository.MemberRepository;
 import com.example.hotelproject.payment.controller.request.PayCreateRequest;
 import com.example.hotelproject.payment.controller.response.PaymentResponse;
 import com.example.hotelproject.payment.controller.response.TossPaySuccessResponse;
-import com.example.hotelproject.user.entity.User;
 import com.example.hotelproject.payment.entity.Payment;
 import com.example.hotelproject.payment.repository.PaymentRepository;
-import com.example.hotelproject.user.repository.UserRepository;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+import java.util.Collections;
 import org.json.simple.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -16,21 +19,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-import java.util.Collections;
-
 @Service
 public class PaymentService {
 
     private final PaymentRepository paymentRepository;
     private final TossPaymentConfig tossPaymentConfig;
-    private final UserRepository userRepository;
 
-    public PaymentService(PaymentRepository paymentRepository, TossPaymentConfig tossPaymentConfig, UserRepository userRepository) {
+    private final MemberRepository memberRepository;
+
+    public PaymentService(PaymentRepository paymentRepository, TossPaymentConfig tossPaymentConfig,
+            MemberRepository memberRepository) {
         this.paymentRepository = paymentRepository;
         this.tossPaymentConfig = tossPaymentConfig;
-        this.userRepository = userRepository;
+        this.memberRepository = memberRepository;
     }
 
     @Transactional
@@ -48,7 +49,9 @@ public class PaymentService {
         }
 
         try {
-            User user = userRepository.findByEmail(customerEmail).orElseThrow(() -> {throw new RuntimeException("user not found");});
+            Member user = memberRepository.findMemberByEmail(customerEmail).orElseThrow(() -> {
+                throw new RuntimeException("member not found");
+            });
             Payment payment = request.toEntity(user);
             paymentRepository.save(payment);
 
@@ -61,7 +64,8 @@ public class PaymentService {
     }
 
     @Transactional
-    public TossPaySuccessResponse tossPaymentSuccess(String paymentKey, String orderId, Long amount) {
+    public TossPaySuccessResponse tossPaymentSuccess(String paymentKey, String orderId,
+            Long amount) {
         Payment payment = verifyPayment(orderId, amount);
 
         TossPaySuccessResponse result = requestPaymentAccept(paymentKey, orderId, amount);
@@ -71,6 +75,7 @@ public class PaymentService {
 
         return result;
     }
+
     public Payment verifyPayment(String orderId, Long amount) {
         Payment payment = paymentRepository.findByOrderId(orderId).orElseThrow(() -> {
             throw new IllegalArgumentException("PAYMENT_NOT_FOUND");
@@ -82,12 +87,14 @@ public class PaymentService {
     }
 
     @Transactional
-    private TossPaySuccessResponse requestPaymentAccept(String paymentKey, String orderId, Long amount) {
-        RestTemplate rest=new RestTemplate();
-        HttpHeaders headers=new HttpHeaders();
+    private TossPaySuccessResponse requestPaymentAccept(String paymentKey, String orderId,
+            Long amount) {
+        RestTemplate rest = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
 
         String testSecretApiKey = tossPaymentConfig.getTestSecretApiKey() + ":";
-        String encodedAuth=new String(Base64.getEncoder().encode(testSecretApiKey.getBytes(StandardCharsets.UTF_8)));
+        String encodedAuth = new String(
+                Base64.getEncoder().encode(testSecretApiKey.getBytes(StandardCharsets.UTF_8)));
 
         headers.setBasicAuth(encodedAuth);
         headers.setContentType(MediaType.APPLICATION_JSON);

@@ -1,6 +1,6 @@
 package com.example.hotelproject.payment.controller.request;
 
-import com.example.hotelproject.user.entity.User;
+import com.example.hotelproject.member.entity.Member;
 import com.example.hotelproject.payment.entity.PayType;
 import com.example.hotelproject.payment.entity.Payment;
 import java.util.UUID;
@@ -28,7 +28,9 @@ public class PayCreateRequest {
     private String yourFailUrl;
 
     @Builder
-    public PayCreateRequest(@NonNull PayType payType, @NonNull Long amount, @NonNull String orderName, String customerEmail, String customerName, String yourSuccessUrl, String yourFailUrl) {
+    public PayCreateRequest(@NonNull PayType payType, @NonNull Long amount,
+            @NonNull String orderName, String customerEmail, String customerName,
+            String yourSuccessUrl, String yourFailUrl) {
         this.payType = payType;
         this.amount = amount;
         this.orderName = orderName;
@@ -38,14 +40,14 @@ public class PayCreateRequest {
         this.yourFailUrl = yourFailUrl;
     }
 
-    public Payment toEntity(User user) {
+    public Payment toEntity(Member member) {
         return Payment.builder()
-            .payType(payType)
-            .amount(amount)
-            .orderName(orderName)
-            .orderId(UUID.randomUUID().toString())
-            .customer(user)
-            .paySuccessYN(false)
-            .build();
+                .payType(payType)
+                .amount(amount)
+                .orderName(orderName)
+                .orderId(UUID.randomUUID().toString())
+                .customer(member)
+                .paySuccessYN(false)
+                .build();
     }
 }

@@ -1,6 +1,8 @@
 package com.example.hotelproject.hotel.repository;
 
 import com.example.hotelproject.hotel.entity.Hotel;
+import com.example.hotelproject.hotel.entity.HotelFilter;
+import com.example.hotelproject.hotel.entity.HotelTypeEnum;
 import com.example.hotelproject.hotel.entity.QHotel;
 import com.example.hotelproject.hotel.entity.QHotelOption;
 import com.example.hotelproject.reservation.entity.QReservation;
@@ -14,8 +16,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.SliceImpl;
 
 public class HotelRepositoryImpl implements HotelCustomRepository {
 
@@ -32,28 +32,27 @@ public class HotelRepositoryImpl implements HotelCustomRepository {
 
 
     @Override
-    public Slice<Hotel> searchHotelsBasicScroll(Long cursorId, Pageable pageable, Hotel filter) {
+    public List<Hotel> searchHotelsBasic(Long cursorId, int limit,
+            HotelFilter filter) {
         List<Hotel> hotels = queryFactory.selectFrom(hotel)
                 .where(containsHotelName(filter.getHotelName())
-                        , eqHotelType(filter.getHotelType())
+//                        , eqHotelType(filter.getHotelType())
                         , eqLocation(filter.getLocation())
                         , eqGrade(filter.getGrade())
-//                        , hotel.options.contains(option.code.in())
-//                                .or(hotel.options.contains((HotelOption) filter.getOptions()))
                         , ltId(cursorId)
                 )
-                .limit(pageable.getPageSize()
+                .limit(limit
                         + 1) // limit 값으로 원래 불러올 게시글 개수보다 1개 더 불러와 다음에 호출할 게시글이 있는지를 판단
                 .orderBy(hotel.hotelNo.asc())
                 .fetch();
 
         boolean hasNext = false;
-        if (hotels.size() > pageable.getPageSize()) {
-            hotels.remove(pageable.getPageSize());
+        if (hotels.size() > limit) {
+            hotels.remove(limit);
             hasNext = true;
         }
 
-        return new SliceImpl<>(hotels, pageable, hasNext);
+        return hotels;
     }
 
     @Override
@@ -82,7 +81,7 @@ public class HotelRepositoryImpl implements HotelCustomRepository {
     }
 
     private BooleanExpression eqHotelType(String type) {
-        return type != null ? hotel.hotelType.eq(type) : null;
+        return type != null ? hotel.hotelType.eq(HotelTypeEnum.valueOf(type)) : null;
     }
 
     private BooleanExpression eqLocation(String location) {

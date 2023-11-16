@@ -20,13 +20,13 @@ public class HotelResponse {
     private String checkin;
     private String checkout;
     private String remrk;
-    private Float starRateAverage;
+    private Double starRateAverage;
 
     @Builder
     public HotelResponse(String hotelName, String hotelType, String location,
             int grade,
             List<HotelOption> options, String checkin, String checkout,
-            String remrk, float starRateAverage) {
+            String remrk, double starRateAverage) {
         this.hotelName = hotelName;
         this.hotelType = hotelType;
         this.location = location;

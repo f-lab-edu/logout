@@ -2,7 +2,6 @@ package com.example.hotelproject.hotel.controller.request;
 
 import com.example.hotelproject.hotel.entity.AdditionalInfoEnum;
 import com.example.hotelproject.hotel.entity.Hotel;
-import com.example.hotelproject.hotel.entity.HotelOption;
 import com.example.hotelproject.hotel.entity.HotelTypeEnum;
 import java.util.List;
 import lombok.Builder;
@@ -25,11 +24,11 @@ public class HotelUpdateRequest {
     private String checkin;
     private String checkout;
     private int grade;
-    private List<HotelOption> options;
+    private String options;
 
     @Builder
     public HotelUpdateRequest(String hotelName, String hotelType, String location,
-            List<HotelOption> options, String checkin, String checkout, int grade) {
+            String options, String checkin, String checkout, int grade) {
         this.hotelName = hotelName;
         this.hotelType = hotelType;
         this.location = location;

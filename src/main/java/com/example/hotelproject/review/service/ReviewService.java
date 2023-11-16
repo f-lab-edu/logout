@@ -75,18 +75,18 @@ public class ReviewService {
         Hotel hotel = hotelRepository.findByHotelNo(hotelNo)
                 .orElseThrow(() -> new EntityNotFoundException("no hotel"));
 
-        float avgRate = calculateRateAverge(hotel.getHotelNo());
+        double avgRate = calculateRateAverge(hotel.getHotelNo());
         hotel.updateStarRateAverage(avgRate);
     }
 
-    private float calculateRateAverge(Long hotelNo) {
+    private double calculateRateAverge(Long hotelNo) {
 
         //리뷰 개수
         Integer cnt = reviewRepository.countByHotel_HotelNo(hotelNo);
 
         Integer sum = reviewRepository.sumRate(hotelNo).get(0);
 
-        float avgRate = sum / cnt;
+        double avgRate = sum / cnt;
 
         //호텔 평균평점 업데이트
         return avgRate;

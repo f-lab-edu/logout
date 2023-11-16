@@ -1,14 +1,15 @@
 package com.example.hotelproject.hotel.repository;
 
 import com.example.hotelproject.hotel.entity.Hotel;
+import com.example.hotelproject.hotel.entity.HotelFilter;
 import java.time.LocalDateTime;
+import java.util.List;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 
 public interface HotelCustomRepository {
 
-    Slice<Hotel> searchHotelsBasicScroll(Long cursorId, Pageable pageable, Hotel hotel);
+    List<Hotel> searchHotelsBasic(Long cursorId, int limit, HotelFilter filter);
 
     PageImpl<Hotel> sortingByScore(Pageable pageable, Hotel hotel);
 

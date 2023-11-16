@@ -1,7 +1,7 @@
 package com.example.hotelproject.member.controller.request;
 
 
-import com.example.hotelproject.user.entity.User;
+import com.example.hotelproject.member.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,8 +32,8 @@ public class MemberRegisterRequest {
         this.age = age;
     }
 
-    public User toEntity(String password) {
-        return User.builder()
+    public Member toEntity(String password) {
+        return Member.builder()
                 .password(password)
                 .email(email)
                 .name(name)
