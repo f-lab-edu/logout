@@ -16,4 +16,5 @@ public interface HotelCustomRepository {
     PageImpl<Hotel> searchHotelsNew(Long lastId, Pageable pageable, Hotel hotelInfo,
             LocalDateTime startDate, LocalDateTime endDate);
 
+    List<Hotel> findAllByOptions(List<String> optionCode);
 }

@@ -1,5 +1,7 @@
 package com.example.hotelproject.hotel.repository;
 
+import static com.example.hotelproject.hotel.entity.QHotelOptions.hotelOptions;
+
 import com.example.hotelproject.hotel.entity.Hotel;
 import com.example.hotelproject.hotel.entity.HotelFilter;
 import com.example.hotelproject.hotel.entity.HotelTypeEnum;
@@ -73,6 +75,16 @@ public class HotelRepositoryImpl implements HotelCustomRepository {
     public PageImpl<Hotel> searchHotelsNew(Long lastId, Pageable pageable, Hotel hotelInfo,
             LocalDateTime startDate, LocalDateTime endDate) {
         return null;
+    }
+
+    @Override
+    public List<Hotel> findAllByOptions(List<String> optionCode) {
+        return queryFactory.selectFrom(hotel)
+                .innerJoin(hotel.hotelOptions, hotelOptions)
+                .where(hotelOptions.hotelOption.code.in(optionCode))
+                .groupBy(hotel.hotelNo)
+                .having(hotel.hotelNo.count().eq(Long.valueOf(optionCode.size())))
+                .fetch();
     }
 
 

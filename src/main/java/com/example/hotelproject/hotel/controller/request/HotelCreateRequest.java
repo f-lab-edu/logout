@@ -35,12 +35,12 @@ public class HotelCreateRequest {
 
     @Builder
     public HotelCreateRequest(String hotelName, String hotelType, String location, int grade,
-            String options, String checkin, String checkout) {
+            String checkin, String checkout) {
         this.hotelName = hotelName;
         this.hotelType = hotelType;
         this.location = location;
         this.grade = grade;
-        this.options = options;
+//        this.options = options;
         this.checkin = checkin;
         this.checkout = checkout;
     }
@@ -53,7 +53,7 @@ public class HotelCreateRequest {
                 .grade(grade)
                 .checkin(checkin)
                 .checkout(checkout)
-                .options(options)
+//                .options(options)
                 .build();
     }
 }

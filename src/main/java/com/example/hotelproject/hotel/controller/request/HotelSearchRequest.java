@@ -52,7 +52,7 @@ public class HotelSearchRequest {
                 .location(location)
                 .checkin(checkin)
                 .checkout(checkout)
-                .options(options.toString())
+//                .options(options.toString())
                 .build();
     }
 }

@@ -4,7 +4,6 @@ import com.example.hotelproject.hotel.controller.request.HotelCreateRequest;
 import com.example.hotelproject.hotel.controller.request.HotelSearchRequest;
 import com.example.hotelproject.hotel.controller.request.HotelUpdateRequest;
 import com.example.hotelproject.hotel.controller.response.HotelResponse;
-import com.example.hotelproject.hotel.controller.response.OwnersHotelsResponse;
 import com.example.hotelproject.hotel.entity.Hotel;
 import com.example.hotelproject.hotel.entity.HotelFilter;
 import com.example.hotelproject.hotel.entity.HotelTypeEnum;
@@ -72,19 +71,19 @@ public class HotelService {
                 request.getLocation(),
                 request.getGrade(),
                 request.getCheckin(),
-                request.getCheckout(),
-                request.getOptions().toString()
+                request.getCheckout()
+//                request.getOptions().toString()
         );
 
         return hotel.getHotelNo();
     }
 
-    @Transactional(readOnly = true)
-    public List<OwnersHotelsResponse> findMyHotels(Long ownerNo) {
-        return hotelRepository.findAllByOwner_OwnerNo(ownerNo)
-                .stream().map(OwnersHotelsResponse::of)
-                .collect(Collectors.toList());
-    }
+//    @Transactional(readOnly = true)
+//    public List<OwnersHotelsResponse> findMyHotels(Long ownerNo) {
+//        return hotelRepository.findAllByOwner_OwnerNo(ownerNo)
+//                .stream().map(OwnersHotelsResponse::of)
+//                .collect(Collectors.toList());
+//    }
 
     @Transactional(readOnly = true)
     public List<HotelResponse> searchHotels(Long cursor, int limit,
