@@ -70,7 +70,7 @@ public class ReservationService {
 
     @Transactional(readOnly = true)
     public List<ReservationDetailResponse> findAllByUserNo(Long userNo) {
-        return reservationRepository.findAllByUser_UserNoAndCancelDateIsNull(userNo).stream()
+        return reservationRepository.findAllByMember_MemberIdAndCancelDateIsNull(userNo).stream()
                 .map(ReservationDetailResponse::of).collect(Collectors.toList());
     }
 

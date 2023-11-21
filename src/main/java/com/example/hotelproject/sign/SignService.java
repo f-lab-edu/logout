@@ -29,10 +29,10 @@ public class SignService {
     @Transactional
     public SignResponse login(SignRequest request) {
         Member member = memberRepository.findMemberByEmail(request.getEmail())
-                .orElseThrow(() -> new EntityNotFoundException("잘못된 이메일입니다."));
+                .orElseThrow(() -> new EntityNotFoundException("잘못된 이메일 혹은 비밀번호입니다"));
 
         if (passwordEncoder.matches(request.getPassword(), member.getPassword())) {
-            throw new IllegalStateException("잘못된 비밀번호 입니다.");
+            throw new IllegalStateException("잘못된 이메일 혹은 비밀번호입니다");
         }
 
         SignResponse result = SignResponse.of(member);
