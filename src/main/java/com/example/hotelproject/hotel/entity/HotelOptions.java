@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -22,10 +23,16 @@ public class HotelOptions {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "hotel_id")
+    @JoinColumn(name = "hotel_no")
     private Hotel hotel;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "option_code")
     private HotelOption hotelOption;
+
+    @Builder
+    public HotelOptions(Hotel hotel, HotelOption hotelOption) {
+        this.hotel = hotel;
+        this.hotelOption = hotelOption;
+    }
 }

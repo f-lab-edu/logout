@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface HotelOptionRepository extends JpaRepository<HotelOption, Long> {
 
+    HotelOption findByCode(String optionCode);
 }

@@ -15,6 +15,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED) //기본 생성자를 만들어줌
@@ -58,13 +59,13 @@ public class Hotel extends BaseDateTimeEntity {
 //    private String option;
 
     @Column(name = "star_rate_average")
+    @ColumnDefault("0.0")
     private Double starRateAverage; //리뷰 평점
 
     @Builder
     public Hotel(Long hotelNo, String hotelName, HotelTypeEnum hotelType, String location,
             int grade,
-            String checkin, String checkout,
-            double starRateAverage) {
+            String checkin, String checkout) {
         this.hotelNo = hotelNo;
         this.hotelName = hotelName;
         this.hotelType = hotelType;
@@ -72,8 +73,6 @@ public class Hotel extends BaseDateTimeEntity {
         this.grade = grade;
         this.checkin = checkin;
         this.checkout = checkout;
-//        this.option = options;
-        this.starRateAverage = starRateAverage;
     }
 
     public void update(String hotelName, HotelTypeEnum hotelType, String location, int grade,

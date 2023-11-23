@@ -16,8 +16,7 @@ import com.querydsl.core.types.dsl.StringTemplate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.time.LocalDateTime;
 import java.util.List;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import java.util.stream.Collectors;
 
 public class HotelRepositoryImpl implements HotelCustomRepository {
 
@@ -33,36 +32,46 @@ public class HotelRepositoryImpl implements HotelCustomRepository {
     private static final QHotelOption option = new QHotelOption("option");
 
 
+    //기본순
     @Override
     public List<Hotel> searchHotelsBasic(Long cursorId, int limit,
             HotelFilter filter) {
         List<Hotel> hotels = queryFactory.selectFrom(hotel)
                 .where(containsHotelName(filter.getHotelName())
-//                        , eqHotelType(filter.getHotelType())
                         , eqLocation(filter.getLocation())
-                        , eqGrade(filter.getGrade())
+                        , goeGrade(filter.getGrade())
+                        , goeStarRate(filter.getStarRateAverage())
                         , ltId(cursorId)
                 )
                 .limit(limit
-                        + 1) // limit 값으로 원래 불러올 게시글 개수보다 1개 더 불러와 다음에 호출할 게시글이 있는지를 판단
+                        + 1) // limit 값으로 원래 불러올 게시글 개수보다 1개 더 불러와 다음에 호출할 게시글이 있는지를 판단 //todo: 수정
                 .orderBy(hotel.hotelNo.asc())
                 .fetch();
 
-        boolean hasNext = false;
-        if (hotels.size() > limit) {
-            hotels.remove(limit);
-            hasNext = true;
-        }
+        List<Hotel> hotelOptionList = findAllByOptions(filter.getOptionCode());
 
-        return hotels;
+        //TODO: test
+        List<Hotel> hotelList = hotels.stream().filter(hotel -> hotelOptionList.stream()
+                        .anyMatch(hotelOption -> hotel.getHotelNo().equals(hotelOption.getHotelNo())))
+                .collect(Collectors.toList());
+
+//        hotels.retainAll(hotelOptionList);
+
+//        boolean hasNext = false;
+//        if (hotels.size() > limit) {
+//            hotels.remove(limit);
+//            hasNext = true;
+//        }
+
+        return hotelList;
     }
 
     @Override
-    public PageImpl<Hotel> sortingByScore(Pageable pageable, Hotel hotel) {
+    public List<Hotel> sortingByScore(Long cursorId, int limit, HotelFilter filter) {
         return null;
     }
 
-    //date formatting
+    //date formatting //TODO: DELETE
     private StringTemplate formatDate(LocalDateTime dateTime) {
         StringTemplate formattedDate = Expressions.stringTemplate(
                 "DATE_FORMAT({0}, {1})"
@@ -71,11 +80,6 @@ public class HotelRepositoryImpl implements HotelCustomRepository {
         return formattedDate;
     }
 
-    @Override
-    public PageImpl<Hotel> searchHotelsNew(Long lastId, Pageable pageable, Hotel hotelInfo,
-            LocalDateTime startDate, LocalDateTime endDate) {
-        return null;
-    }
 
     @Override
     public List<Hotel> findAllByOptions(List<String> optionCode) {
@@ -100,14 +104,18 @@ public class HotelRepositoryImpl implements HotelCustomRepository {
         return location != null ? hotel.location.eq(location) : null;
     }
 
-    private BooleanExpression eqGrade(int grade) {
-        return grade != 0 ? hotel.grade.eq(grade) : null;
+    private BooleanExpression goeGrade(int grade) {
+        return grade != 0 ? hotel.grade.goe(grade) : null;
+    }
+
+    private BooleanExpression goeStarRate(double starRate) {
+        return starRate != 0.0 ? hotel.grade.goe(starRate) : null;
     }
 
     // id < 첫 번째 조회에서는 파라미터를 사용하지 않기 위한 동적 쿼리
     private BooleanExpression ltId(Long cursorId) {
         if (cursorId == null) {
-            return null;    // BooleanExpression 자리에 null이 반환되면 조건문에서 자동을 제외된다.
+            return null;
         }
         return hotel.hotelNo.lt(cursorId); // x.lt(y) = x<y
     }

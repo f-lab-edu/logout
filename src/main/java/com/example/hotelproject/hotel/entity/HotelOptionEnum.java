@@ -1,5 +1,7 @@
 package com.example.hotelproject.hotel.entity;
 
+
+//TODO: 삭제예정
 public enum HotelOptionEnum {
 
     BREAKFAST("breakfast"),

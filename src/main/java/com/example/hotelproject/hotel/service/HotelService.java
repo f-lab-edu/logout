@@ -72,7 +72,6 @@ public class HotelService {
                 request.getGrade(),
                 request.getCheckin(),
                 request.getCheckout()
-//                request.getOptions().toString()
         );
 
         return hotel.getHotelNo();
@@ -92,9 +91,18 @@ public class HotelService {
         HotelFilter hotelfilter = new HotelFilter();
         hotelfilter.of(hotelSearchRequest);
 
-        return hotelRepository.searchHotelsBasic(cursor, limit, hotelfilter).stream()
+        List<HotelResponse> hotels = hotelRepository.searchHotelsBasic(cursor, limit, hotelfilter)
+                .stream()
                 .map(HotelResponse::of)
                 .collect(Collectors.toList());
+
+        //???????
+        boolean hasNext = false;
+        if (hotels.size() > limit) {
+            hotels.remove(limit);
+            hasNext = true;
+        }
+        return hotels;
     }
 
 

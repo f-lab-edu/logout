@@ -46,7 +46,6 @@ public class HotelResponse {
                 .grade(hotel.getGrade())
                 .checkin(hotel.getCheckin())
                 .checkout(hotel.getCheckout())
-//                .options(hotel.getOptions())
                 .starRateAverage(hotel.getStarRateAverage())
                 .build();
     }
