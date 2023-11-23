@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS review;
 CREATE TABLE review(
     seq bigint auto_increment,
     star_rate int,

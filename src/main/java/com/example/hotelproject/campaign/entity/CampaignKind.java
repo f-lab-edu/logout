@@ -19,7 +19,7 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor
 @ToString
-@Entity
+@Entity(name = "campaign_kind")
 public class CampaignKind extends BaseDateTimeEntity {
 
     @Id
