@@ -4,15 +4,12 @@ import com.example.hotelproject.hotel.controller.request.HotelCreateRequest;
 import com.example.hotelproject.hotel.controller.request.HotelSearchRequest;
 import com.example.hotelproject.hotel.controller.request.HotelUpdateRequest;
 import com.example.hotelproject.hotel.controller.response.HotelResponse;
-import com.example.hotelproject.hotel.controller.response.OwnersHotelsResponse;
 import com.example.hotelproject.hotel.entity.Hotel;
+import com.example.hotelproject.hotel.entity.HotelFilter;
 import com.example.hotelproject.hotel.entity.HotelTypeEnum;
 import com.example.hotelproject.hotel.repository.HotelRepository;
-import com.example.hotelproject.review.controller.request.PageRequest;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +31,7 @@ public class HotelService {
             // IllegalArgumentException은 자주 사용하는 예외인데요, ExceptionHandler에서 해당 예외에 대한 처리도 있으면 좋을 것 같습니다 ~
             throw new IllegalArgumentException("같은 이름의 호텔이 있습니다.(" + request.getHotelName() + ")");
         }
+
         return hotelRepository.save(hotel).getHotelNo();
     }
 
@@ -73,28 +71,38 @@ public class HotelService {
                 request.getLocation(),
                 request.getGrade(),
                 request.getCheckin(),
-                request.getCheckout(),
-                request.getOptions()
+                request.getCheckout()
         );
 
         return hotel.getHotelNo();
     }
 
-    @Transactional(readOnly = true)
-    public List<OwnersHotelsResponse> findMyHotels(Long ownerNo) {
-        return hotelRepository.findAllByOwner_OwnerNo(ownerNo)
-                .stream().map(OwnersHotelsResponse::of)
-                .collect(Collectors.toList());
-    }
+//    @Transactional(readOnly = true)
+//    public List<OwnersHotelsResponse> findMyHotels(Long ownerNo) {
+//        return hotelRepository.findAllByOwner_OwnerNo(ownerNo)
+//                .stream().map(OwnersHotelsResponse::of)
+//                .collect(Collectors.toList());
+//    }
 
     @Transactional(readOnly = true)
-    public SliceImpl<HotelResponse> searchHotels(HotelSearchRequest hotelSearchRequest,
-            PageRequest pageRequest) {
-        Hotel hotelfilter = hotelSearchRequest.toEntity();
-        Pageable pageable = pageRequest.of();
-        return (SliceImpl<HotelResponse>) hotelRepository.searchHotelsBasicScroll(null, pageable,
-                        hotelfilter)
-                .map(HotelResponse::of);
+    public List<HotelResponse> searchHotels(Long cursor, int limit,
+            HotelSearchRequest hotelSearchRequest) {
+
+        HotelFilter hotelfilter = new HotelFilter();
+        hotelfilter.of(hotelSearchRequest);
+
+        List<HotelResponse> hotels = hotelRepository.searchHotelsBasic(cursor, limit, hotelfilter)
+                .stream()
+                .map(HotelResponse::of)
+                .collect(Collectors.toList());
+
+        //???????
+        boolean hasNext = false;
+        if (hotels.size() > limit) {
+            hotels.remove(limit);
+            hasNext = true;
+        }
+        return hotels;
     }
 
 

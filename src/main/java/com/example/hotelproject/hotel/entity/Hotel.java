@@ -9,12 +9,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED) //기본 생성자를 만들어줌
@@ -46,17 +47,25 @@ public class Hotel extends BaseDateTimeEntity {
     @Column(name = "check_out")
     private String checkout;
 
-    @ManyToMany
-    private List<HotelOption> options; // BREAKFAST, SMOKE
+    @OneToMany(mappedBy = "hotel")
+    private List<HotelOptions> hotelOptions; // BREAKFAST, SMOKE
+
+//    @ElementCollection
+//    @CollectionTable(name = "hotel_options", joinColumns = @JoinColumn(name = "hotelNo"))
+//    @Column(name = "option")
+//    private String options = new ArrayList<>();
+//
+//    @Column(name = "option")
+//    private String option;
 
     @Column(name = "star_rate_average")
-    private Float starRateAverage; //리뷰 평점 //TODO: 타입 변경
+    @ColumnDefault("0.0")
+    private Double starRateAverage; //리뷰 평점
 
     @Builder
     public Hotel(Long hotelNo, String hotelName, HotelTypeEnum hotelType, String location,
             int grade,
-            String checkin, String checkout, String remrk, List<HotelOption> options,
-            float starRateAverage) {
+            String checkin, String checkout) {
         this.hotelNo = hotelNo;
         this.hotelName = hotelName;
         this.hotelType = hotelType;
@@ -64,22 +73,20 @@ public class Hotel extends BaseDateTimeEntity {
         this.grade = grade;
         this.checkin = checkin;
         this.checkout = checkout;
-        this.options = options;
-        this.starRateAverage = starRateAverage;
     }
 
     public void update(String hotelName, HotelTypeEnum hotelType, String location, int grade,
-            String checkin, String checkout, List<HotelOption> options) {
+            String checkin, String checkout) {
         this.hotelName = hotelName;
         this.hotelType = hotelType;
         this.location = location;
         this.grade = grade;
         this.checkin = checkin;
         this.checkout = checkout;
-        this.options = options;
+//        this.option = options;
     }
 
-    public void updateStarRateAverage(float starRateAverage) {
+    public void updateStarRateAverage(double starRateAverage) {
         this.starRateAverage = starRateAverage;
     }
 }

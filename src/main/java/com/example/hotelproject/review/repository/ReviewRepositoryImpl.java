@@ -35,13 +35,14 @@ public class ReviewRepositoryImpl implements ReviewCustomRepository {
 
     }
 
+
     @Override
-    public List<Integer> sumRate(Long hotelNo) {
-        return queryFactory.select(review.starRate.sum())
-            .from(review)
-            .where(review.hotel.hotelNo.eq(hotelNo))
-            .groupBy(review.hotel.hotelNo)
-            .fetch();
+    public Double getAverageRate(Long hotelNo) {
+        return queryFactory.select(review.starRate.avg())
+                .from(review)
+                .where(review.hotel.hotelNo.eq(hotelNo))
+                .groupBy(review.hotel.hotelNo)
+                .fetchOne();
     }
 
     private BooleanExpression eqHotelNo(Long hotelNo) {

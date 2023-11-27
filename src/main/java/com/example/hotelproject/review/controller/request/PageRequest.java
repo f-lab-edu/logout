@@ -5,6 +5,7 @@ import org.springframework.data.domain.Sort;
 
 @Getter
 public class PageRequest {
+
     //가져오길 원하는 페이지 번호
     private int page = 1;
     //한페이지에 존재시킬 데이터 개수 size
@@ -27,6 +28,9 @@ public class PageRequest {
     }
 
     public org.springframework.data.domain.PageRequest of() {
-        return org.springframework.data.domain.PageRequest.of(page - 1, size, direction, "createdAt");
+        return org.springframework.data.domain.PageRequest.of(page - 1, size, direction,
+                "createdAt");
     }
+
+
 }

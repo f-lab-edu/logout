@@ -1,9 +1,8 @@
 package com.example.hotelproject.hotel.controller.request;
 
 import com.example.hotelproject.hotel.entity.Hotel;
-import com.example.hotelproject.hotel.entity.HotelOption;
+import com.example.hotelproject.hotel.entity.HotelTypeEnum;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,16 +30,17 @@ public class HotelCreateRequest {
     @ApiModelProperty(value = "체크아웃시간")
     private String checkout;
 
-    private List<HotelOption> options;
+    @ApiModelProperty(value = "옵션")
+    private String options;
 
     @Builder
     public HotelCreateRequest(String hotelName, String hotelType, String location, int grade,
-            List<HotelOption> options, String checkin, String checkout) {
+            String checkin, String checkout) {
         this.hotelName = hotelName;
         this.hotelType = hotelType;
         this.location = location;
         this.grade = grade;
-        this.options = options;
+//        this.options = options;
         this.checkin = checkin;
         this.checkout = checkout;
     }
@@ -48,12 +48,12 @@ public class HotelCreateRequest {
     public Hotel toEntity() {
         return Hotel.builder()
                 .hotelName(hotelName)
-                .hotelType(hotelType)
+                .hotelType(HotelTypeEnum.valueOf(hotelType))
                 .location(location)
                 .grade(grade)
                 .checkin(checkin)
                 .checkout(checkout)
-                .options(options)
+//                .options(options)
                 .build();
     }
 }

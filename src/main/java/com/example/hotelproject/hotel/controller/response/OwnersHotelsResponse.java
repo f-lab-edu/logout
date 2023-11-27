@@ -19,12 +19,12 @@ public class OwnersHotelsResponse {
     private String checkin;
     private String checkout;
     private List<HotelOption> options;
-    private Float starRateAverage;
+    private Double starRateAverage;
 
     @Builder
     public OwnersHotelsResponse(String hotelName, HotelTypeEnum hotelType, String location,
             int grade,
-            String checkin, String checkout, List<HotelOption> options, Float starRateAverage) {
+            String checkin, String checkout, List<HotelOption> options, double starRateAverage) {
         this.hotelName = hotelName;
         this.hotelType = hotelType;
         this.location = location;
@@ -43,7 +43,6 @@ public class OwnersHotelsResponse {
                 .grade(hotel.getGrade())
                 .checkin(hotel.getCheckin())
                 .checkout(hotel.getCheckout())
-                .options(hotel.getOptions())
                 .starRateAverage(hotel.getStarRateAverage())
                 .build();
     }

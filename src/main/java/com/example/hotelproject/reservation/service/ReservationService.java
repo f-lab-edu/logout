@@ -4,7 +4,6 @@ import com.example.hotelproject.hotel.entity.Hotel;
 import com.example.hotelproject.hotel.repository.HotelRepository;
 import com.example.hotelproject.member.entity.Member;
 import com.example.hotelproject.member.repository.MemberRepository;
-import com.example.hotelproject.reservation.controller.request.ReservationCancelRequest;
 import com.example.hotelproject.reservation.controller.request.ReservationCreateRequest;
 import com.example.hotelproject.reservation.controller.response.ReservationDetailResponse;
 import com.example.hotelproject.reservation.entity.Reservation;
@@ -70,23 +69,14 @@ public class ReservationService {
 
     @Transactional(readOnly = true)
     public List<ReservationDetailResponse> findAllByUserNo(Long userNo) {
-        return reservationRepository.findAllByUser_UserNoAndCancelDateIsNull(userNo).stream()
+        return reservationRepository.findAllByMember_MemberIdAndCancelDateIsNull(userNo).stream()
                 .map(ReservationDetailResponse::of).collect(Collectors.toList());
     }
 
     @Transactional
-    public void cancel(ReservationCancelRequest request) {
+    public void cancel(Long reservationId) {
 
-        Member member = memberRepository.findMemberByEmail(request.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("no user"));
-        Hotel hotel = hotelRepository.findByHotelNo(request.getHotelNo())
-                .orElseThrow(() -> new IllegalArgumentException("no hotel"));
-        Room room = roomRepository.findByRoomNo(request.getRoomNo())
-                .orElseThrow(() -> new IllegalArgumentException("no room"));
-
-        Reservation reservation = request.toReservation(member, hotel, room);
-
-        Reservation cancelItem = reservationRepository.findById(reservation.getReservationId())
+        Reservation cancelItem = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new IllegalArgumentException("예약된 내역이 없습니다"));
 
         cancelItem.updateCancelDate();
