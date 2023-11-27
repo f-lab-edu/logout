@@ -2,7 +2,6 @@ package com.example.hotelproject.campaign.entity;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import com.example.hotelproject.hotel.entity.Hotel;
 import com.example.hotelproject.util.entity.BaseDateTimeEntity;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
@@ -51,19 +50,22 @@ public class Campaign extends BaseDateTimeEntity {
     @Column(name = "expired")
     private boolean expired = false;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "hotel_no")
-    private Hotel hotel;
+    @Column(name = "hotel_no")
+    private Long hotelNo;
 
     @Builder
     public Campaign(CampaignKind campaignKind, CampaignInventory campaignInventory,
-            LocalDateTime serviceBeginDate, LocalDateTime serviceEndDate, boolean deleted,
-            boolean expired, Hotel hotel) {
+            LocalDateTime serviceBeginDate, LocalDateTime serviceEndDate, Long hotelNo) {
         this.campaignKind = campaignKind;
         this.campaignInventory = campaignInventory;
         this.serviceBeginDate = serviceBeginDate;
         this.serviceEndDate = serviceEndDate;
-        this.hotel = hotel;
+        this.hotelNo = hotelNo;
+
+        //서비스 종료 날짜가 오늘날짜 기준으로 전날이면 expire 시킴
+        if (serviceEndDate.isBefore(LocalDateTime.now())) {
+            this.expired = true;
+        }
     }
 
     public void updateDelete(boolean deleted) {

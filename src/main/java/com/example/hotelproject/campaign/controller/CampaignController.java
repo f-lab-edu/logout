@@ -4,6 +4,7 @@ import com.example.hotelproject.campaign.controller.request.CampaignDeleteReques
 import com.example.hotelproject.campaign.controller.request.CampaignRegistRequest;
 import com.example.hotelproject.campaign.controller.request.CampaignSearchRequest;
 import com.example.hotelproject.campaign.controller.response.CampaignSearchResponse;
+import com.example.hotelproject.campaign.controller.response.CampaignWithHotelSearchResponse;
 import com.example.hotelproject.campaign.service.CampaignService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -48,4 +49,12 @@ public class CampaignController {
     public List<CampaignSearchResponse> findCapaign(CampaignSearchRequest request) {
         return campaignService.getCampaign(request);
     }
+
+    @GetMapping
+    @ApiOperation(value = "파워링크 광고 조회", notes = "파워링크 광고를 조회합니다.")
+    public List<CampaignWithHotelSearchResponse> findPowerLinkCampaign(Long inventoryId,
+            Long kindId) {
+        return campaignService.findPowerLinkCampaign(inventoryId, kindId);
+    }
+
 }

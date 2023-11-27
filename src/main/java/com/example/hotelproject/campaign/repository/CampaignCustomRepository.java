@@ -8,4 +8,6 @@ public interface CampaignCustomRepository {
     List<Campaign> findMatchingWithCampaignKind();
 
     List<Campaign> findWithCampaignInventoryIdAndKindId(Long inventoryId, Long kindId);
+
+    List<Long> findPowerLinkCampaign(Long inventoryId, Long kindId);
 }
