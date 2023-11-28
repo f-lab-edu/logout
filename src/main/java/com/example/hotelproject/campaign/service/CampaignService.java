@@ -89,4 +89,19 @@ public class CampaignService {
         return hotelList.stream().map(CampaignWithHotelSearchResponse::of)
                 .collect(Collectors.toList());
     }
+
+    public List<CampaignWithHotelSearchResponse> searchHotelWithCampaign(Long inventoryId,
+            Long kindId) {
+        List<Long> campaignHotelNoList = campaignRepository.findSearchCampaign(inventoryId, kindId);
+
+        // 상단노출할 호텔
+        List<Hotel> campaignHotelList = hotelRepository.findAllByHotelNo(campaignHotelNoList, true);
+        // 기본호텔
+        List<Hotel> basicHotelList = hotelRepository.findAllByHotelNo(campaignHotelNoList, false);
+
+        campaignHotelList.addAll(basicHotelList);
+
+        return campaignHotelList.stream().map(CampaignWithHotelSearchResponse::of)
+                .collect(Collectors.toList());
+    }
 }

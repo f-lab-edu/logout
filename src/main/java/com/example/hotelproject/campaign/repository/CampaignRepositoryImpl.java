@@ -80,4 +80,17 @@ public class CampaignRepositoryImpl implements CampaignCustomRepository {
                 .limit(2) // 파워링크는 상단에 2개만 노출
                 .fetch();
     }
+
+    @Override
+    public List<Long> findSearchCampaign(Long inventoryId, Long kindId) {
+        return queryFactory.select(campaign.hotelNo)
+                .from(campaign)
+                .innerJoin(campaign.campaignKind, campaignKind)
+                .where(campaignInventory.id.eq(inventoryId)
+                        .and(campaignKind.id.eq(kindId))
+                        .and(campaign.expired.isFalse())
+                        .and(campaign.deleted.isFalse())
+                        .and(campaign.serviceEndDate.before(LocalDateTime.now())))
+                .fetch();
+    }
 }
