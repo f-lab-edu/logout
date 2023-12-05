@@ -70,16 +70,15 @@ public class HotelRepositoryImpl implements HotelCustomRepository {
     }
 
     @Override
-    public List<Hotel> findAllByHotelNo(List<Long> hotelNoList, boolean campaign) {
-        if (campaign) { //상단노출 호텔
-            return queryFactory.selectFrom(hotel)
-                    .where(hotel.hotelNo.in(hotelNoList))
-                    .fetch();
-        } else { //기본
-            return queryFactory.selectFrom(hotel)
-                    .where(hotel.hotelNo.notIn(hotelNoList))
-                    .fetch();
-        }
+    public List<Hotel> findAllByHotelNo(List<Long> hotelNoList, Long cursorId, int limit) {
+        return queryFactory.selectFrom(hotel)
+                .where(hotel.hotelNo.in(hotelNoList)
+                        .and(ltId(cursorId))
+                )
+                .limit(limit
+                        + 1)
+                .orderBy(hotel.hotelNo.asc())
+                .fetch();
     }
 
 

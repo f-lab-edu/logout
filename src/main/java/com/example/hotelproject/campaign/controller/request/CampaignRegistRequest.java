@@ -27,7 +27,7 @@ public class CampaignRegistRequest {
 
     public Campaign toCampaign(CampaignKind campaignKind, Long hotelNo) {
         return Campaign.builder()
-                .hotelNo(hotelNo)
+//                .hotelNo(hotelNo)
                 .campaignKind(campaignKind)
                 .serviceBeginDate(beginDate)
                 .serviceEndDate(endDate)

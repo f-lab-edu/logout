@@ -27,7 +27,7 @@ public class CampaignSearchResponse {
         return CampaignSearchResponse.builder()
                 .campaign(campaign)
                 .campaignKind(campaign.getCampaignKind())
-                .hotelNo(campaign.getHotelNo())
+                .hotelNo(campaign.getHotel().getHotelNo())
                 .build();
     }
 }

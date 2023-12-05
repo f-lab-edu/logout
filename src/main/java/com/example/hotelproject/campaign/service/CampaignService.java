@@ -2,8 +2,6 @@ package com.example.hotelproject.campaign.service;
 
 import com.example.hotelproject.campaign.controller.request.CampaignDeleteRequest;
 import com.example.hotelproject.campaign.controller.request.CampaignRegistRequest;
-import com.example.hotelproject.campaign.controller.request.CampaignSearchRequest;
-import com.example.hotelproject.campaign.controller.response.CampaignSearchResponse;
 import com.example.hotelproject.campaign.controller.response.CampaignWithHotelSearchResponse;
 import com.example.hotelproject.campaign.entity.Campaign;
 import com.example.hotelproject.campaign.entity.CampaignInventory;
@@ -65,14 +63,6 @@ public class CampaignService {
 
     }
 
-    public List<CampaignSearchResponse> getCampaign(CampaignSearchRequest searchRequest) {
-        List<Campaign> campaignList = campaignRepository.findWithCampaignInventoryIdAndKindId(
-                searchRequest.getCampaignKindId(), searchRequest.getCampaignInventoryId());
-
-        return campaignList.stream().map(CampaignSearchResponse::of)
-                .collect(Collectors.toList());
-    }
-
     public List<CampaignWithHotelSearchResponse> findPowerLinkCampaign(Long inventoryId,
             Long kindId) {
 
@@ -91,17 +81,21 @@ public class CampaignService {
     }
 
     public List<CampaignWithHotelSearchResponse> searchHotelWithCampaign(Long inventoryId,
-            Long kindId) {
-        List<Long> campaignHotelNoList = campaignRepository.findSearchCampaign(inventoryId, kindId);
-
-        // 상단노출할 호텔
-        List<Hotel> campaignHotelList = hotelRepository.findAllByHotelNo(campaignHotelNoList, true);
-        // 기본호텔
-        List<Hotel> basicHotelList = hotelRepository.findAllByHotelNo(campaignHotelNoList, false);
-
-        campaignHotelList.addAll(basicHotelList);
-
-        return campaignHotelList.stream().map(CampaignWithHotelSearchResponse::of)
-                .collect(Collectors.toList());
+            List<String> kindkeys, Long cursor, int limit) {
+        List<Campaign> campaignHotelNoList = campaignRepository.findSearchCampaign(inventoryId,
+                kindkeys);
+        //호텔정보
+//        List<Hotel> campaignHotelList = hotelRepository.findAllByHotelNo(campaignHotelNoList, cursor, limit);
+//
+//        return campaignHotelNoList.stream().map(CampaignWithHotelSearchResponse::of)
+//                .collect(Collectors.toList());
+        return null;
     }
+
+    //기본검색 VER_2
+    public List<CampaignWithHotelSearchResponse> searchHotels() {
+
+        return null;
+    }
+
 }

@@ -227,7 +227,6 @@ class HotelCustomRepositoryTest extends IntegrationTestSupport {
                 .orElseThrow(() -> new EntityNotFoundException("no inventory : " + inventoryName));
 
         return Campaign.builder()
-                .hotelNo(hotelNo)
                 .campaignKind(campaignKind)
                 .campaignInventory(inventory)
                 .serviceBeginDate(LocalDateTime.parse(beginDate,

@@ -2,8 +2,6 @@ package com.example.hotelproject.campaign.controller;
 
 import com.example.hotelproject.campaign.controller.request.CampaignDeleteRequest;
 import com.example.hotelproject.campaign.controller.request.CampaignRegistRequest;
-import com.example.hotelproject.campaign.controller.request.CampaignSearchRequest;
-import com.example.hotelproject.campaign.controller.response.CampaignSearchResponse;
 import com.example.hotelproject.campaign.controller.response.CampaignWithHotelSearchResponse;
 import com.example.hotelproject.campaign.service.CampaignService;
 import io.swagger.annotations.ApiOperation;
@@ -44,13 +42,8 @@ public class CampaignController {
         campaignService.expireCampaign();
     }
 
-    @GetMapping
-    @ApiOperation(value = "광고 조회", notes = "광고 인벤토리, 광고 종류에 따라 기간을 체크하여 조회합니다.")
-    public List<CampaignSearchResponse> findCapaign(CampaignSearchRequest request) {
-        return campaignService.getCampaign(request);
-    }
 
-    @GetMapping
+    @GetMapping("/powerlink")
     @ApiOperation(value = "파워링크 광고 조회", notes = "파워링크 광고를 조회합니다.")
     public List<CampaignWithHotelSearchResponse> findPowerLinkCampaign(Long inventoryId,
             Long kindId) {

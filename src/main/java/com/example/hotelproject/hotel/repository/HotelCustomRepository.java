@@ -12,5 +12,5 @@ public interface HotelCustomRepository {
 
     List<Hotel> findAllByOptions(List<String> optionCode);
 
-    List<Hotel> findAllByHotelNo(List<Long> hotelNoList, boolean campaign);
+    List<Hotel> findAllByHotelNo(List<Long> hotelNoList, Long cursorId, int limit);
 }
