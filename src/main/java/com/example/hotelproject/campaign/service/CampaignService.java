@@ -2,10 +2,11 @@ package com.example.hotelproject.campaign.service;
 
 import com.example.hotelproject.campaign.controller.request.CampaignDeleteRequest;
 import com.example.hotelproject.campaign.controller.request.CampaignRegistRequest;
-import com.example.hotelproject.campaign.controller.request.CampaignSearchRequest;
-import com.example.hotelproject.campaign.controller.response.CampaignSearchResponse;
+import com.example.hotelproject.campaign.controller.response.CampaignWithHotelSearchResponse;
 import com.example.hotelproject.campaign.entity.Campaign;
+import com.example.hotelproject.campaign.entity.CampaignInventory;
 import com.example.hotelproject.campaign.entity.CampaignKind;
+import com.example.hotelproject.campaign.repository.CampaignInventoryRepository;
 import com.example.hotelproject.campaign.repository.CampaignKindRepository;
 import com.example.hotelproject.campaign.repository.CampaignRepository;
 import com.example.hotelproject.hotel.entity.Hotel;
@@ -21,6 +22,7 @@ public class CampaignService {
 
     private CampaignKindRepository campaignKindRepository;
     private CampaignRepository campaignRepository;
+    private CampaignInventoryRepository campaignInventoryRepository;
     private HotelRepository hotelRepository;
 
     public CampaignService(CampaignKindRepository campaignKindRepository,
@@ -34,9 +36,7 @@ public class CampaignService {
         CampaignKind campaignKind = campaignKindRepository.findById(request.getCampaignKindId())
                 .orElseThrow(() -> new EntityNotFoundException("no campaign kind"));
 
-        Hotel hotel = hotelRepository.findByHotelNo(request.getHotelNo())
-                .orElseThrow(() -> new EntityNotFoundException("no hotel"));
-        Campaign campaign = request.toCampaign(campaignKind, hotel);
+        Campaign campaign = request.toCampaign(campaignKind, request.getHotelNo());
 
         campaignRepository.save(campaign);
     }
@@ -63,11 +63,39 @@ public class CampaignService {
 
     }
 
-    public List<CampaignSearchResponse> getCampaign(CampaignSearchRequest searchRequest) {
-        List<Campaign> campaignList = campaignRepository.findWithCampaignInventoryIdAndKindId(
-                searchRequest.getCampaignKindId(), searchRequest.getCampaignInventoryId());
+    public List<CampaignWithHotelSearchResponse> findPowerLinkCampaign(Long inventoryId,
+            Long kindId) {
 
-        return campaignList.stream().map(CampaignSearchResponse::of)
+        CampaignKind kind = campaignKindRepository.findById(kindId)
+                .orElseThrow(() -> new EntityNotFoundException("no Campaignkind :" + kindId));
+        CampaignInventory inventory = campaignInventoryRepository.findById(inventoryId)
+                .orElseThrow((() -> new EntityNotFoundException("no inventory :" + inventoryId)));
+
+        List<Long> powerLinkHotelNoList = campaignRepository.findPowerLinkCampaign(
+                inventory.getId(), kind.getId());
+
+        List<Hotel> hotelList = hotelRepository.findAllById(powerLinkHotelNoList);
+
+        return hotelList.stream().map(CampaignWithHotelSearchResponse::of)
                 .collect(Collectors.toList());
     }
+
+    public List<CampaignWithHotelSearchResponse> searchHotelWithCampaign(Long inventoryId,
+            List<String> kindkeys, Long cursor, int limit) {
+        List<Campaign> campaignHotelNoList = campaignRepository.findSearchCampaign(inventoryId,
+                kindkeys);
+        //호텔정보
+//        List<Hotel> campaignHotelList = hotelRepository.findAllByHotelNo(campaignHotelNoList, cursor, limit);
+//
+//        return campaignHotelNoList.stream().map(CampaignWithHotelSearchResponse::of)
+//                .collect(Collectors.toList());
+        return null;
+    }
+
+    //기본검색 VER_2
+    public List<CampaignWithHotelSearchResponse> searchHotels() {
+
+        return null;
+    }
+
 }

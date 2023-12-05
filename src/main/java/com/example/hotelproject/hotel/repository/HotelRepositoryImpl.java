@@ -9,12 +9,8 @@ import com.example.hotelproject.hotel.entity.QHotel;
 import com.example.hotelproject.hotel.entity.QHotelOption;
 import com.example.hotelproject.reservation.entity.QReservation;
 import com.example.hotelproject.room.entity.QRoom;
-import com.querydsl.core.types.ConstantImpl;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.core.types.dsl.StringTemplate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,18 +46,10 @@ public class HotelRepositoryImpl implements HotelCustomRepository {
 
         List<Hotel> hotelOptionList = findAllByOptions(filter.getOptionCode());
 
-        //TODO: test
+        //option 으로 걸러진 호텔 exist 체크
         List<Hotel> hotelList = hotels.stream().filter(hotel -> hotelOptionList.stream()
                         .anyMatch(hotelOption -> hotel.getHotelNo().equals(hotelOption.getHotelNo())))
                 .collect(Collectors.toList());
-
-//        hotels.retainAll(hotelOptionList);
-
-//        boolean hasNext = false;
-//        if (hotels.size() > limit) {
-//            hotels.remove(limit);
-//            hasNext = true;
-//        }
 
         return hotelList;
     }
@@ -71,16 +59,6 @@ public class HotelRepositoryImpl implements HotelCustomRepository {
         return null;
     }
 
-    //date formatting //TODO: DELETE
-    private StringTemplate formatDate(LocalDateTime dateTime) {
-        StringTemplate formattedDate = Expressions.stringTemplate(
-                "DATE_FORMAT({0}, {1})"
-                , reservation.reservationStartDate
-                , ConstantImpl.create("%Y-%m-%d"));
-        return formattedDate;
-    }
-
-
     @Override
     public List<Hotel> findAllByOptions(List<String> optionCode) {
         return queryFactory.selectFrom(hotel)
@@ -88,6 +66,18 @@ public class HotelRepositoryImpl implements HotelCustomRepository {
                 .where(hotelOptions.hotelOption.code.in(optionCode))
                 .groupBy(hotel.hotelNo)
                 .having(hotel.hotelNo.count().eq(Long.valueOf(optionCode.size())))
+                .fetch();
+    }
+
+    @Override
+    public List<Hotel> findAllByHotelNo(List<Long> hotelNoList, Long cursorId, int limit) {
+        return queryFactory.selectFrom(hotel)
+                .where(hotel.hotelNo.in(hotelNoList)
+                        .and(ltId(cursorId))
+                )
+                .limit(limit
+                        + 1)
+                .orderBy(hotel.hotelNo.asc())
                 .fetch();
     }
 

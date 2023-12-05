@@ -11,4 +11,6 @@ public interface HotelCustomRepository {
     List<Hotel> sortingByScore(Long cursorId, int limit, HotelFilter filter);
 
     List<Hotel> findAllByOptions(List<String> optionCode);
+
+    List<Hotel> findAllByHotelNo(List<Long> hotelNoList, Long cursorId, int limit);
 }

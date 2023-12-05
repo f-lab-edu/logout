@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface CampaignKindRepository extends JpaRepository<CampaignKind, Long> {
 
     Optional<CampaignKind> findById(Long id);
+
+    Optional<CampaignKind> findByKindKey(String kindKey);
 }
