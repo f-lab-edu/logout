@@ -46,6 +46,9 @@ public class CampaignKind extends BaseDateTimeEntity {
     @Column(name = "sales_end_date")
     private LocalDateTime salesEndDate;
 
+    @Column(name = "deleted")
+    private Boolean deleted = false;
+
     @Builder
     public CampaignKind(String kindKey, String displayName, CampaignBillingType billingType,
             BigDecimal price, LocalDateTime salesBeginDate, LocalDateTime salesEndDate) {
@@ -55,5 +58,6 @@ public class CampaignKind extends BaseDateTimeEntity {
         this.price = price;
         this.salesBeginDate = salesBeginDate;
         this.salesEndDate = salesEndDate;
+        this.deleted = this.getDeleted();
     }
 }

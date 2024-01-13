@@ -2,7 +2,6 @@ package com.example.hotelproject.campaign.controller.request;
 
 import com.example.hotelproject.campaign.entity.Campaign;
 import com.example.hotelproject.campaign.entity.CampaignKind;
-import com.example.hotelproject.hotel.entity.Hotel;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,9 +25,9 @@ public class CampaignRegistRequest {
         this.endDate = endDate;
     }
 
-    public Campaign toCampaign(CampaignKind campaignKind, Hotel hotel) {
+    public Campaign toCampaign(CampaignKind campaignKind, Long hotelNo) {
         return Campaign.builder()
-                .hotel(hotel)
+//                .hotelNo(hotelNo)
                 .campaignKind(campaignKind)
                 .serviceBeginDate(beginDate)
                 .serviceEndDate(endDate)

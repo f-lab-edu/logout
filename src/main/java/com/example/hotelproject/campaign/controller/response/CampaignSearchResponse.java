@@ -11,23 +11,23 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CampaignSearchResponse {
 
-    private CampaignKind campaignKind;
+    private CampaignKind campaignKind;  //이거 왜썼지?
     private Campaign campaign;
-    private Hotel hotel;
+    private Long hotelNo;
 
     @Builder
     public CampaignSearchResponse(CampaignKind campaignKind, Campaign campaign,
-            Hotel hotel) {
+            Hotel hotel, Long hotelNo) {
         this.campaignKind = campaignKind;
         this.campaign = campaign;
-        this.hotel = hotel;
+        this.hotelNo = hotelNo;
     }
 
     public static CampaignSearchResponse of(Campaign campaign) {
         return CampaignSearchResponse.builder()
                 .campaign(campaign)
                 .campaignKind(campaign.getCampaignKind())
-                .hotel(campaign.getHotel())
+                .hotelNo(campaign.getHotel().getHotelNo())
                 .build();
     }
 }

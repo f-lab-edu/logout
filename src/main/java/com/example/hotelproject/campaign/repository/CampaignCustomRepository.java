@@ -7,5 +7,9 @@ public interface CampaignCustomRepository {
 
     List<Campaign> findMatchingWithCampaignKind();
 
-    List<Campaign> findWithCampaignInventoryIdAndKindId(Long inventoryId, Long kindId);
+    //파워링크 검색
+    List<Long> findPowerLinkCampaign(Long inventoryId, Long kindId);
+
+    //검색 상단노출
+    List<Campaign> findSearchCampaign(Long inventoryId, List<String> kindkeys);
 }
