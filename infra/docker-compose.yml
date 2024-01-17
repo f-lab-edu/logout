@@ -1,0 +1,56 @@
+version: '3.7'
+
+services:
+  mysql:
+    image: mysql
+    container_name: logout_mysql
+    restart: always
+    ports:
+      - "13306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=ucmysql919
+      - MYSQL_ROOT_HOST=root
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./mysql/init-mysql.sql:/docker-entrypoint-initdb.d/0_init.sql
+    networks:
+      - internal-infra
+
+  prometheus:
+    image: prom/prometheus
+    container_name: logout_prometheus
+    restart: always
+    command:
+      - --web.enable-lifecycle
+    ports:
+      - "19090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/prometheus/prometheus.yml:ro
+    user: root
+    networks:
+      - internal-infra
+
+  grafana:
+    image: grafana/grafana
+    container_name: logout_grafana
+    restart: always
+    user: root
+    ports:
+      - "13000:3000"
+    #    volumes:
+    #      - ./grafana-volume:/var/lib/grafana
+    networks:
+      - internal-infra
+
+  ngrinder:
+    image: logout/ngrinder
+    container_name: :q
+    restart: always
+    ports:
+      - "18300:8300"
+    networks:
+      - internal-infra
+
+networks:
+  internal-infra:
+    driver: bridge
